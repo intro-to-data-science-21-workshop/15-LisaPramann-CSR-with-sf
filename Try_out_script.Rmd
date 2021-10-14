@@ -1,0 +1,37 @@
+---
+title: "Try_out_script"
+author: "Lisa Pramann"
+date: "14 10 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Importing the relevant libraries 
+```{r}
+
+library(sf)          # classes and functions for vector data
+library(terra)      # classes and functions for raster data
+library(spData)        # load geographic data
+library(spDataLarge)   # load larger geographic data
+library(tidyverse)
+
+```
+
+
+
+```{r}
+
+```
+
+
+
+```{r}
+
+```
+
+
+
+
