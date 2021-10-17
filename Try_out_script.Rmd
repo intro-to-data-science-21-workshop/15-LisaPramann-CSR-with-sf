@@ -9,6 +9,9 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Brainstorming Doc for our group: https://docs.google.com/document/d/1C7mcBF1EI7lNGgmfcYm6pfME6kO3Kqlyja4HmVLRaU4/edit
+
+
 # Importing the relevant libraries 
 ```{r}
 
@@ -17,13 +20,51 @@ library(terra)      # classes and functions for raster data
 library(spData)        # load geographic data
 library(spDataLarge)   # load larger geographic data
 library(tidyverse)
-
+install.packages("maps")
+library(maps)     # to get maps
 ```
 
 
+Here L (Lisa) just try out some elements of https://geocompr.robinlovelace.net/spatial-class.html#crs-intro
 
 ```{r}
+vector_filepath = system.file("shapes/world.gpkg", package = "spData")
+new_vector = read_sf(vector_filepath)
+st_crs(new_vector) # get CRS
 
+crs(new_vector) # get CRS
+
+luxembourg = world[world$name_long == "Luxembourg", ]
+st_area(luxembourg) # requires the s2 package in recent versions of sf
+#> 2.41e+09 [m^2]
+
+world%>% 
+  summarise(geom)
+
+wrld <- st_as_sf(maps::map("world", fill = TRUE, plot = FALSE))
+wrld_wrap <- st_wrap_dateline(wrld, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"),
+   quiet = TRUE)
+wrld_moll <- st_transform(wrld_wrap, "+proj=moll")
+plot(st_geometry(wrld_moll), col = "transparent")
+
+
+#Spatial data operations
+elev = rast(system.file("raster/elev.tif", package = "spData"))
+grain = rast(system.file("raster/grain.tif", package = "spData"))
+
+The new zealand Example 
+canterbury = nz %>% filter(Name == "Canterbury")
+canterbury_height = nz_height[canterbury, ]
+nz_height[canterbury, , op = st_disjoint]
+
+sel_sgbp = st_intersects(x = nz_height, y = canterbury)
+class(sel_sgbp)
+#> [1] "sgbp" "list"
+sel_logical = lengths(sel_sgbp) > 0
+canterbury_height2 = nz_height[sel_logical, ]
+
+canterbury_height3 = nz_height %>%
+  filter(st_intersects(x = ., y = canterbury, sparse = FALSE))
 ```
 
 

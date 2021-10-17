@@ -5,3 +5,4 @@
 # source https://geocompr.robinlovelace.net/spatial-class.html
 remotes::install_github("geocompr/geocompkg") 1
 
+install.packages("sf")
