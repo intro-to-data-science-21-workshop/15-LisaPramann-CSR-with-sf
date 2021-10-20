@@ -25,6 +25,8 @@ The goals of this workshop are to 1) introduce you to CRS foundations and its ap
 
 - [CRS Chapter in the Geocomputation with R - book](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro)
 - [Presentation Tidy Spatial Data Analysis 2018](https://edzer.github.io/rstudio_conf/#1)
+- [Blog WZB 2019 - Zooming in on maps with sf and ggplot2](https://datascience.blog.wzb.eu/2019/04/30/zooming-in-on-maps-with-sf-and-ggplot2/)
+
 
 
 ## License
