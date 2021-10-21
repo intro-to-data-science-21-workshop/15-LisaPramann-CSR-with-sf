@@ -63,6 +63,12 @@ library(fontawesome)
 library(pagedown)
 library(xaringan)
 
+library(sf)          # classes and functions for vector data
+library(terra)      # classes and functions for raster data
+library(spData)        # load geographic data
+library(spDataLarge)   # load larger geographic data
+library(tidyverse)
+
 ```
 
 ---
@@ -104,6 +110,107 @@ FIGURE 2.1: Illustration of vector (point) data in which location of London (the
 - Bullet 3
 
 ---
+
+# Introduction to sf package
+## Example
+Let’s look at how CRSs are stored in R spatial objects and how they can be set. For this, we need to read-in a vector dataset:
+
+```{r}
+vector_filepath = system.file("shapes/world.gpkg", package = "spData")
+new_vector = read_sf(vector_filepath)
+```
+
+The crs() function can be used to access CRS information from a SpatRaster object17:
+
+```{r}
+
+```
+
+---
+
+# Three Key Features
+## 1 | Add CRS to a Shapefile
+- so you can layer point data onto geometry and create complex maps
+
+---
+
+# Three Key Features
+## 2 | Transform or convert coordinates of simple feature
+
+```{r}
+p1 = st_point(c(7,52))
+p2 = st_point(c(-30,20))
+sfc = st_sfc(p1, p2, crs = 4326)
+sfc
+#> Geometry set for 2 features 
+#> Geometry type: POINT
+#> Dimension:     XY
+#> Bounding box:  xmin: -30 ymin: 20 xmax: 7 ymax: 52
+#> Geodetic CRS:  WGS 84#> POINT (7 52)#> POINT (-30 20)st_transform(sfc, 3857)
+#> Geometry set for 2 features 
+#> Geometry type: POINT
+#> Dimension:     XY
+#> Bounding box:  xmin: -3339585 ymin: 2273031 xmax: 779236.4 ymax: 6800125
+#> Projected CRS: WGS 84 / Pseudo-Mercator#> POINT (779236.4 6800125)#> POINT (-3339585 2273031)st_transform(st_sf(a=2:1, geom=sfc), "+init=epsg:3857")
+#> Warning: GDAL Message 1: +init=epsg:XXXX syntax is deprecated. It might return a CRS with a non-EPSG compliant axis order.#> Simple feature collection with 2 features and 1 field
+#> Geometry type: POINT
+#> Dimension:     XY
+#> Bounding box:  xmin: -3339585 ymin: 2273031 xmax: 779236.4 ymax: 6800125
+#> Projected CRS: WGS 84 / Pseudo-Mercator
+#>   a                     geom
+#> 1 2 POINT (779236.4 6800125)
+#> 2 1 POINT (-3339585 2273031)try(st_transform(sfc, 3857, aoi = c(-280,-90,180,90)))
+#> Warning: GDAL Error 1: Invalid dfWestLongitudeDeg#> Error in CPL_transform(x, crs, aoi, pipeline, reverse, desired_accuracy,  : 
+#>   values for area of interest not accepted
+
+if (sf_extSoftVersion()["GDAL"] >= "3.0.0") 
+  { st_transform(sfc, pipeline =
+    "+proj=pipeline +step +proj=axisswap +order=2,1") # reverse axes
+  st_transform(sfc, pipeline =
+    "+proj=pipeline +step +proj=axisswap +order=2,1", reverse = TRUE) } # also reverse axes
+
+#> Geometry set for 2 features 
+#> Geometry type: POINT
+#> Dimension:     XY
+#> Bounding box:  xmin: -30 ymin: 20 xmax: 7 ymax: 52
+#> CRS:           NA#> POINT (7 52)#> POINT (-30 20)nc = st_read(system.file("shape/nc.shp", package="sf"))
+#> Reading layer `nc' from data source 
+#>   `/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpOavmau/temp_libpath94fd3649a05d/sf/shape/nc.shp' 
+#>   using driver `ESRI Shapefile'
+#> Simple feature collection with 100 features and 14 fields
+#> Geometry type: MULTIPOLYGON
+#> Dimension:     XY
+#> Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+#> Geodetic CRS:  NAD27st_area(nc[1,]) # area from long/lat
+#> 1137107793 [m^2]st_area(st_transform(nc[1,], 32119)) # NC state plane, m
+#> 1137590142 [m^2]st_area(st_transform(nc[1,], 2264)) # NC state plane, US foot
+#> 12244869403 [US_survey_foot^2]library(units)
+#> udunits database from /Users/runner/work/_temp/Library/units/share/udunits/udunits2.xmlset_units(st_area(st_transform(nc[1,], 2264)), m^2)
+#> 1137590142 [m^2]st_transform(structure(p1, proj4string = "+init=epsg:4326"), "+init=epsg:3857")
+#> POINT (779236.4 6800125)st_wrap_dateline(st_sfc(st_linestring(rbind(c(-179,0),c(179,0))), crs = 4326))
+#> Geometry set for 1 feature 
+#> Geometry type: MULTILINESTRING
+#> Dimension:     XY
+#> Bounding box:  xmin: -180 ymin: 0 xmax: 180 ymax: 0
+#> Geodetic CRS:  WGS 84#> MULTILINESTRING ((-179 0, -180 0), (180 0, 179 0))library(maps)
+wrld <- st_as_sf(maps::map("world", fill = TRUE, plot = FALSE))
+wrld_wrap <- st_wrap_dateline(wrld, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"),
+   quiet = TRUE)
+#> Warning: GDAL Error 1: IllegalArgumentException: Points of LinearRing do not form a closed linestring#> Warning: GDAL Error 1: IllegalArgumentException: Points of LinearRing do not form a closed linestring
+
+wrld_moll <- st_transform(wrld_wrap, "+proj=moll")
+plot(st_geometry(wrld_moll), col = "transparent")
+sf_proj_info("datum")
+#> data frame with 0 columns and 0 rows
+```
+
+---
+
+# Three Key Features
+## 3 | Add CRS to a Shapefile
+
+---
+
 ## Slide with R Output
 
 ```{r cars, echo = TRUE}
