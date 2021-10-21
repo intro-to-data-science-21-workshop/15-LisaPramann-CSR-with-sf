@@ -5,9 +5,10 @@
     <meta charset="utf-8" />
     <meta name="author" content="Lisa Pramann &amp; Caitlin Sarro" />
     <meta name="date" content="2021-10-21" />
-    <script src="libaries and formulas/header-attrs-2.11/header-attrs.js"></script>
-    <link href="libaries and formulas/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
-    <link rel="stylesheet" href="red_theme.css" type="text/css" />
+    <script src="libaries and formulas/header-attrs/header-attrs.js"></script>
+    <link href="libaries and formulas/remark-css/default.css" rel="stylesheet" />
+    <link href="libaries and formulas/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libaries and formulas/remark-css/metropolis-fonts.css" rel="stylesheet" />
   </head>
   <body>
     <textarea id="source">
@@ -20,6 +21,16 @@ class: center, middle, inverse, title-slide
 
 ---
 
+class: inverse, center, middle
+name: welcome
+
+&lt;style type="text/css"&gt;
+@media print { # print out incremental slides; see https://stackoverflow.com/questions/56373198/get-xaringan-incremental-animations-to-print-to-pdf/56374619#56374619
+  .has-continuation {
+    display: block !important;
+  }
+}
+&lt;/style&gt;
 
 
 
@@ -27,24 +38,6 @@ class: center, middle, inverse, title-slide
 
 # Importing the relevant libraries 
 
-```
-## Warning: package 'pagedown' was built under R version 4.1.1
-```
-
-```
-## Warning: package 'xaringan' was built under R version 4.1.1
-```
-
-```
-## 
-## Attaching package: 'chromote'
-```
-
-```
-## The following object is masked from 'package:pagedown':
-## 
-##     find_chrome
-```
 
 ## R Markdown
 
@@ -62,7 +55,7 @@ When you click the **Knit** button a document will be generated that includes bo
 
 
 ```r
-summary(cars)
+R&gt; summary(cars)
 ```
 
 ```
@@ -86,7 +79,9 @@ summary(cars)
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
 "highlightLines": true,
-"countIncrementalSlides": false
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"hash": true
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
