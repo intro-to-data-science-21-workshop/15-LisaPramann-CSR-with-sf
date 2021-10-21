@@ -2,7 +2,7 @@
 title: "Coordinated Reference Systems with sf"
 subtitle: "Workshop Excercises"
 author: "Lisa Pramann & Caitlin Sarro"
-date: "10/21/2021"
+date: "04th November 2021"
 output: 
   html_document:
     toc: TRUE
@@ -79,4 +79,4 @@ Here you ca find additional information and exercises....
 
 # Sources {-}
 
-The workshop and this exercises are partly based on [_Geocompuataion with R Science_](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro), section 2.4,
+The workshop and this exercises are partly based on [_Geocompuataion with R Science_](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro), section 2.4, AND ADDITIONAL SOURCES
