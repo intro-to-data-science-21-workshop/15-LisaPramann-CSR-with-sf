@@ -3,7 +3,7 @@
 
 ## Summary
 
-This short student-run workshop is part of the course  [I2DS Tools for Data Science workshop](https://github.com/intro-to-data-science-21-workshop) at the [Hertie School, Berlin](https://www.hertie-school.org/en/) taught by Simon Munzert at the Hertie School, Berlin, Fall-Semester 2021. It is taking place in November 2021. 
+This repository provides materials for a session that is part of the [I2DS Tools for Data Science workshop](https://github.com/intro-to-data-science-21-workshop) run at the [Hertie School, Berlin](https://www.hertie-school.org/en/) Berlin in November 2021. The student-run workshop is part of the course Introduction to Data Science taught by Simon Munzert at the Hertie School, Berlin, in Fall 2021.
 
 ### Workshop contents
 
