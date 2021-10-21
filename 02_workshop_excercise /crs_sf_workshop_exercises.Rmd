@@ -1,0 +1,31 @@
+---
+title: "Coordinated Reference Systems with sf"
+subtitle: "Workshop Excercises"
+author: "Lisa Pramann & Caitlin Sarro"
+date: "10/21/2021"
+output: html_document
+toc: TRUE
+    df_print: paged
+    number_sections: FALSE
+    highlight: tango
+    theme: lumen
+    toc_depth: 3
+    toc_float: true
+    css: custom.css 
+    self_contained: false
+    includes:
+      after_body: footer.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+## R Markdown
+
+
+
+```{r cars}
+
+```
+
