@@ -20,8 +20,6 @@ library(terra)      # classes and functions for raster data
 library(spData)        # load geographic data
 library(spDataLarge)   # load larger geographic data
 library(tidyverse)
-install.packages("maps")
-library(maps)     # to get maps
 ```
 
 
