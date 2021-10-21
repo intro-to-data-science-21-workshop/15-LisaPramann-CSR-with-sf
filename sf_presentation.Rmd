@@ -68,13 +68,37 @@ library(xaringan)
 ---
 
 
-# Intro | What is a “Coordinate Reference System” (CRS) ?
+# What is a “Coordinate Reference System” (CRS) ?
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px style="width:1000px; margin:auto;"/></html>
+<br>
+CRS defines how the spatial elements of the data relate to the surface of the Earth (or other bodies). CRSs are either geographic or projected, as introduced at the beginning of this chapter (see Figure 2.1). 
+
+.pull-left-small2[
+<div align="center">
+<br>
+<img src="https://i.pinimg.com/474x/77/db/8c/77db8c3bd9a6aef7447cebc65ea9fcb9.jpg" width=500>
+<img src="https://geocompr.robinlovelace.net/figures/vector_lonlat.png" width=300>
+<img src="https://geocompr.robinlovelace.net/figures/vector_projected.png" width=300>
+
+</div>
+]
+FIGURE 2.1: Illustration of vector (point) data in which location of London (the red X) is represented with reference to an origin (the blue circle). The left plot represents a geographic CRS with an origin at 0° longitude and latitude. The right plot represents a projected CRS with an origin located in the sea west of the South West Peninsula.
 
 ---
 # Introduction to sf package
-## What it does
+## Overview
+
+
+- What it does
+- GIS
+- Bullet 3
+
+---
+
+# Introduction to sf package
+## Choosing a Projection
+
 
 - Bullet 1 test test
 - Bullet 2
