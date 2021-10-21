@@ -7,7 +7,7 @@ date: "`r Sys.Date()`"
 output:
   xaringan::moon_reader:
     css: [default, metropolis, metropolis-fonts] 
-    lib_dir: libaries and formulas
+    lib_dir: sf_presentation_files
     nature:
       highlightStyle: github
       highlightLines: true
@@ -48,35 +48,39 @@ knit_hooks$set(
 })
 ```
 
-
-
-# Importing the relevant libraries 
+ 
 ```{r}
+# Importing the relevant libraries
+# install.packages("hrbrthemes")
+# install.packages("fontawesome")
+library(hrbrthemes)
+library(fontawesome)
+
+
+
 # install.packages("pagedown")
 # install.packages("xaringan")
 library(pagedown)
 library(xaringan)
 
-# install.packages("xaringanBuilder")
-# install.packages("chromote")
-library(xaringanBuilder)
-library(chromote)
-
-
 ```
 
-## R Markdown
+---
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+# Intro | What is a “Coordinate Reference System” (CRS) ?
 
-## Slide with Bullets
+<html><div style='float:left'></div><hr color='#EB811B' size=1px style="width:1000px; margin:auto;"/></html>
 
-- Bullet 1
+---
+# Introduction to sf package
+## What it does
+
+- Bullet 1 test test
 - Bullet 2
 - Bullet 3
 
+---
 ## Slide with R Output
 
 ```{r cars, echo = TRUE}
@@ -86,9 +90,6 @@ summary(cars)
 ## Print the Slides
 
 ```{r}
-pagedown::chrome_print("~/GitHub/15-LisaPramann-CSR-with-sf/sf_presentation.Rmd")
-
-#test test
 
 ```
 
