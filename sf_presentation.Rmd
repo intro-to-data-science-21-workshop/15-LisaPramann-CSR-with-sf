@@ -1,16 +1,51 @@
 ---
 title: "CSR with sf"
-author: "Caitlin Sarro"
-date: "10/21/2021"
-output: 
+subtitle: ""
+author: "Lisa Pramann & Caitlin Sarro"
+institute: "Hertie School"
+date: "`r Sys.Date()`"
+output:
   xaringan::moon_reader:
-    css: [default, 'simons-touch.css', metropolis, metropolis-fonts] 
-    yolo: true
+    css: [default, metropolis, metropolis-fonts] 
+    lib_dir: libaries and formulas
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+      hash: true
 ---
+class: inverse, center, middle
+name: welcome
+
+```{css, echo=FALSE} 
+@media print { # print out incremental slides; see https://stackoverflow.com/questions/56373198/get-xaringan-incremental-animations-to-print-to-pdf/56374619#56374619
+  .has-continuation {
+    display: block !important;
+  }
+}
+```
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-# xaringan::inf_mr()
+# figures formatting setup
+options(htmltools.dir.version = FALSE)
+library(knitr)
+opts_chunk$set(
+  prompt = T,
+  fig.align="center", #fig.width=6, fig.height=4.5, 
+  # out.width="748px", #out.length="520.75px",
+  dpi=300, #fig.path='Figs/',
+  cache=T, #echo=F, warning=F, message=F
+  engine.opts = list(bash = "-l")
+  )
+## Next hook based on this SO answer: https://stackoverflow.com/a/39025054
+knit_hooks$set(
+  prompt = function(before, options, envir) {
+    options(
+      prompt = if (options$engine %in% c('sh','bash')) '$ ' else 'R> ',
+      continue = if (options$engine %in% c('sh','bash')) '$ ' else '+ '
+      )
+})
 ```
 
 
@@ -48,15 +83,10 @@ When you click the **Knit** button a document will be generated that includes bo
 summary(cars)
 ```
 
-## Slide with Plot
-
-```{r pressure}
-plot(pressure)
-```
-
 ## Print the Slides
 
-```{r pressure}
+```{r}
+
 
 ```
 
