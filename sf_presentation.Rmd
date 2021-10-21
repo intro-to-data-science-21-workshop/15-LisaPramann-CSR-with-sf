@@ -2,12 +2,18 @@
 title: "CSR with sf"
 author: "Caitlin Sarro"
 date: "10/21/2021"
-output: ioslides_presentation
+output: 
+  xaringan::moon_reader:
+    css: [default, 'simons-touch.css', metropolis, metropolis-fonts] 
+    yolo: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+# xaringan::inf_mr()
 ```
+
+
 
 # Importing the relevant libraries 
 ```{r}
@@ -20,6 +26,7 @@ library(xaringan)
 # install.packages("chromote")
 library(xaringanBuilder)
 library(chromote)
+
 
 ```
 
@@ -50,14 +57,6 @@ plot(pressure)
 ## Print the Slides
 
 ```{r pressure}
-pagedown::chrome_print("~/GitHub/15-LisaPramann-CSR-with-sf/sf_presentation.Rmd")
-
-pagedown::chrome_print("~/GitHub/15-LisaPramann-CSR-with-sf/sf_presentation.html")
-
-
-build_pdf("~/GitHub/15-LisaPramann-CSR-with-sf/sf_presentation.Rmd", complex_slides = TRUE, partial_slides = TRUE)
-
-
 
 ```
 
