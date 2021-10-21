@@ -86,7 +86,7 @@ CRS defines how the spatial elements of the data relate to the surface of the Ea
 FIGURE 2.1: Illustration of vector (point) data in which location of London (the red X) is represented with reference to an origin (the blue circle). The left plot represents a geographic CRS with an origin at 0° longitude and latitude. The right plot represents a projected CRS with an origin located in the sea west of the South West Peninsula.
 
 ---
-# Introduction to sf package
+# Introduction to CRS in R
 ## Overview
 
 
@@ -99,8 +99,7 @@ FIGURE 2.1: Illustration of vector (point) data in which location of London (the
 # Introduction to sf package
 ## Choosing a Projection
 
-
-- Bullet 1 test test
+- Geographic coordinate systems identify any location on the Earth’s surface using two values — longitude and latitude Longitude is location in the East-West direction in angular distance from the Prime Meridian plane. Latitude is angular distance North or South of the equatorial plane. Distances in geographic CRSs are therefore not measured in meters. 
 - Bullet 2
 - Bullet 3
 
