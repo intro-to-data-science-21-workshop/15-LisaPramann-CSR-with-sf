@@ -19,8 +19,14 @@ test
 library(sf)          # classes and functions for vector data
 library(terra)      # classes and functions for raster data
 library(spData)        # load geographic data
-library(spDataLarge)   # load larger geographic data
+library(spDataLarge) # load larger geographic data
+library(terra)
+library(tmap)    # for static and interactive maps
+library(leaflet) # for interactive maps
+library(ggplot2) # tidyverse data visualization package
 library(tidyverse)
+
+?sf
 ```
 
 
@@ -67,13 +73,89 @@ canterbury_height3 = nz_height %>%
 ```
 
 
+Chunk used by Lisa to try out different things for the presentation (how to acess data)
 
 ```{r}
-#test
+#Import Wolrd Data 
+world_data <- world
+glimpse(world_data)
 
-#more changes 
+#Data Set includes 11 variables of which the geom stores the data 
+#One can do general data wrangling with dplyr, string, etc. and doing attribute data operations 
+
+#Filter for big countries 
+
+world %>%
+  filter(area_km2 > 1000000)
+
+world %>% 
+  dplyr::select(area_km2, continent) %>% 
+  group_by(continent) %>% 
+  summarize(area_km2 = sum(area_km2, na.rm = TRUE), n_countries = n()) %>% 
+  top_n(n = 5, wt = area_km2) %>%
+  arrange(desc(area_km2)) %>%
+  st_drop_geometry() # excludes geometric data from analysis 
+
+
+# Use Joins
+#Example 1
+Population = left_join(world, worldbank_df)
+class(Population)
+plot(Population["pop_growth"])
+
+#Example 2
+us_income = left_join(us_states, us_states_df,
+                      by = c("NAME" = "state"))
+class(us_income)
+plot(us_income["median_income_15"])
+
+
+```
+
+#Spatial Data Operations 
+
+Notes (for slides)
+- many spatial operations have a non-spatial attribute 
+- If use spatial operations with two spatial objects make sure that they have the same CRS 
+(show how?)
+
+
+```{r}
+#Spatial subsetting Example
+
+Europe <- world %>% 
+  filter(continent == "Europe")
+
+#Example from book - maybe find different example 
+canterbury = nz %>% filter(Name == "Canterbury")
+canterbury_height = nz_height[canterbury, ]
+
+
 ```
 
 
+Measuring distances
+While topological relations are binary — a feature either intersects with another or does not — distance relations are continuous. The distance between two objects is calculated with the st_distance() function. 
+There are two potentially surprising things about the result:
+It has units, telling us the distance is 100,000 meters, not 100,000 inches, or any other measure of distance
+It is returned as a matrix, even though the result only contains a single value
+```{r}
+#Measuring Distances 
 
+#Example from book 
+canterbury = nz %>% filter(Name == "Canterbury")
+nz_heighest = nz_height %>% top_n(n = 1, wt = elevation)
+canterbury_centroid = st_centroid(canterbury)
+st_distance(nz_heighest, canterbury_centroid)
+
+```
+
+Mapping with sf - plot()
+```{r}
+plot(world["continent"], reset = FALSE)
+cex = sqrt(world$pop) / 10000
+world_cents = st_centroid(world, of_largest = TRUE)
+plot(st_geometry(world_cents), add = TRUE, cex = cex)
+
+```
 
