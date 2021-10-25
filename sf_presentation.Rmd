@@ -49,7 +49,9 @@ knit_hooks$set(
 ```
 
  
-```{r setup, include=FALSE}
+```{r }
+# setup, include=FALSE <- cannot be added cause it won't knit
+
 # Importing the relevant libraries
 #install.packages("hrbrthemes")
 #install.packages("fontawesome")
@@ -72,13 +74,13 @@ library(tidyverse)
 
 #Agenda 
 
-###1. Modeling the world 
-###2. What are CRS?
-###3. CRS and Datums
-###4. CRS in R
-###
-###
-###7. Spatial Data Operations
+1. [Modeling the world ](#Modelling the World)
+2. [What are CRS? ](#)
+3. [CRS and Datums ](#)
+4. [CRS in R](#)
+5. [XXX](#)
+6. [Spatial Data Operations](#)
+
 
 ---
 #Modelling the World
@@ -99,40 +101,54 @@ Refreshing you knowledge from your Geo-course during high school/undergrad-studi
 - Used to model the World 
 - Set locations 
 - Utilize 
-- latitude (horizontal) 
-- longitude (vertical)
+  - latitude (horizontal) 
+  - longitude (vertical)
 - basis for planar coordinates and GIS (Geoinformation Systems)
-
-.pull-left-small2[
+  
+.pull-left-center[
 <div align="center">
-<br>
-<img src="./15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/planar_corrdinates.jpg" width=300>
-<img src="./15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/long_lat.jpg" width=300>
+<img src="sf_presentation_files/figure-html/planar_corrdinates.jpg" width=300>
 </div>
+`Credit`[Sreedevi, 2021 ](https://www.analyticsvidhya.com/blog/2021/09/how-to-visualise-data-in-maps-using-geopandas/)
 ]
 
-ADD Reference to graphics 
-
+.pull-right-center[
+<div align="center">
+<br><br>
+<img src="sf_presentation_files/figure-html/long_lat.jpg" width=300>
+</div>
+`Credit`[Mike Mitter, 2019](https://www.mikemitterer.at/2019/07/11/latitude-longitude-module-ist-auf-npmjs/
+)
+]
 
 ---
 #CRS and Datums
 
 ###As you have seen the Ellipsoid cannot model the earth (not even the Geoid) completely 
 
-Therefore, different CCoordinate Reference Systems exist:
 
-- *World Geodetic System* (WGS84, EPSG:4326)
-approximates the whole earth; standard model
+.pull-left-center[
+Therefore, different Coordinate Reference Systems exist:
 
-- *North American Datum* (NAD83, EPSG:6269)
-- *Australian Geodetic Datum* (AGD84, EPSG:420)
+- **World Geodetic System** 
+  - (WGS84, EPSG:4326)
+  - approximates the whole earth
+  - standard model
+- **North American Datum** 
+  - (NAD83, EPSG:6269)
+- **Australian Geodetic Datum** 
+  - (AGD84, EPSG:420)
 
-.pull-left-small2[
+]
+
+.pull-right[
 <div align="center">
 <br>
-<img src="~/15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/eellipsoid.jpg" width=600>
+<img src="https://www.icsm.gov.au/sites/default/files/inline-images/regional_0.jpg" width=400>
 </div>
+[IOSM Austrailia, 2021 ](https://www.icsm.gov.au/sites/default/files/inline-images/regional_0.jpg)
 ]
+
 
 Datums can usually be converted to one another.
 
@@ -269,8 +285,8 @@ sf_proj_info("datum")
 # How to work with Spatial Data (1)
 ##Some simple spatial data operations
 
-1) Geometric measurements
-CRSs include information about spatial units, however it is generally difficult to work with units to do geometric calculations (see difference of latitude and longitude data and planar coordinate systems) -> the recent version of sf utilizes the units package which output is by default provided in m^2 
+1) **Geometric measurements**
+-CRSs include information about spatial units, however it is generally difficult to work with units to do geometric calculations (see difference of latitude and longitude data and planar coordinate systems) -> the recent version of sf utilizes the units package which output is by default provided in m^2 
 
 Lets see how that looks like for Belgium. We use the world data from the spData package:
 
@@ -289,26 +305,53 @@ units::set_units(st_area(Belgium), km^2)
 # How to work with Spatial Data (2)
 ##Some simple spatial data operations
 
-2) Geometric measurements
-sf can also measure distances between two points based on geometric data.
+2) **Geometric measurements**
+-sf can also measure distances between two points based on geometric data.
 
-The package spData contains geometric data on London's districts lnd (FORMATE THIS WITH GREY BACKGROUND) and a dataset of cycle hire points in London cycle_hire FORMATE THIS WITH GREY BACKGROUND). 
+The package `spData` contains geometric data on London's districts `lnd` and a dataset of cycle hire points in London `cycle_hire`. 
 
 We want to measure the distance from the cycle hire point at the Palace Gate to the centre of Redbridge. 
 
 ```{r}
 cycle_station_palace = cycle_hire %>% filter(name == "Palace Gate")
 redbridge = lnd %>% filter(NAME == "Redbridge")
-redbridge_centroid = st_centroid(redbridge) #gives you central point in selected area
+redbridge_centroid = st_centroid(redbridge) #gives central point in selected district
 st_distance(cycle_station_palace, redbridge_centroid)
 ```
-The default of st_distance() is in m. We could can /1000 to get km. 
+The default of `st_distance()` is in m. We could can /1000 to get km. 
 
 ---
 # How to work with Spatial Data (3)
-##Making maps with plot()
+##Creating maps with geometric data and sf
 
-LISA ADDS INFOS HERE 
+There a different ways to create maps based on geometric data. 
+1. One simple way is by using `ggplot()` in combination with `geom_sf()` from the sf package 
+
+
+```{r}
+ggplot() +
+geom_sf(data = us_states) + #For simple plots, you will only need geom_sf() 
+coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
+```
+
+---
+# How to work with Spatial Data (4)
+##Creating maps with geometric data and sf
+
+There a different ways to create maps based on geometric data. 
+1. One simple way is by using `ggplot()` in combination with `geom_sf()` from the sf package 
+2. sf also comes with a `plot()` function which creates a map of a sf object with  one or more attributes.
+
+```{r}
+us_income = left_join( 
+  #joining two data frames from spData to attribute Median Income in 2015 to us_states
+  us_states, us_states_df, 
+  by = c("NAME" = "state"))
+plot(us_income["median_income_15"], 
+     main = "Median income per State in 2015") #using the plot function 
+
+```
+
 
 ---
 ## Slide with R Output
