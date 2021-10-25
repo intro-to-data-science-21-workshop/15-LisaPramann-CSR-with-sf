@@ -1,0 +1,83 @@
+---
+title: "Coordinated Reference Systems with sf"
+subtitle: "Workshop Excercises"
+author: "Lisa Pramann & Caitlin Sarro"
+date: "04th November 2021"
+output: 
+  html_document:
+    toc: TRUE
+    number_sections: FALSE
+    highlight: tango
+    theme: lumen
+    toc_depth: 2
+    toc_float:
+      collapsed: false 
+  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+Test Code here
+
+Hello everybody, we hope you have enjoyed our small presentation, refreshed your knowledge about Coordinate Reference Systems and got some insights on how they work in R.
+
+Ready to play around with sf and do some simple operations and create a nice map in the end (hopefully) emo::ji("exited")?  
+
+In this little exercise we would like you to 
+
+
+* get a better feeling for CRS and the 'sf'-package  
+* do a simple data operation 
+* create cool map
+
+# Setup
+
+The first step is to download the concerning packages and imort the libraries for using 'sf' and the 'spatial data'.
+ 
+
+```{r}
+# install.packages("sf", "terra", "spData", "spDataLarge")
+
+library(sf)            # classes and functions for vector data
+library(terra)         # classes and functions for raster data
+library(spData)        # load geographic data
+library(spDataLarge)   # load larger geographic data
+library(tidyverse)     # for tidy data and ggplot2
+```
+Be careful: There might be a little bug in installing sf and spData. If you’re running Mac or Linux,  installing sf may not work directly. Please use (ADD SOURCE HERE) to download the relevant packages. Then use the library() command to load them
+
+# Exploring Coordinate Reference Systems in R
+
+```{r}
+
+```
+
+# Simple Data Operation 
+
+Here is an example for a simple data operation with sf
+Filter Germany and Berlin 
+
+(IDEA: Best, filtering come country, and mark city)
+
+```{r}
+
+```
+
+# Create a nice map of your country 
+
+Here is an example for using sf and ggplot to create a map
+
+
+```{r}
+
+```
+
+# Additional Information 
+
+Here you ca find additional information and exercises....
+
+# Sources {-}
+
+The workshop and this exercises are partly based on [_Geocompuataion with R Science_](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro), section 2.4, AND ADDITIONAL SOURCES
