@@ -49,7 +49,7 @@ knit_hooks$set(
 ```
 
  
-```{r}
+```{r setup, include=FALSE}
 # Importing the relevant libraries
 # install.packages("hrbrthemes")
 # install.packages("fontawesome")
@@ -221,7 +221,7 @@ summary(cars)
 ## Print the Slides
 
 ```{r}
-
+#text has to go back
 ```
 
 
