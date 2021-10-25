@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>CSR with sf</title>
+    <title>CRS with sf</title>
     <meta charset="utf-8" />
     <meta name="author" content="Lisa Pramann &amp; Caitlin Sarro" />
     <meta name="date" content="2021-10-25" />
@@ -14,7 +14,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# CSR with sf
+# CRS with sf
 ### Lisa Pramann &amp; Caitlin Sarro
 ### Hertie School
 ### 2021-10-25
@@ -38,12 +38,10 @@ name: welcome
 
 ```r
 R&gt; # Importing the relevant libraries
-R&gt; # install.packages("hrbrthemes")
-R&gt; # install.packages("fontawesome")
+R&gt; #install.packages("hrbrthemes")
+R&gt; #install.packages("fontawesome")
 R&gt; library(hrbrthemes)
 R&gt; library(fontawesome)
-R&gt; 
-R&gt; 
 R&gt; 
 R&gt; # install.packages("pagedown")
 R&gt; # install.packages("xaringan")
@@ -54,19 +52,11 @@ R&gt; library(sf)          # classes and functions for vector data
 ```
 
 ```
-## Warning: package 'sf' was built under R version 4.1.1
-```
-
-```
-## Linking to GEOS 3.9.1, GDAL 3.2.1, PROJ 7.2.1
+## Linking to GEOS 3.8.1, GDAL 3.2.1, PROJ 7.2.1
 ```
 
 ```r
 R&gt; library(terra)      # classes and functions for raster data
-```
-
-```
-## Warning: package 'terra' was built under R version 4.1.1
 ```
 
 ```
@@ -75,61 +65,34 @@ R&gt; library(terra)      # classes and functions for raster data
 
 ```
 ## 
-## Attaching package: 'terra'
+## Attache Paket: 'terra'
 ```
 
 ```
-## The following object is masked from 'package:knitr':
+## Das folgende Objekt ist maskiert 'package:knitr':
 ## 
 ##     spin
 ```
 
 ```r
 R&gt; library(spData)        # load geographic data
-```
-
-```
-## Warning: package 'spData' was built under R version 4.1.1
-```
-
-```r
 R&gt; library(spDataLarge)   # load larger geographic data
 R&gt; library(tidyverse)
 ```
 
 ```
-## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
 ```
 
 ```
-## v ggplot2 3.3.5     v purrr   0.3.4
-## v tibble  3.1.5     v dplyr   1.0.7
-## v tidyr   1.1.4     v stringr 1.4.0
-## v readr   2.0.2     v forcats 0.5.1
+## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
+## ✓ tibble  3.1.5     ✓ dplyr   1.0.7
+## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
+## ✓ readr   2.0.1     ✓ forcats 0.5.1
 ```
 
 ```
-## Warning: package 'ggplot2' was built under R version 4.1.1
-```
-
-```
-## Warning: package 'tibble' was built under R version 4.1.1
-```
-
-```
-## Warning: package 'tidyr' was built under R version 4.1.1
-```
-
-```
-## Warning: package 'readr' was built under R version 4.1.1
-```
-
-```
-## Warning: package 'dplyr' was built under R version 4.1.1
-```
-
-```
-## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## x tidyr::extract() masks terra::extract()
 ## x dplyr::filter()  masks stats::filter()
 ## x dplyr::lag()     masks stats::lag()
@@ -138,8 +101,73 @@ R&gt; library(tidyverse)
 
 ---
 
+#Title 
 
-# What is a “Coordinate Reference System” (CRS) ?
+---
+
+#Agenda 
+
+###1. Modeling the world 
+###2. What are CRS?
+###3. CRS and Datums
+
+
+---
+#Modelling the World
+##How does the Earth really look like? 
+Refreshing you knowledge from your Geo-course in high school/undergrad studies...
+
+.pull-left-small2[
+&lt;div align="center"&gt;
+&lt;br&gt;
+&lt;img src="~/15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/earth_measured.png" width=600&gt;
+&lt;/div&gt;
+
+---
+#What are CRS?
+##Coordinate Reference Systems (or Geographic Coordination Systems) 
+
+- Used to model the World 
+- Set locations 
+- Utilize 
+- latitude (horizontal) 
+- longitude (vertical)
+- basis for planar coordinates and GIS (Geoinfomration Systems)
+
+.pull-left-small2[
+&lt;div align="center"&gt;
+&lt;br&gt;
+&lt;img src="./15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/planar_corrdinates.jpg" width=300&gt;
+&lt;img src="./15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/long_lat.jpg" width=300&gt;
+&lt;/div&gt;
+]
+
+ADD Reference to graphics 
+
+
+---
+#CRS and Datums
+
+###As you have seen the Ellipsoid cannot model the earth completely 
+
+Therefore, different CRS exist:
+
+- World Geodetic System (WGS84, EPSG:4326)
+approximates the whole earth; standard model
+
+- North American Datum (NAD83, EPSG:6269)
+- Australian Geodetic Datum (AGD84, EPSG:420)
+
+.pull-left-small2[
+&lt;div align="center"&gt;
+&lt;br&gt;
+&lt;img src="~/15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/eellipsoid.jpg" width=600&gt;
+&lt;/div&gt;
+
+Datums can usually be converted to one another.
+---
+
+# EXAMPLE What is a “Coordinate Reference System” (CRS) ?
 
 &lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px style="width:1000px; margin:auto;"/&gt;&lt;/html&gt;
 &lt;br&gt;
@@ -193,13 +221,18 @@ The crs() function can be used to access CRS information from a SpatRaster objec
 ---
 
 # Three Key Features
-## 1 | Add CRS to a Shapefile
+## 1 | Retrieve coordinate reference system from object
+
+---
+
+# Three Key Features
+## 2 | Add CRS to a Shapefile
 - so you can layer point data onto geometry and create complex maps
 
 ---
 
 # Three Key Features
-## 2 | Transform or convert coordinates of simple feature
+## 3 | Transform or convert coordinates of simple feature
 
 
 ```r
@@ -319,17 +352,13 @@ R&gt; sf_proj_info("datum")
 ```
 
 ```
-## data frame with 0 columns and 0 rows
+## Dataframe mit 0 Spalten und 0 Zeilen
 ```
 
 ```r
 R&gt; #&gt; data frame with 0 columns and 0 rows
 ```
 
----
-
-# Three Key Features
-## 3 | Add CRS to a Shapefile
 
 ---
 
