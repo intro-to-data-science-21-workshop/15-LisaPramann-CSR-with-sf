@@ -129,13 +129,18 @@ The crs() function can be used to access CRS information from a SpatRaster objec
 ---
 
 # Three Key Features
-## 1 | Add CRS to a Shapefile
+## 1 | Retrieve coordinate reference system from object
+
+---
+
+# Three Key Features
+## 2 | Add CRS to a Shapefile
 - so you can layer point data onto geometry and create complex maps
 
 ---
 
 # Three Key Features
-## 2 | Transform or convert coordinates of simple feature
+## 3 | Transform or convert coordinates of simple feature
 
 ```{r}
 p1 = st_point(c(7,52))
@@ -204,10 +209,6 @@ sf_proj_info("datum")
 #> data frame with 0 columns and 0 rows
 ```
 
----
-
-# Three Key Features
-## 3 | Add CRS to a Shapefile
 
 ---
 
