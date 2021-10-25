@@ -70,38 +70,38 @@ library(tidyverse)
 
 ---
 
-#Title 
-
----
-
 #Agenda 
 
 ###1. Modeling the world 
 ###2. What are CRS?
 ###3. CRS and Datums
-
+###4. CRS in R
+###
+###
+###7. Spatial Data Operations
 
 ---
 #Modelling the World
 ##How does the Earth really look like? 
-Refreshing you knowledge from your Geo-course in high school/undergrad studies...
+Refreshing you knowledge from your Geo-course during high school/undergrad-studies...
 
 .pull-left-small2[
 <div align="center">
 <br>
-<img src="~/15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/earth_measured.png" width=600>
+<img src="http://www.geo.hunter.cuny.edu/~jochen/gtech201/lectures/lec6concepts/Datums/Basics%20of%20datums_files/image001.gif" width=600>
 </div>
+]
 
 ---
-#What are CRS?
-##Coordinate Reference Systems (or Geographic Coordination Systems) 
+#What is a “Coordinate Reference System” (CRS) ?
+##(Geographic Coordination System or Spatial Reference System) 
 
 - Used to model the World 
 - Set locations 
 - Utilize 
 - latitude (horizontal) 
 - longitude (vertical)
-- basis for planar coordinates and GIS (Geoinfomration Systems)
+- basis for planar coordinates and GIS (Geoinformation Systems)
 
 .pull-left-small2[
 <div align="center">
@@ -117,23 +117,25 @@ ADD Reference to graphics
 ---
 #CRS and Datums
 
-###As you have seen the Ellipsoid cannot model the earth completely 
+###As you have seen the Ellipsoid cannot model the earth (not even the Geoid) completely 
 
-Therefore, different CRS exist:
+Therefore, different CCoordinate Reference Systems exist:
 
-- World Geodetic System (WGS84, EPSG:4326)
+- *World Geodetic System* (WGS84, EPSG:4326)
 approximates the whole earth; standard model
 
-- North American Datum (NAD83, EPSG:6269)
-- Australian Geodetic Datum (AGD84, EPSG:420)
+- *North American Datum* (NAD83, EPSG:6269)
+- *Australian Geodetic Datum* (AGD84, EPSG:420)
 
 .pull-left-small2[
 <div align="center">
 <br>
 <img src="~/15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/eellipsoid.jpg" width=600>
 </div>
+]
 
 Datums can usually be converted to one another.
+
 ---
 
 # EXAMPLE What is a “Coordinate Reference System” (CRS) ?
@@ -154,17 +156,8 @@ CRS defines how the spatial elements of the data relate to the surface of the Ea
 FIGURE 2.1: Illustration of vector (point) data in which location of London (the red X) is represented with reference to an origin (the blue circle). The left plot represents a geographic CRS with an origin at 0° longitude and latitude. The right plot represents a projected CRS with an origin located in the sea west of the South West Peninsula.
 
 ---
-# Introduction to CRS in R
-## Overview
 
-
-- What it does
-- GIS
-- Bullet 3
-
----
-
-# Introduction to sf package
+# EXAMPLE Introduction to sf package
 ## Choosing a Projection
 
 - Geographic coordinate systems identify any location on the Earth’s surface using two values — longitude and latitude Longitude is location in the East-West direction in angular distance from the Prime Meridian plane. Latitude is angular distance North or South of the equatorial plane. Distances in geographic CRSs are therefore not measured in meters. 
@@ -173,7 +166,8 @@ FIGURE 2.1: Illustration of vector (point) data in which location of London (the
 
 ---
 
-# Introduction to sf package
+# CRS in R
+##Introduction to sf package
 ## Example
 Let’s look at how CRSs are stored in R spatial objects and how they can be set. For this, we need to read-in a vector dataset:
 
@@ -190,8 +184,8 @@ The crs() function can be used to access CRS information from a SpatRaster objec
 
 ---
 
-# Three Key Features
-## 1 | Retrieve coordinate reference system from object
+# Retrieve coordinate reference system from object
+##
 
 ---
 
@@ -271,9 +265,52 @@ sf_proj_info("datum")
 #> data frame with 0 columns and 0 rows
 ```
 
+---
+# How to work with Spatial Data (1)
+##Some simple spatial data operations
+
+1) Geometric measurements
+CRSs include information about spatial units, however it is generally difficult to work with units to do geometric calculations (see difference of latitude and longitude data and planar coordinate systems) -> the recent version of sf utilizes the units package which output is by default provided in m^2 
+
+Lets see how that looks like for Belgium. We use the world data from the spData package:
+
+```{r}
+Belgium = world[world$name_long == "Belgium", ]
+st_area(Belgium) 
+```
+
+The number appears really big, better to set the units to km^2: 
+
+```{r}
+units::set_units(st_area(Belgium), km^2)
+```
 
 ---
+# How to work with Spatial Data (2)
+##Some simple spatial data operations
 
+2) Geometric measurements
+sf can also measure distances between two points based on geometric data.
+
+The package spData contains geometric data on London's districts lnd (FORMATE THIS WITH GREY BACKGROUND) and a dataset of cycle hire points in London cycle_hire FORMATE THIS WITH GREY BACKGROUND). 
+
+We want to measure the distance from the cycle hire point at the Palace Gate to the centre of Redbridge. 
+
+```{r}
+cycle_station_palace = cycle_hire %>% filter(name == "Palace Gate")
+redbridge = lnd %>% filter(NAME == "Redbridge")
+redbridge_centroid = st_centroid(redbridge) #gives you central point in selected area
+st_distance(cycle_station_palace, redbridge_centroid)
+```
+The default of st_distance() is in m. We could can /1000 to get km. 
+
+---
+# How to work with Spatial Data (3)
+##Making maps with plot()
+
+LISA ADDS INFOS HERE 
+
+---
 ## Slide with R Output
 
 ```{r cars, echo = TRUE}

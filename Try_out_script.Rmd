@@ -39,9 +39,6 @@ st_crs(new_vector) # get CRS
 
 crs(new_vector) # get CRS
 
-luxembourg = world[world$name_long == "Luxembourg", ]
-st_area(luxembourg) # requires the s2 package in recent versions of sf
-#> 2.41e+09 [m^2]
 
 world%>% 
   summarise(geom)
@@ -136,11 +133,10 @@ It is returned as a matrix, even though the result only contains a single value
 ```{r}
 #Measuring Distances 
 
-#Example from book 
-canterbury = nz %>% filter(Name == "Canterbury")
-nz_heighest = nz_height %>% top_n(n = 1, wt = elevation)
-canterbury_centroid = st_centroid(canterbury)
-st_distance(nz_heighest, canterbury_centroid)
+cycle_station_palace = cycle_hire %>% filter(name == "Palace Gate")
+redbridge = lnd %>% filter(NAME == "Redbridge")
+redbridge_centroid = st_centroid(redbridge) #gives you central point in selected area
+st_distance(cycle_station_palace, redbridge_centroid) 
 
 ```
 
