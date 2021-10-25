@@ -51,12 +51,10 @@ knit_hooks$set(
  
 ```{r}
 # Importing the relevant libraries
-# install.packages("hrbrthemes")
-# install.packages("fontawesome")
+#install.packages("hrbrthemes")
+#install.packages("fontawesome")
 library(hrbrthemes)
 library(fontawesome)
-
-
 
 # install.packages("pagedown")
 # install.packages("xaringan")
@@ -68,13 +66,78 @@ library(terra)      # classes and functions for raster data
 library(spData)        # load geographic data
 library(spDataLarge)   # load larger geographic data
 library(tidyverse)
-
 ```
 
 ---
 
+#Title 
 
-# What is a “Coordinate Reference System” (CRS) ?
+---
+
+#Agenda 
+
+##Modeling the world 
+##What are CRS?
+##CRS and Datums
+
+
+---
+#Modelling the World
+##How does the Earth really look like? 
+Refreshing you knowledge from your Geo-course in high school/undergrad studies...
+
+.pull-left-small2[
+<div align="center">
+<br>
+<img src="~/15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/earth_measured.png" width=600>
+</div>
+
+---
+#What are CRS?
+##Coordinate Reference Systems (or Geographic Coordination Systems) 
+
+- Used to model the World 
+- Set locations 
+- Utilize 
+- latitude (horizontal) 
+- longitude (vertical)
+- basis for planar coordinates and GIS (Geoinfomration Systems)
+
+.pull-left-small2[
+<div align="center">
+<br>
+<img src="~/15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/planar_corrdinates.jpg" width=300>
+<img src="~/15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/long_lat.jpg" width=300>
+</div>
+]
+
+ADD Reference to graphics 
+
+
+---
+#CRS and Datums
+
+As you have seen the Ellipsoid cannot model the earth completely 
+
+Therefore, different CRS exist:
+
+- World Geodetic System (WGS84, EPSG:4326)
+approx. the whole earth
+standard model
+
+- North American Datum (NAD83, EPSG:6269)
+- Australian Geodetic Datum (AGD84, EPSG:420)
+
+.pull-left-small2[
+<div align="center">
+<br>
+<img src="~/15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/eellipsoid.jpg" width=600>
+</div>
+
+Datums can usually be converted to one another.
+---
+
+# EXAMPLE What is a “Coordinate Reference System” (CRS) ?
 
 <html><div style='float:left'></div><hr color='#EB811B' size=1px style="width:1000px; margin:auto;"/></html>
 <br>
