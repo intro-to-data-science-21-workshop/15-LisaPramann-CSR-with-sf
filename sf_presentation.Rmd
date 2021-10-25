@@ -1,5 +1,5 @@
 ---
-title: "CSR with sf"
+title: "CRS with sf"
 subtitle: ""
 author: "Lisa Pramann & Caitlin Sarro"
 institute: "Hertie School"
@@ -76,9 +76,9 @@ library(tidyverse)
 
 #Agenda 
 
-##Modeling the world 
-##What are CRS?
-##CRS and Datums
+###1. Modeling the world 
+###2. What are CRS?
+###3. CRS and Datums
 
 
 ---
@@ -106,8 +106,8 @@ Refreshing you knowledge from your Geo-course in high school/undergrad studies..
 .pull-left-small2[
 <div align="center">
 <br>
-<img src="~/15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/planar_corrdinates.jpg" width=300>
-<img src="~/15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/long_lat.jpg" width=300>
+<img src="./15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/planar_corrdinates.jpg" width=300>
+<img src="./15-LisaPramann-CSR-with-sf/sf_presentation_files/figure-html/long_lat.jpg" width=300>
 </div>
 ]
 
@@ -117,13 +117,12 @@ ADD Reference to graphics
 ---
 #CRS and Datums
 
-As you have seen the Ellipsoid cannot model the earth completely 
+###As you have seen the Ellipsoid cannot model the earth completely 
 
 Therefore, different CRS exist:
 
 - World Geodetic System (WGS84, EPSG:4326)
-approx. the whole earth
-standard model
+approximates the whole earth; standard model
 
 - North American Datum (NAD83, EPSG:6269)
 - Australian Geodetic Datum (AGD84, EPSG:420)
