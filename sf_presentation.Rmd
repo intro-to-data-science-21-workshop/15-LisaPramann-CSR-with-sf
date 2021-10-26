@@ -295,12 +295,22 @@ The default of `st_distance()` is in m. We could can /1000 to get km.
 
 There a different ways to create maps based on geometric data. 
 1. One simple way is by using `ggplot()` in combination with `geom_sf()` from the sf package
-```{r, eval = TRUE}
+
 ggplot() +
 geom_sf(data = us_states) + #For simple plots, you will only need geom_sf() 
 coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
+
+```{r, include=FALSE}
+ggplot() +
+geom_sf(data = us_states) + #For simple plots, you will only need geom_sf() 
+coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
+ggsave(path = "sf_presentation_files/figure-html", filename = "usstates.jpg", width = 6, height = 4)
 ```
 
+.pull-left[
+<div align="left">
+<img src="sf_presentation_files/figure-html/usstates.jpg" width=600>
+</div>]
 ---
 # How to work with Spatial Data (4)
 ##Creating maps with geometric data and sf
@@ -314,11 +324,23 @@ us_income = left_join(
   #joining two data frames from spData to attribute Median Income in 2015 to us_states
   us_states, us_states_df, 
   by = c("NAME" = "state"))
-plot(us_income["median_income_15"], 
-     main = "Median income per State in 2015") #using the plot function 
 
 ```
 
+```{r, include=FALSE}
+us_income = left_join( 
+  #joining two data frames from spData to attribute Median Income in 2015 to us_states
+  us_states, us_states_df, 
+  by = c("NAME" = "state"))
+plot(us_income["median_income_15"], 
+     main = "Median income per State in 2015") #using the plot function 
+ggsave(path = "sf_presentation_files/figure-html", filename = "us_2015.jpg", width = 6, height = 4)
+```
+
+.pull-left[
+<div align="left">
+<img src="sf_presentation_files/figure-html/us_2015.jpg" width=600>
+</div>]
 ---
 ## Slide with R Output
 
