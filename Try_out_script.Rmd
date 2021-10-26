@@ -1,6 +1,6 @@
 ---
 title: "Try_out_script"
-author: "Lisa Pramann and Caitlin Sarro"
+author: "Lisa Pramann"
 date: "14 10 2021"
 output: html_document
 ---
@@ -14,14 +14,13 @@ test, test 2
 
 
 # Importing the relevant libraries 
-```{r, include=FALSE}
-#install.packages("")
+```{r}
+
 library(sf)          # classes and functions for vector data
 library(terra)      # classes and functions for raster data
 library(spData)        # load geographic data
 library(spDataLarge) # load larger geographic data
 library(terra)
-library(lwgeom) # required for tmap, title bindings
 library(tmap)    # for static and interactive maps
 library(leaflet) # for interactive maps
 library(ggplot2) # tidyverse data visualization package
@@ -34,8 +33,8 @@ library(tidyverse)
 Here L (Lisa) just try out some elements of https://geocompr.robinlovelace.net/spatial-class.html#crs-intro
 
 ```{r}
-vector_filepath <- system.file("shapes/world.gpkg", package = "spData")
-new_vector <- read_sf(vector_filepath)
+vector_filepath = system.file("shapes/world.gpkg", package = "spData")
+new_vector = read_sf(vector_filepath)
 st_crs(new_vector) # get CRS
 
 crs(new_vector) # get CRS
@@ -55,12 +54,12 @@ plot(st_geometry(wrld_moll), col = "transparent")
 elev = rast(system.file("raster/elev.tif", package = "spData"))
 grain = rast(system.file("raster/grain.tif", package = "spData"))
 
-#The new zealand Example 
+The new zealand Example 
 canterbury = nz %>% filter(Name == "Canterbury")
 canterbury_height = nz_height[canterbury, ]
 nz_height[canterbury, , op = st_disjoint]
 
-sel_sgbp <- st_intersects(x = nz_height, y = canterbury)
+sel_sgbp = st_intersects(x = nz_height, y = canterbury)
 class(sel_sgbp)
 #> [1] "sgbp" "list"
 sel_logical = lengths(sel_sgbp) > 0
@@ -74,7 +73,7 @@ canterbury_height3 = nz_height %>%
 Chunk used by Lisa to try out different things for the presentation (how to acess data)
 
 ```{r}
-#Import World Data 
+#Import Wolrd Data 
 world_data <- world
 glimpse(world_data)
 
