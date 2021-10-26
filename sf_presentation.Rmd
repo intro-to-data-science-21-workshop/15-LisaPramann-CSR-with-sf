@@ -15,8 +15,7 @@ output:
       ratio: '16:9'
       hash: true
 ---
-class: inverse, center, middle
-name: welcome
+
 
 ```{css, echo=FALSE} 
 @media print { # print out incremental slides; see https://stackoverflow.com/questions/56373198/get-xaringan-incremental-animations-to-print-to-pdf/56374619#56374619
@@ -49,9 +48,7 @@ knit_hooks$set(
 ```
 
  
-```{r }
-# setup, include=FALSE <- cannot be added cause it won't knit
-
+```{r, include=FALSE }
 # Importing the relevant libraries
 #install.packages("hrbrthemes")
 #install.packages("fontawesome")
@@ -70,7 +67,6 @@ library(spDataLarge)   # load larger geographic data
 library(tidyverse)
 ```
 
----
 
 #Agenda 
 

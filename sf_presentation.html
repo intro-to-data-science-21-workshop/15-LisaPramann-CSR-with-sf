@@ -4,7 +4,7 @@
     <title>CRS with sf</title>
     <meta charset="utf-8" />
     <meta name="author" content="Lisa Pramann &amp; Caitlin Sarro" />
-    <meta name="date" content="2021-10-25" />
+    <meta name="date" content="2021-10-26" />
     <script src="sf_presentation_files/header-attrs/header-attrs.js"></script>
     <link href="sf_presentation_files/remark-css/default.css" rel="stylesheet" />
     <link href="sf_presentation_files/remark-css/metropolis.css" rel="stylesheet" />
@@ -17,12 +17,11 @@ class: center, middle, inverse, title-slide
 # CRS with sf
 ### Lisa Pramann &amp; Caitlin Sarro
 ### Hertie School
-### 2021-10-25
+### 2021-10-26
 
 ---
 
-class: inverse, center, middle
-name: welcome
+
 
 &lt;style type="text/css"&gt;
 @media print { # print out incremental slides; see https://stackoverflow.com/questions/56373198/get-xaringan-incremental-animations-to-print-to-pdf/56374619#56374619
@@ -36,28 +35,7 @@ name: welcome
 
  
 
-```r
-R&gt; # setup, include=FALSE &lt;- cannot be added cause it won't knit
-R&gt; 
-R&gt; # Importing the relevant libraries
-R&gt; #install.packages("hrbrthemes")
-R&gt; #install.packages("fontawesome")
-R&gt; library(hrbrthemes)
-R&gt; library(fontawesome)
-R&gt; 
-R&gt; # install.packages("pagedown")
-R&gt; # install.packages("xaringan")
-R&gt; library(pagedown)
-R&gt; library(xaringan)
-R&gt; 
-R&gt; library(sf)          # classes and functions for vector data
-R&gt; library(terra)      # classes and functions for raster data
-R&gt; library(spData)        # load geographic data
-R&gt; library(spDataLarge)   # load larger geographic data
-R&gt; library(tidyverse)
-```
 
----
 
 #Agenda 
 
@@ -318,7 +296,7 @@ R&gt; sf_proj_info("datum")
 ```
 
 ```
-## Dataframe mit 0 Spalten und 0 Zeilen
+## data frame with 0 columns and 0 rows
 ```
 
 ```r
