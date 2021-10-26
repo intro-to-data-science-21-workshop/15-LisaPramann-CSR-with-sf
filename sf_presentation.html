@@ -38,12 +38,13 @@ class: center, middle, inverse, title-slide
 
 #Agenda 
 
-1. [Modeling the world ](#Modelling the World)
-2. [What are CRS? ](#)
-3. [CRS and Datums ](#)
-4. [CRS in R](#)
-5. [XXX](#)
-6. [Spatial Data Operations](#)
+##1. Modelling the world 
+##2. What are CRS? 
+##3. CRS and Datums
+##4. CRS in R  
+###4.1 Two Key Features
+###4.2 Spatial Data Operations
+##5. Further Resources
 
 
 ---
@@ -54,7 +55,7 @@ Refreshing you knowledge from your Geo-course during high school/undergrad-studi
 .pull-left-small2[
 &lt;div align="center"&gt;
 &lt;br&gt;
-&lt;img src="http://www.geo.hunter.cuny.edu/~jochen/gtech201/lectures/lec6concepts/Datums/Basics%20of%20datums_files/image001.gif" width=600&gt;
+&lt;img src="http://www.geo.hunter.cuny.edu/~jochen/gtech201/lectures/lec6concepts/Datums/Basics%20of%20datums_files/image001.gif" width=700&gt;
 &lt;/div&gt;
 ]
 
@@ -88,12 +89,11 @@ Refreshing you knowledge from your Geo-course during high school/undergrad-studi
 ---
 #CRS and Datums
 
-###As you have seen the Ellipsoid cannot model the earth (not even the Geoid) completely 
+**As you have seen the Ellipsoid cannot model the earth (not even the Geoid) completely**
 
-
-.pull-left[
 Therefore, different Coordinate Reference Systems exist:
 
+.pull-left[
 - **World Geodetic System** 
   - (WGS84, EPSG:4326)
   - approximates the whole earth
@@ -101,20 +101,18 @@ Therefore, different Coordinate Reference Systems exist:
 - **North American Datum** 
   - (NAD83, EPSG:6269)
 - **Australian Geodetic Datum** 
-  - (AGD84, EPSG:420)
+- (AGD84, EPSG:420)
 
+- Datums can usually be converted to one another.
 ]
 
 .pull-right[
 &lt;div align="center"&gt;
 &lt;br&gt;
-&lt;img src="https://www.icsm.gov.au/sites/default/files/inline-images/regional_0.jpg" width=400&gt;
+&lt;img src="https://www.icsm.gov.au/sites/default/files/inline-images/regional_0.jpg" width=450&gt;
 &lt;/div&gt;
 [IOSM Austrailia, 2021 ](https://www.icsm.gov.au/sites/default/files/inline-images/regional_0.jpg)
 ]
-
-
-Datums can usually be converted to one another.
 
 ---
 
@@ -155,7 +153,7 @@ R&gt; attr(nc, "sf_column")
 
 # CRS in sf
 
-## Example
+
 Let’s look at how CRSs are stored in R spatial objects and how they can be set. For this, we need to read-in a vector dataset:
 
 
@@ -177,58 +175,63 @@ R&gt; head(new_vector)
 ## Dimension:     XY
 ## Bounding box:  xmin: -180 ymin: -18.28799 xmax: 180 ymax: 83.23324
 ## Geodetic CRS:  WGS 84
-## # A tibble: 6 x 11
+## # A tibble: 6 × 11
 ##   iso_a2 name_long  continent region_un subregion type  area_km2     pop lifeExp
 ##   &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-## 1 FJ     Fiji       Oceania   Oceania   Melanesia Sove~   1.93e4  8.86e5    70.0
-## 2 TZ     Tanzania   Africa    Africa    Eastern ~ Sove~   9.33e5  5.22e7    64.2
-## 3 EH     Western S~ Africa    Africa    Northern~ Inde~   9.63e4 NA         NA  
-## 4 CA     Canada     North Am~ Americas  Northern~ Sove~   1.00e7  3.55e7    82.0
-## 5 US     United St~ North Am~ Americas  Northern~ Coun~   9.51e6  3.19e8    78.8
-## 6 KZ     Kazakhstan Asia      Asia      Central ~ Sove~   2.73e6  1.73e7    71.6
-## # ... with 2 more variables: gdpPercap &lt;dbl&gt;, geom &lt;MULTIPOLYGON [°]&gt;
+## 1 FJ     Fiji       Oceania   Oceania   Melanesia Sove…   1.93e4  8.86e5    70.0
+## 2 TZ     Tanzania   Africa    Africa    Eastern … Sove…   9.33e5  5.22e7    64.2
+## 3 EH     Western S… Africa    Africa    Northern… Inde…   9.63e4 NA         NA  
+## 4 CA     Canada     North Am… Americas  Northern… Sove…   1.00e7  3.55e7    82.0
+## 5 US     United St… North Am… Americas  Northern… Coun…   9.51e6  3.19e8    78.8
+## 6 KZ     Kazakhstan Asia      Asia      Central … Sove…   2.73e6  1.73e7    71.6
+## # … with 2 more variables: gdpPercap &lt;dbl&gt;, geom &lt;MULTIPOLYGON [°]&gt;
 ```
-
-
-
 ---
 
-# EXAMPLE Two Key Features
+#Key Features (1) 
 ## 1 | Retrieve coordinate reference system from object
+
+.pull-left[
 In sf the CRS of an object can be retrieved using st_crs().
 
 ```r
 R&gt; st_crs(new_vector) # get CRS
 ```
+]
 
+.pull-right[
+
+```r
+Coordinate Reference System:
+  User input: WGS 84 
+  wkt:
+GEOGCRS["WGS 84",
+    DATUM["World Geodetic System 1984",
+        ELLIPSOID["WGS 84",6378137,298.257223563,
+            LENGTHUNIT["metre",1]]],
+    PRIMEM["Greenwich",0,
+        ANGLEUNIT["degree",0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS["geodetic latitude (Lat)",north,
+            ORDER[1],
+            ANGLEUNIT["degree",0.0174532925199433]],
+        AXIS["geodetic longitude (Lon)",east,
+            ORDER[2],
+            ANGLEUNIT["degree",0.0174532925199433]],
+    USAGE[
+        SCOPE["Horizontal component of 3D system."],
+        AREA["World."],
+        BBOX[-90,-180,90,180]],
+    ID["EPSG",4326]]
 ```
-## Coordinate Reference System:
-##   User input: WGS 84 
-##   wkt:
-## GEOGCRS["WGS 84",
-##     DATUM["World Geodetic System 1984",
-##         ELLIPSOID["WGS 84",6378137,298.257223563,
-##             LENGTHUNIT["metre",1]]],
-##     PRIMEM["Greenwich",0,
-##         ANGLEUNIT["degree",0.0174532925199433]],
-##     CS[ellipsoidal,2],
-##         AXIS["geodetic latitude (Lat)",north,
-##             ORDER[1],
-##             ANGLEUNIT["degree",0.0174532925199433]],
-##         AXIS["geodetic longitude (Lon)",east,
-##             ORDER[2],
-##             ANGLEUNIT["degree",0.0174532925199433]],
-##     USAGE[
-##         SCOPE["Horizontal component of 3D system."],
-##         AREA["World."],
-##         BBOX[-90,-180,90,180]],
-##     ID["EPSG",4326]]
-```
+]
+
 ---
-# EXAMPLE Two Key Features
-## 1 | Retrieve coordinate reference system from object Continued
-The st_crs function also has one helpful feature – we can retrieve some additional information about the used CRS. For example, try to run:
+#Key Features (2)
+## 1 | Retrieve coordinate reference system from object
+The st_crs function also has one helpful feature – we can retrieve some additional information about the used CRS. 
 
+For example, try to run:
 
 ```r
 R&gt; st_crs(new_vector)$IsGeographic #to check if the CRS is geographic or not
@@ -262,7 +265,7 @@ R&gt; st_crs(new_vector)$proj4string #extracts the proj4string representation
 ## [1] "+proj=longlat +datum=WGS84 +no_defs"
 ```
 ---
-# EXAMPLE Two Key Features
+#Key Features (3)
 ## 2 | Add or Change CRS
 When the CRS is missing or the wrong CRS is set, the st_set_crs() function can be used. An important note is that replacing CRS does not re-project data and maintains data integrity.
 
@@ -276,11 +279,6 @@ R&gt; new_vector = st_set_crs(new_vector, "EPSG:4326") # set CRS
 R&gt; new_vector = st_set_crs(new_vector, "EPSG:2163") # set CRS
 ```
 
-```
-## Warning: st_crs&lt;- : replacing crs does not reproject data; use st_transform for
-## that
-```
-
 
 .pull-left[
 &lt;div align="left"&gt;
@@ -291,16 +289,15 @@ R&gt; new_vector = st_set_crs(new_vector, "EPSG:2163") # set CRS
 &lt;img src="sf_presentation_files/figure-html/plot2.jpg" width=400&gt;
 &lt;/div&gt;]
 
-
-
 ---
 # How to work with Spatial Data (1)
 ##Some simple spatial data operations
 
 1) **Geometric measurements**
--CRSs include information about spatial units, however it is generally difficult to work with units to do geometric calculations (see difference of latitude and longitude data and planar coordinate systems) -&gt; the recent version of sf utilizes the units package which output is by default provided in m^2 
+- CRSs include information about spatial units, however it is generally difficult to work with units to do geometric calculations (see difference of latitude and longitude data and planar coordinate systems) -&gt; the recent version of sf utilizes the units package which output is by default provided in m^2.
 
-Lets see how that looks like for Belgium. We use the world data from the spData package:
+.pull-left[
+Lets see how that looks like for Belgium. We use the world data from the `spData` package:
 
 
 ```r
@@ -312,8 +309,10 @@ R&gt; st_area(Belgium)
 ## 30019548314 [m^2]
 ```
 
-The number appears really big, better to set the units to km^2: 
+]
 
+.pull-right[
+The number appears really big, better to set the units to km^2: 
 
 ```r
 R&gt; units::set_units(st_area(Belgium), km^2)
@@ -322,31 +321,22 @@ R&gt; units::set_units(st_area(Belgium), km^2)
 ```
 ## 30019.55 [km^2]
 ```
-
+]
 ---
 # How to work with Spatial Data (2)
 ##Some simple spatial data operations
 
 2) **Geometric measurements**
--sf can also measure distances between two points based on geometric data.
-
-The package `spData` contains geometric data on London's districts `lnd` and a dataset of cycle hire points in London `cycle_hire`. 
-
-We want to measure the distance from the cycle hire point at the Palace Gate to the centre of Redbridge. 
+- sf can also measure distances between two points based on geometric data.
+  - The package `spData` contains geometric data on London's districts `lnd` and a dataset of cycle hire points in London `cycle_hire`. 
+  - We want to measure the distance from the cycle hire point at the Palace Gate to the centre of Redbridge. 
+  - The default of `st_distance()` is in m. We could use /1000 to get km. 
 
 
 ```r
 R&gt; cycle_station_palace = cycle_hire %&gt;% filter(name == "Palace Gate")
 R&gt; redbridge = lnd %&gt;% filter(NAME == "Redbridge")
 R&gt; redbridge_centroid = st_centroid(redbridge) #gives central point in selected district
-```
-
-```
-## Warning in st_centroid.sf(redbridge): st_centroid assumes attributes are
-## constant over geometries of x
-```
-
-```r
 R&gt; st_distance(cycle_station_palace, redbridge_centroid)
 ```
 
@@ -355,71 +345,77 @@ R&gt; st_distance(cycle_station_palace, redbridge_centroid)
 ##         [,1]
 ## [1,] 20258.6
 ```
-The default of `st_distance()` is in m. We could can /1000 to get km. 
 
 ---
 # How to work with Spatial Data (3)
 ##Creating maps with geometric data and sf
 
 There a different ways to create maps based on geometric data. 
-1. One simple way is by using `ggplot()` in combination with `geom_sf()` from the sf package
-
-ggplot() +
-geom_sf(data = us_states) + #For simple plots, you will only need geom_sf() 
-coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
-
-
 
 .pull-left[
-&lt;div align="left"&gt;
+1) One simple way is by using `ggplot()` in combination with `geom_sf()` from the sf package
+
+
+```r
+R&gt; ggplot() +
++ geom_sf(data = us_states) + 
++   #For simple plots, you will only need geom_sf() 
++ coord_sf(crs = st_crs(4326)) 
+R&gt; #ensures that all layers use a common CRS 
+R&gt; #(would not be needed in this case)
+```
+]
+
+
+
+.pull-right[
+&lt;div align="centre"&gt;
 &lt;img src="sf_presentation_files/figure-html/usstates.jpg" width=600&gt;
 &lt;/div&gt;]
+]
 ---
 # How to work with Spatial Data (4)
 ##Creating maps with geometric data and sf
 
 There a different ways to create maps based on geometric data. 
-1. One simple way is by using `ggplot()` in combination with `geom_sf()` from the sf package 
-2. sf also comes with a `plot()` function which creates a map of a sf object with  one or more attributes.
 
+.pull-left[
+2) `sf` also comes with a `plot()` function which creates a map of a sf object with  one or more attributes.
 
 ```r
 R&gt; us_income = left_join( 
-+   #joining two data frames from spData to attribute Median Income in 2015 to us_states
++   #joining two data frames from spData to 
++   #attribute Median Income in 2015 to us_states
 +   us_states, us_states_df, 
 +   by = c("NAME" = "state"))
 ```
 
 
+```r
+R&gt; us_income_plot = plot(us_income["median_income_15"], 
++      main = "Median income per State in 2015") 
+```
+]
+
+
 
 .pull-right[
-&lt;div align="right"&gt;
+&lt;div align="centre"&gt;
 &lt;img src="sf_presentation_files/figure-html/us_2015.jpg" width=450&gt;
 &lt;/div&gt;]
+]
 ---
-## Slide with R Output
+#Further Links and Resources 
 
+ADD HERE RECOMMENDATIONS
 
-```r
-R&gt; summary(cars)
-```
-
-```
-##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00
-```
+---
+#
+---
 
 ## Print the Slides
 
 
-```r
-R&gt; #text has to go back
-```
 
 
     </textarea>

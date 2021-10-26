@@ -69,12 +69,13 @@ library(tidyverse)
 
 #Agenda 
 
-1. [Modeling the world ](#Modelling the World)
-2. [What are CRS? ](#)
-3. [CRS and Datums ](#)
-4. [CRS in R](#)
-5. [XXX](#)
-6. [Spatial Data Operations](#)
+##1. Modelling the world 
+##2. What are CRS? 
+##3. CRS and Datums
+##4. CRS in R  
+###4.1 Two Key Features
+###4.2 Spatial Data Operations
+##5. Further Resources
 
 
 ---
@@ -85,7 +86,7 @@ Refreshing you knowledge from your Geo-course during high school/undergrad-studi
 .pull-left-small2[
 <div align="center">
 <br>
-<img src="http://www.geo.hunter.cuny.edu/~jochen/gtech201/lectures/lec6concepts/Datums/Basics%20of%20datums_files/image001.gif" width=600>
+<img src="http://www.geo.hunter.cuny.edu/~jochen/gtech201/lectures/lec6concepts/Datums/Basics%20of%20datums_files/image001.gif" width=700>
 </div>
 ]
 
@@ -119,12 +120,11 @@ Refreshing you knowledge from your Geo-course during high school/undergrad-studi
 ---
 #CRS and Datums
 
-###As you have seen the Ellipsoid cannot model the earth (not even the Geoid) completely 
+**As you have seen the Ellipsoid cannot model the earth (not even the Geoid) completely**
 
-
-.pull-left[
 Therefore, different Coordinate Reference Systems exist:
 
+.pull-left[
 - **World Geodetic System** 
   - (WGS84, EPSG:4326)
   - approximates the whole earth
@@ -132,20 +132,18 @@ Therefore, different Coordinate Reference Systems exist:
 - **North American Datum** 
   - (NAD83, EPSG:6269)
 - **Australian Geodetic Datum** 
-  - (AGD84, EPSG:420)
+- (AGD84, EPSG:420)
 
+- Datums can usually be converted to one another.
 ]
 
 .pull-right[
 <div align="center">
 <br>
-<img src="https://www.icsm.gov.au/sites/default/files/inline-images/regional_0.jpg" width=400>
+<img src="https://www.icsm.gov.au/sites/default/files/inline-images/regional_0.jpg" width=450>
 </div>
 [IOSM Austrailia, 2021 ](https://www.icsm.gov.au/sites/default/files/inline-images/regional_0.jpg)
 ]
-
-
-Datums can usually be converted to one another.
 
 ---
 
@@ -178,7 +176,7 @@ attr(nc, "sf_column")
 
 # CRS in sf
 
-## Example
+
 Let’s look at how CRSs are stored in R spatial objects and how they can be set. For this, we need to read-in a vector dataset:
 
 ```{r}
@@ -190,24 +188,51 @@ Our new object, new_vector, is a polygon representing a world map data from Natu
 
 ```{r, eval = TRUE}
 head(new_vector)
-
 ```
-
-
-
 ---
 
-# EXAMPLE Two Key Features
+#Key Features (1) 
 ## 1 | Retrieve coordinate reference system from object
-In sf the CRS of an object can be retrieved using st_crs().
-```{r, eval = TRUE}
-st_crs(new_vector) # get CRS
-```
----
-# EXAMPLE Two Key Features
-## 1 | Retrieve coordinate reference system from object Continued
-The st_crs function also has one helpful feature – we can retrieve some additional information about the used CRS. For example, try to run:
 
+.pull-left[
+In sf the CRS of an object can be retrieved using st_crs().
+```{r, eval = FALSE, prompt = FALSE}
+R> st_crs(new_vector) # get CRS
+```
+]
+
+.pull-right[
+```{r, eval = FALSE, prompt = FALSE}
+Coordinate Reference System:
+  User input: WGS 84 
+  wkt:
+GEOGCRS["WGS 84",
+    DATUM["World Geodetic System 1984",
+        ELLIPSOID["WGS 84",6378137,298.257223563,
+            LENGTHUNIT["metre",1]]],
+    PRIMEM["Greenwich",0,
+        ANGLEUNIT["degree",0.0174532925199433]],
+    CS[ellipsoidal,2],
+        AXIS["geodetic latitude (Lat)",north,
+            ORDER[1],
+            ANGLEUNIT["degree",0.0174532925199433]],
+        AXIS["geodetic longitude (Lon)",east,
+            ORDER[2],
+            ANGLEUNIT["degree",0.0174532925199433]],
+    USAGE[
+        SCOPE["Horizontal component of 3D system."],
+        AREA["World."],
+        BBOX[-90,-180,90,180]],
+    ID["EPSG",4326]]
+```
+]
+
+---
+#Key Features (2)
+## 1 | Retrieve coordinate reference system from object
+The st_crs function also has one helpful feature – we can retrieve some additional information about the used CRS. 
+
+For example, try to run:
 ```{r, eval = TRUE}
 st_crs(new_vector)$IsGeographic #to check if the CRS is geographic or not
 st_crs(new_vector)$units_gdal #to find out the CRS units
@@ -215,11 +240,11 @@ st_crs(new_vector)$srid #extracts its SRID (when available)
 st_crs(new_vector)$proj4string #extracts the proj4string representation
 ```
 ---
-# EXAMPLE Two Key Features
+#Key Features (3)
 ## 2 | Add or Change CRS
 When the CRS is missing or the wrong CRS is set, the st_set_crs() function can be used. An important note is that replacing CRS does not re-project data and maintains data integrity.
 
-```{r, eval = TRUE}
+```{r, eval = TRUE, warning = FALSE}
 new_vector = st_set_crs(new_vector, "EPSG:4326") # set CRS
 ```
 ```{r, include=FALSE}
@@ -228,7 +253,7 @@ geom_sf(data = new_vector) + #For simple plots, you will only need geom_sf()
 coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
 ggsave(path = "sf_presentation_files/figure-html", filename = "plot.jpg", width = 6, height = 4)
 ```
-```{r, eval = TRUE}
+```{r, eval = TRUE, warning = FALSE}
 new_vector = st_set_crs(new_vector, "EPSG:2163") # set CRS
 ```
 ```{r, include=FALSE}
@@ -248,57 +273,64 @@ ggsave(path = "sf_presentation_files/figure-html", filename = "plot2.jpg", width
 <img src="sf_presentation_files/figure-html/plot2.jpg" width=400>
 </div>]
 
-
-
 ---
 # How to work with Spatial Data (1)
 ##Some simple spatial data operations
 
 1) **Geometric measurements**
--CRSs include information about spatial units, however it is generally difficult to work with units to do geometric calculations (see difference of latitude and longitude data and planar coordinate systems) -> the recent version of sf utilizes the units package which output is by default provided in m^2 
+- CRSs include information about spatial units, however it is generally difficult to work with units to do geometric calculations (see difference of latitude and longitude data and planar coordinate systems) -> the recent version of sf utilizes the units package which output is by default provided in m^2.
 
-Lets see how that looks like for Belgium. We use the world data from the spData package:
+.pull-left[
+Lets see how that looks like for Belgium. We use the world data from the `spData` package:
 
 ```{r}
 Belgium = world[world$name_long == "Belgium", ]
 st_area(Belgium) 
 ```
 
-The number appears really big, better to set the units to km^2: 
+]
 
+.pull-right[
+The number appears really big, better to set the units to km^2: 
 ```{r}
 units::set_units(st_area(Belgium), km^2)
 ```
-
+]
 ---
 # How to work with Spatial Data (2)
 ##Some simple spatial data operations
 
 2) **Geometric measurements**
--sf can also measure distances between two points based on geometric data.
+- sf can also measure distances between two points based on geometric data.
+  - The package `spData` contains geometric data on London's districts `lnd` and a dataset of cycle hire points in London `cycle_hire`. 
+  - We want to measure the distance from the cycle hire point at the Palace Gate to the centre of Redbridge. 
+  - The default of `st_distance()` is in m. We could use /1000 to get km. 
 
-The package `spData` contains geometric data on London's districts `lnd` and a dataset of cycle hire points in London `cycle_hire`. 
-
-We want to measure the distance from the cycle hire point at the Palace Gate to the centre of Redbridge. 
-
-```{r}
+```{r, warning = FALSE}
 cycle_station_palace = cycle_hire %>% filter(name == "Palace Gate")
 redbridge = lnd %>% filter(NAME == "Redbridge")
 redbridge_centroid = st_centroid(redbridge) #gives central point in selected district
 st_distance(cycle_station_palace, redbridge_centroid)
 ```
-The default of `st_distance()` is in m. We could can /1000 to get km. 
 
 ---
 # How to work with Spatial Data (3)
 ##Creating maps with geometric data and sf
 
 There a different ways to create maps based on geometric data. 
-1. One simple way is by using `ggplot()` in combination with `geom_sf()` from the sf package
 
+.pull-left[
+1) One simple way is by using `ggplot()` in combination with `geom_sf()` from the sf package
+
+```{r eval=FALSE}
 ggplot() +
-geom_sf(data = us_states) + #For simple plots, you will only need geom_sf() 
-coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
+geom_sf(data = us_states) + 
+  #For simple plots, you will only need geom_sf() 
+coord_sf(crs = st_crs(4326)) 
+#ensures that all layers use a common CRS 
+#(would not be needed in this case)
+```
+]
 
 ```{r, include=FALSE}
 ggplot() +
@@ -307,25 +339,32 @@ coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would no
 ggsave(path = "sf_presentation_files/figure-html", filename = "usstates.jpg", width = 6, height = 4)
 ```
 
-.pull-left[
-<div align="left">
+.pull-right[
+<div align="centre">
 <img src="sf_presentation_files/figure-html/usstates.jpg" width=600>
 </div>]
+]
 ---
 # How to work with Spatial Data (4)
 ##Creating maps with geometric data and sf
 
 There a different ways to create maps based on geometric data. 
-1. One simple way is by using `ggplot()` in combination with `geom_sf()` from the sf package 
-2. sf also comes with a `plot()` function which creates a map of a sf object with  one or more attributes.
 
+.pull-left[
+2) `sf` also comes with a `plot()` function which creates a map of a sf object with  one or more attributes.
 ```{r, echo = TRUE}
 us_income = left_join( 
-  #joining two data frames from spData to attribute Median Income in 2015 to us_states
+  #joining two data frames from spData to 
+  #attribute Median Income in 2015 to us_states
   us_states, us_states_df, 
   by = c("NAME" = "state"))
-
 ```
+
+```{r eval=FALSE}
+us_income_plot = plot(us_income["median_income_15"], 
+     main = "Median income per State in 2015") 
+```
+]
 
 ```{r, include=FALSE}
 us_income_plot = plot(us_income["median_income_15"], 
@@ -339,19 +378,22 @@ dev.off()
 ```
 
 .pull-right[
-<div align="right">
+<div align="centre">
 <img src="sf_presentation_files/figure-html/us_2015.jpg" width=450>
 </div>]
+]
 ---
-## Slide with R Output
+#Further Links and Resources 
 
-```{r cars, echo = TRUE}
-summary(cars)
-```
+ADD HERE RECOMMENDATIONS
+
+---
+#
+---
 
 ## Print the Slides
 
-```{r}
+```{r include=FALSE}
 #text has to go back
 ```
 
