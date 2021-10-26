@@ -151,8 +151,27 @@ Datums can usually be converted to one another.
 
 # CRS in R
 ##Introduction to sf package
-<b> Simple Features for R </b> 
-<b> Simple features </b> refers to a formal standard (ISO 19125-1:2004) that describes how objects in the real world (such as a building or a tree) can be represented in computers, with emphasis on the spatial geometry of these objects.
+<b> Simple Features (sf) </b> describe how objects in the real world (such as a building or a tree) can be represented in computers.
+
+Features have a <i>geometry </i> describing <i>where </i> on Earth the feature is located, and they have attributes, which describe other properties. 
+
+These geometries are represented by points, lines or polygons, or collections thereof (no curves).
+
+## Example
+Let’s look at how data is stored in a simple feature:
+```{r}
+nc <- st_read(system.file("shape/nc.shp", package="sf"))
+
+class(nc)
+## [1] "sf"         "data.frame"
+
+attr(nc, "sf_column")
+## [1] "geometry"
+```
+---
+
+# CRS in R
+##How CRS is Stored
 
 ## Example
 Let’s look at how CRSs are stored in R spatial objects and how they can be set. For this, we need to read-in a vector dataset:
