@@ -99,7 +99,6 @@ Refreshing you knowledge from your Geo-course during high school/undergrad-studi
 ##(= Geographic Coordination System or Spatial Reference System) 
 
 .pull-left[
-
 - Used to model the World 
 - Set locations 
 - Utilize 
