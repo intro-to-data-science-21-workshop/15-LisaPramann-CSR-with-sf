@@ -176,28 +176,33 @@ attr(nc, "sf_column")
 ```
 ---
 
-# CRS in R
-##CRS in sf
+# CRS in sf
 
 ## Example
 Let’s look at how CRSs are stored in R spatial objects and how they can be set. For this, we need to read-in a vector dataset:
 
 ```{r}
-vector_filepath = system.file("shapes/world.gpkg", package = "spData")
-new_vector = read_sf(vector_filepath)
+vector_filepath <- system.file("shapes/world.gpkg", package = "spData")
+new_vector <- read_sf(vector_filepath)
 ```
 
-The crs() function can be used to access CRS information from a SpatRaster object17:
+Our new object, new_vector, is a polygon representing a world map data from Natural Earth with a few variables from World Bank (?spData::world).
 
-```{r}
-vignette(package = "sf") # see which vignettes are available
-vignette("sf1")          # an introduction to the package
+```{r, eval = TRUE}
+head(new_vector)
+
 ```
+
+
 
 ---
 
 # EXAMPLE Retrieve coordinate reference system from object
 ##
+In sf the CRS of an object can be retrieved using st_crs().
+```{r}
+st_crs(new_vector) # get CRS
+```
 
 ---
 
