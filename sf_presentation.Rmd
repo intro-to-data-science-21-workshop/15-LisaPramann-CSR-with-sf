@@ -197,8 +197,8 @@ head(new_vector)
 
 ---
 
-# EXAMPLE Retrieve coordinate reference system from object
-##
+# EXAMPLE Three Key Features
+## 1 | Retrieve coordinate reference system from object
 In sf the CRS of an object can be retrieved using st_crs().
 ```{r}
 st_crs(new_vector) # get CRS
