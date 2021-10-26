@@ -149,8 +149,13 @@ Datums can usually be converted to one another.
 
 ---
 
-# CRS in R
-##Introduction to sf package
+# Introduction to sf package
+.pull-right[
+<div align="center">
+<br>
+<img src="sf_presentation_files/figure-html/geomet.jpg" width=400>
+</div>
+[Geocomputation with R, 2021 ](https://edzer.github.io/rstudio_conf/#13)]
 <b> Simple Features (sf) </b> describe how objects in the real world (such as a building or a tree) can be represented in computers.
 
 Features have a <i>geometry </i> describing <i>where </i> on Earth the feature is located, and they have attributes, which describe other properties. 
@@ -159,19 +164,20 @@ These geometries are represented by points, lines or polygons, or collections th
 
 ## Example
 Let’s look at how data is stored in a simple feature:
-```{r}
+```{r, include=FALSE}
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
+```
 
-class(nc)
-## [1] "sf"         "data.frame"
+```{r, eval = TRUE}
+class(nc) #nc is a shapefile within the package sf
 
 attr(nc, "sf_column")
-## [1] "geometry"
+
 ```
 ---
 
 # CRS in R
-##How CRS is Stored
+##CRS in sf
 
 ## Example
 Let’s look at how CRSs are stored in R spatial objects and how they can be set. For this, we need to read-in a vector dataset:

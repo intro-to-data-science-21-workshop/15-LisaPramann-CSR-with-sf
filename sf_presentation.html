@@ -22,8 +22,6 @@ class: center, middle, inverse, title-slide
 
 ---
 
-class: inverse, center, middle
-name: welcome
 
 &lt;style type="text/css"&gt;
 @media print { # print out incremental slides; see https://stackoverflow.com/questions/56373198/get-xaringan-incremental-animations-to-print-to-pdf/56374619#56374619
@@ -37,28 +35,6 @@ name: welcome
 
  
 
-```r
-R&gt; # {r setup, include=FALSE} &lt;- cannot be added cause it won't knit
-R&gt; 
-R&gt; # Importing the relevant libraries
-R&gt; #install.packages("hrbrthemes")
-R&gt; #install.packages("fontawesome")
-R&gt; library(hrbrthemes)
-R&gt; library(fontawesome)
-R&gt; 
-R&gt; # install.packages("pagedown")
-R&gt; # install.packages("xaringan")
-R&gt; library(pagedown)
-R&gt; library(xaringan)
-R&gt; 
-R&gt; library(sf)          # classes and functions for vector data
-R&gt; library(terra)      # classes and functions for raster data
-R&gt; library(spData)        # load geographic data
-R&gt; library(spDataLarge)   # load larger geographic data
-R&gt; library(tidyverse)
-```
-
----
 
 #Agenda 
 
@@ -87,7 +63,6 @@ Refreshing you knowledge from your Geo-course during high school/undergrad-studi
 ##(= Geographic Coordination System or Spatial Reference System) 
 
 .pull-left[
-
 - Used to model the World 
 - Set locations 
 - Utilize 
@@ -143,8 +118,43 @@ Datums can usually be converted to one another.
 
 ---
 
+# Introduction to sf package
+.pull-right[
+&lt;div align="center"&gt;
+&lt;br&gt;
+&lt;img src="sf_presentation_files/figure-html/geomet.jpg" width=400&gt;
+&lt;/div&gt;
+[Geocomputation with R, 2021 ](https://edzer.github.io/rstudio_conf/#13)]
+&lt;b&gt; Simple Features (sf) &lt;/b&gt; describe how objects in the real world (such as a building or a tree) can be represented in computers.
+
+Features have a &lt;i&gt;geometry &lt;/i&gt; describing &lt;i&gt;where &lt;/i&gt; on Earth the feature is located, and they have attributes, which describe other properties. 
+
+These geometries are represented by points, lines or polygons, or collections thereof (no curves).
+
+## Example
+Let’s look at how data is stored in a simple feature:
+
+
+
+```r
+R&gt; class(nc) #nc is a shapefile within the package sf
+```
+
+```
+## [1] "sf"         "data.frame"
+```
+
+```r
+R&gt; attr(nc, "sf_column")
+```
+
+```
+## [1] "geometry"
+```
+---
+
 # CRS in R
-##Introduction to sf package
+##CRS in sf
 
 ## Example
 Let’s look at how CRSs are stored in R spatial objects and how they can be set. For this, we need to read-in a vector dataset:
@@ -158,6 +168,14 @@ R&gt; new_vector = read_sf(vector_filepath)
 The crs() function can be used to access CRS information from a SpatRaster object17:
 
 
+```r
+R&gt; vignette(package = "sf") # see which vignettes are available
+R&gt; vignette("sf1")          # an introduction to the package
+```
+
+```
+## starting httpd help server ... done
+```
 
 ---
 
@@ -286,14 +304,14 @@ R&gt; wrld_moll &lt;- st_transform(wrld_wrap, "+proj=moll")
 R&gt; plot(st_geometry(wrld_moll), col = "transparent")
 ```
 
-&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
 
 ```r
 R&gt; sf_proj_info("datum")
 ```
 
 ```
-## Dataframe mit 0 Spalten und 0 Zeilen
+## data frame with 0 columns and 0 rows
 ```
 
 ```r
@@ -379,7 +397,7 @@ R&gt; ggplot() +
 + coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
 ```
 
-&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # How to work with Spatial Data (4)
@@ -399,7 +417,7 @@ R&gt; plot(us_income["median_income_15"],
 +      main = "Median income per State in 2015") #using the plot function 
 ```
 
-&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Slide with R Output
