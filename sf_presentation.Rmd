@@ -223,7 +223,6 @@ When the CRS is missing or the wrong CRS is set, the st_set_crs() function can b
 new_vector = st_set_crs(new_vector, "EPSG:4326") # set CRS
 ```
 ```{r, include=FALSE}
-
 ggplot() +
 geom_sf(data = new_vector) + #For simple plots, you will only need geom_sf() 
 coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
