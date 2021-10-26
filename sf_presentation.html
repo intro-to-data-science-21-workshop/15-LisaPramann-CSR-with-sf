@@ -153,34 +153,77 @@ R&gt; attr(nc, "sf_column")
 ```
 ---
 
-# CRS in R
-##CRS in sf
+# CRS in sf
 
 ## Example
 Let’s look at how CRSs are stored in R spatial objects and how they can be set. For this, we need to read-in a vector dataset:
 
 
 ```r
-R&gt; vector_filepath = system.file("shapes/world.gpkg", package = "spData")
-R&gt; new_vector = read_sf(vector_filepath)
+R&gt; vector_filepath &lt;- system.file("shapes/world.gpkg", package = "spData")
+R&gt; new_vector &lt;- read_sf(vector_filepath)
 ```
 
-The crs() function can be used to access CRS information from a SpatRaster object17:
+Our new object, new_vector, is a polygon representing a world map data from Natural Earth with a few variables from World Bank (?spData::world).
 
 
 ```r
-R&gt; vignette(package = "sf") # see which vignettes are available
-R&gt; vignette("sf1")          # an introduction to the package
+R&gt; head(new_vector)
 ```
 
 ```
-## starting httpd help server ... done
+## Simple feature collection with 6 features and 10 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -180 ymin: -18.28799 xmax: 180 ymax: 83.23324
+## Geodetic CRS:  WGS 84
+## # A tibble: 6 x 11
+##   iso_a2 name_long  continent region_un subregion type  area_km2     pop lifeExp
+##   &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 FJ     Fiji       Oceania   Oceania   Melanesia Sove~   1.93e4  8.86e5    70.0
+## 2 TZ     Tanzania   Africa    Africa    Eastern ~ Sove~   9.33e5  5.22e7    64.2
+## 3 EH     Western S~ Africa    Africa    Northern~ Inde~   9.63e4 NA         NA  
+## 4 CA     Canada     North Am~ Americas  Northern~ Sove~   1.00e7  3.55e7    82.0
+## 5 US     United St~ North Am~ Americas  Northern~ Coun~   9.51e6  3.19e8    78.8
+## 6 KZ     Kazakhstan Asia      Asia      Central ~ Sove~   2.73e6  1.73e7    71.6
+## # ... with 2 more variables: gdpPercap &lt;dbl&gt;, geom &lt;MULTIPOLYGON [°]&gt;
 ```
+
+
 
 ---
 
 # EXAMPLE Retrieve coordinate reference system from object
 ##
+In sf the CRS of an object can be retrieved using st_crs().
+
+```r
+R&gt; st_crs(new_vector) # get CRS
+```
+
+```
+## Coordinate Reference System:
+##   User input: WGS 84 
+##   wkt:
+## GEOGCRS["WGS 84",
+##     DATUM["World Geodetic System 1984",
+##         ELLIPSOID["WGS 84",6378137,298.257223563,
+##             LENGTHUNIT["metre",1]]],
+##     PRIMEM["Greenwich",0,
+##         ANGLEUNIT["degree",0.0174532925199433]],
+##     CS[ellipsoidal,2],
+##         AXIS["geodetic latitude (Lat)",north,
+##             ORDER[1],
+##             ANGLEUNIT["degree",0.0174532925199433]],
+##         AXIS["geodetic longitude (Lon)",east,
+##             ORDER[2],
+##             ANGLEUNIT["degree",0.0174532925199433]],
+##     USAGE[
+##         SCOPE["Horizontal component of 3D system."],
+##         AREA["World."],
+##         BBOX[-90,-180,90,180]],
+##     ID["EPSG",4326]]
+```
 
 ---
 
@@ -304,7 +347,7 @@ R&gt; wrld_moll &lt;- st_transform(wrld_wrap, "+proj=moll")
 R&gt; plot(st_geometry(wrld_moll), col = "transparent")
 ```
 
-&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
 
 ```r
 R&gt; sf_proj_info("datum")
@@ -397,7 +440,7 @@ R&gt; ggplot() +
 + coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
 ```
 
-&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # How to work with Spatial Data (4)
@@ -417,7 +460,7 @@ R&gt; plot(us_income["median_income_15"],
 +      main = "Median income per State in 2015") #using the plot function 
 ```
 
-&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Slide with R Output
