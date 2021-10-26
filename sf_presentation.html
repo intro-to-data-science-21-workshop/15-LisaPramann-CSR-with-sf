@@ -193,8 +193,8 @@ R&gt; head(new_vector)
 
 ---
 
-# EXAMPLE Retrieve coordinate reference system from object
-##
+# EXAMPLE Two Key Features
+## 1 | Retrieve coordinate reference system from object
 In sf the CRS of an object can be retrieved using st_crs().
 
 ```r
@@ -224,143 +224,53 @@ R&gt; st_crs(new_vector) # get CRS
 ##         BBOX[-90,-180,90,180]],
 ##     ID["EPSG",4326]]
 ```
+---
+# EXAMPLE Two Key Features
+## 1 | Retrieve coordinate reference system from object Continued
+The st_crs function also has one helpful feature – we can retrieve some additional information about the used CRS. For example, try to run:
 
+
+```r
+R&gt; st_crs(new_vector)$IsGeographic #to check if the CRS is geographic or not
+```
+
+```
+## [1] TRUE
+```
+
+```r
+R&gt; st_crs(new_vector)$units_gdal #to find out the CRS units
+```
+
+```
+## [1] "degree"
+```
+
+```r
+R&gt; st_crs(new_vector)$srid #extracts its SRID (when available)
+```
+
+```
+## [1] "EPSG:4326"
+```
+
+```r
+R&gt; st_crs(new_vector)$proj4string #extracts the proj4string representation
+```
+
+```
+## [1] "+proj=longlat +datum=WGS84 +no_defs"
+```
 ---
 
-# EXAMPLE Three Key Features
-## 2 | Add CRS to a Shapefile
-- so you can layer point data onto geometry and create complex maps
-
----
-
-# EXAMPLE Three Key Features
-## 3 | Transform or convert coordinates of simple feature
+# EXAMPLE Two Key Features
+## 2 | Add CRS when it is Missing
+When the CRS is missing or the wrong CRS is set, the st_set_crs() function can be used. An important note is that replacing CRS does not re-project data and maintains data integrity.
 
 
 ```r
-R&gt; p1 = st_point(c(7,52))
-R&gt; p2 = st_point(c(-30,20))
-R&gt; sfc = st_sfc(p1, p2, crs = 4326)
-R&gt; sfc
+R&gt; new_vector = st_set_crs(new_vector, "EPSG:4326") # set CRS
 ```
-
-```
-## Geometry set for 2 features 
-## Geometry type: POINT
-## Dimension:     XY
-## Bounding box:  xmin: -30 ymin: 20 xmax: 7 ymax: 52
-## Geodetic CRS:  WGS 84
-```
-
-```
-## POINT (7 52)
-```
-
-```
-## POINT (-30 20)
-```
-
-```r
-R&gt; #&gt; Geometry set for 2 features 
-R&gt; #&gt; Geometry type: POINT
-R&gt; #&gt; Dimension:     XY
-R&gt; #&gt; Bounding box:  xmin: -30 ymin: 20 xmax: 7 ymax: 52
-R&gt; #&gt; Geodetic CRS:  WGS 84#&gt; POINT (7 52)#&gt; POINT (-30 20)st_transform(sfc, 3857)
-R&gt; #&gt; Geometry set for 2 features 
-R&gt; #&gt; Geometry type: POINT
-R&gt; #&gt; Dimension:     XY
-R&gt; #&gt; Bounding box:  xmin: -3339585 ymin: 2273031 xmax: 779236.4 ymax: 6800125
-R&gt; #&gt; Projected CRS: WGS 84 / Pseudo-Mercator#&gt; POINT (779236.4 6800125)#&gt; POINT (-3339585 2273031)st_transform(st_sf(a=2:1, geom=sfc), "+init=epsg:3857")
-R&gt; #&gt; Warning: GDAL Message 1: +init=epsg:XXXX syntax is deprecated. It might return a CRS with a non-EPSG compliant axis order.#&gt; Simple feature collection with 2 features and 1 field
-R&gt; #&gt; Geometry type: POINT
-R&gt; #&gt; Dimension:     XY
-R&gt; #&gt; Bounding box:  xmin: -3339585 ymin: 2273031 xmax: 779236.4 ymax: 6800125
-R&gt; #&gt; Projected CRS: WGS 84 / Pseudo-Mercator
-R&gt; #&gt;   a                     geom
-R&gt; #&gt; 1 2 POINT (779236.4 6800125)
-R&gt; #&gt; 2 1 POINT (-3339585 2273031)try(st_transform(sfc, 3857, aoi = c(-280,-90,180,90)))
-R&gt; #&gt; Warning: GDAL Error 1: Invalid dfWestLongitudeDeg#&gt; Error in CPL_transform(x, crs, aoi, pipeline, reverse, desired_accuracy,  : 
-R&gt; #&gt;   values for area of interest not accepted
-R&gt; 
-R&gt; if (sf_extSoftVersion()["GDAL"] &gt;= "3.0.0") 
-+   { st_transform(sfc, pipeline =
-+     "+proj=pipeline +step +proj=axisswap +order=2,1") # reverse axes
-+   st_transform(sfc, pipeline =
-+     "+proj=pipeline +step +proj=axisswap +order=2,1", reverse = TRUE) } # also reverse axes
-```
-
-```
-## Geometry set for 2 features 
-## Geometry type: POINT
-## Dimension:     XY
-## Bounding box:  xmin: -30 ymin: 20 xmax: 7 ymax: 52
-## CRS:           NA
-```
-
-```
-## POINT (7 52)
-## POINT (-30 20)
-```
-
-```r
-R&gt; #&gt; Geometry set for 2 features 
-R&gt; #&gt; Geometry type: POINT
-R&gt; #&gt; Dimension:     XY
-R&gt; #&gt; Bounding box:  xmin: -30 ymin: 20 xmax: 7 ymax: 52
-R&gt; #&gt; CRS:           NA#&gt; POINT (7 52)#&gt; POINT (-30 20)nc = st_read(system.file("shape/nc.shp", package="sf"))
-R&gt; #&gt; Reading layer `nc' from data source 
-R&gt; #&gt;   `/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpOavmau/temp_libpath94fd3649a05d/sf/shape/nc.shp' 
-R&gt; #&gt;   using driver `ESRI Shapefile'
-R&gt; #&gt; Simple feature collection with 100 features and 14 fields
-R&gt; #&gt; Geometry type: MULTIPOLYGON
-R&gt; #&gt; Dimension:     XY
-R&gt; #&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
-R&gt; #&gt; Geodetic CRS:  NAD27st_area(nc[1,]) # area from long/lat
-R&gt; #&gt; 1137107793 [m^2]st_area(st_transform(nc[1,], 32119)) # NC state plane, m
-R&gt; #&gt; 1137590142 [m^2]st_area(st_transform(nc[1,], 2264)) # NC state plane, US foot
-R&gt; #&gt; 12244869403 [US_survey_foot^2]library(units)
-R&gt; #&gt; udunits database from /Users/runner/work/_temp/Library/units/share/udunits/udunits2.xmlset_units(st_area(st_transform(nc[1,], 2264)), m^2)
-R&gt; #&gt; 1137590142 [m^2]st_transform(structure(p1, proj4string = "+init=epsg:4326"), "+init=epsg:3857")
-R&gt; #&gt; POINT (779236.4 6800125)st_wrap_dateline(st_sfc(st_linestring(rbind(c(-179,0),c(179,0))), crs = 4326))
-R&gt; #&gt; Geometry set for 1 feature 
-R&gt; #&gt; Geometry type: MULTILINESTRING
-R&gt; #&gt; Dimension:     XY
-R&gt; #&gt; Bounding box:  xmin: -180 ymin: 0 xmax: 180 ymax: 0
-R&gt; #&gt; Geodetic CRS:  WGS 84#&gt; MULTILINESTRING ((-179 0, -180 0), (180 0, 179 0))library(maps)
-R&gt; wrld &lt;- st_as_sf(maps::map("world", fill = TRUE, plot = FALSE))
-R&gt; wrld_wrap &lt;- st_wrap_dateline(wrld, options = c("WRAPDATELINE=YES", "DATELINEOFFSET=180"),
-+    quiet = TRUE)
-```
-
-```
-## Warning in CPL_wrap_dateline(st_geometry(x), options, quiet): GDAL Error 1:
-## IllegalArgumentException: Points of LinearRing do not form a closed linestring
-
-## Warning in CPL_wrap_dateline(st_geometry(x), options, quiet): GDAL Error 1:
-## IllegalArgumentException: Points of LinearRing do not form a closed linestring
-```
-
-```r
-R&gt; #&gt; Warning: GDAL Error 1: IllegalArgumentException: Points of LinearRing do not form a closed linestring#&gt; Warning: GDAL Error 1: IllegalArgumentException: Points of LinearRing do not form a closed linestring
-R&gt; 
-R&gt; wrld_moll &lt;- st_transform(wrld_wrap, "+proj=moll")
-R&gt; plot(st_geometry(wrld_moll), col = "transparent")
-```
-
-&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
-
-```r
-R&gt; sf_proj_info("datum")
-```
-
-```
-## data frame with 0 columns and 0 rows
-```
-
-```r
-R&gt; #&gt; data frame with 0 columns and 0 rows
-```
-
 ---
 # How to work with Spatial Data (1)
 ##Some simple spatial data operations
@@ -430,9 +340,7 @@ The default of `st_distance()` is in m. We could can /1000 to get km.
 ##Creating maps with geometric data and sf
 
 There a different ways to create maps based on geometric data. 
-1. One simple way is by using `ggplot()` in combination with `geom_sf()` from the sf package 
-
-
+1. One simple way is by using `ggplot()` in combination with `geom_sf()` from the sf package
 
 ```r
 R&gt; ggplot() +
@@ -440,7 +348,7 @@ R&gt; ggplot() +
 + coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
 ```
 
-&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # How to work with Spatial Data (4)
@@ -460,7 +368,7 @@ R&gt; plot(us_income["median_income_15"],
 +      main = "Median income per State in 2015") #using the plot function 
 ```
 
-&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Slide with R Output
