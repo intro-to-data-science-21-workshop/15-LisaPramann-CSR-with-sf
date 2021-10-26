@@ -328,18 +328,19 @@ us_income = left_join(
 ```
 
 ```{r, include=FALSE}
-us_income = left_join( 
-  #joining two data frames from spData to attribute Median Income in 2015 to us_states
-  us_states, us_states_df, 
-  by = c("NAME" = "state"))
+us_income_plot = plot(us_income["median_income_15"], 
+     main = "Median income per State in 2015") #using the plot function
+
+jpeg("sf_presentation_files/figure-html/us_2015.jpg", quality = 100) #jpeg device
 plot(us_income["median_income_15"], 
-     main = "Median income per State in 2015") #using the plot function 
-ggsave(path = "sf_presentation_files/figure-html", filename = "us_2015.jpg", width = 6, height = 4)
+     main = "Median income per State in 2015") #using the plot function
+dev.off()
+
 ```
 
-.pull-left[
-<div align="left">
-<img src="sf_presentation_files/figure-html/us_2015.jpg" width=600>
+.pull-right[
+<div align="right">
+<img src="sf_presentation_files/figure-html/us_2015.jpg" width=450>
 </div>]
 ---
 ## Slide with R Output
