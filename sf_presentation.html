@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>CRS with sf</title>
+    <title>Coordinate Reference Systems with sf</title>
     <meta charset="utf-8" />
     <meta name="author" content="Lisa Pramann &amp; Caitlin Sarro" />
     <meta name="date" content="2021-10-26" />
@@ -14,14 +14,16 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# CRS with sf
+# Coordinate Reference Systems with sf
+## Workshop: I2DS Tools for Data Science
 ### Lisa Pramann &amp; Caitlin Sarro
 ### Hertie School
 ### 2021-10-26
 
 ---
 
-
+class: inverse, center, middle
+name: welcome
 
 &lt;style type="text/css"&gt;
 @media print { # print out incremental slides; see https://stackoverflow.com/questions/56373198/get-xaringan-incremental-animations-to-print-to-pdf/56374619#56374619
@@ -35,7 +37,28 @@ class: center, middle, inverse, title-slide
 
  
 
+```r
+R&gt; # {r setup, include=FALSE} &lt;- cannot be added cause it won't knit
+R&gt; 
+R&gt; # Importing the relevant libraries
+R&gt; #install.packages("hrbrthemes")
+R&gt; #install.packages("fontawesome")
+R&gt; library(hrbrthemes)
+R&gt; library(fontawesome)
+R&gt; 
+R&gt; # install.packages("pagedown")
+R&gt; # install.packages("xaringan")
+R&gt; library(pagedown)
+R&gt; library(xaringan)
+R&gt; 
+R&gt; library(sf)          # classes and functions for vector data
+R&gt; library(terra)      # classes and functions for raster data
+R&gt; library(spData)        # load geographic data
+R&gt; library(spDataLarge)   # load larger geographic data
+R&gt; library(tidyverse)
+```
 
+---
 
 #Agenda 
 
@@ -61,7 +84,9 @@ Refreshing you knowledge from your Geo-course during high school/undergrad-studi
 
 ---
 #What is a “Coordinate Reference System” (CRS) ?
-##(Geographic Coordination System or Spatial Reference System) 
+##(= Geographic Coordination System or Spatial Reference System) 
+
+.pull-left[
 
 - Used to model the World 
 - Set locations 
@@ -69,20 +94,19 @@ Refreshing you knowledge from your Geo-course during high school/undergrad-studi
   - latitude (horizontal) 
   - longitude (vertical)
 - basis for planar coordinates and GIS (Geoinformation Systems)
-  
-.pull-left-center[
+
 &lt;div align="center"&gt;
-&lt;img src="sf_presentation_files/figure-html/planar_corrdinates.jpg" width=300&gt;
+&lt;img src="sf_presentation_files/figure-html/planar_coordinates.jpg" width=400&gt;
 &lt;/div&gt;
-`Credit`[Sreedevi, 2021 ](https://www.analyticsvidhya.com/blog/2021/09/how-to-visualise-data-in-maps-using-geopandas/)
+[Sreedevi, 2021 ](https://www.analyticsvidhya.com/blog/2021/09/how-to-visualise-data-in-maps-using-geopandas/)
 ]
 
-.pull-right-center[
+.pull-right[
 &lt;div align="center"&gt;
 &lt;br&gt;&lt;br&gt;
-&lt;img src="sf_presentation_files/figure-html/long_lat.jpg" width=300&gt;
+&lt;img src="sf_presentation_files/figure-html/long_lat.jpg" width=400&gt;
 &lt;/div&gt;
-`Credit`[Mike Mitter, 2019](https://www.mikemitterer.at/2019/07/11/latitude-longitude-module-ist-auf-npmjs/
+[Mike Mitter, 2019](https://www.mikemitterer.at/2019/07/11/latitude-longitude-module-ist-auf-npmjs/
 )
 ]
 
@@ -92,7 +116,7 @@ Refreshing you knowledge from your Geo-course during high school/undergrad-studi
 ###As you have seen the Ellipsoid cannot model the earth (not even the Geoid) completely 
 
 
-.pull-left-center[
+.pull-left[
 Therefore, different Coordinate Reference Systems exist:
 
 - **World Geodetic System** 
@@ -121,6 +145,7 @@ Datums can usually be converted to one another.
 
 # CRS in R
 ##Introduction to sf package
+
 ## Example
 Let’s look at how CRSs are stored in R spatial objects and how they can be set. For this, we need to read-in a vector dataset:
 
@@ -136,18 +161,18 @@ The crs() function can be used to access CRS information from a SpatRaster objec
 
 ---
 
-# Retrieve coordinate reference system from object
+# EXAMPLE Retrieve coordinate reference system from object
 ##
 
 ---
 
-# Three Key Features
+# EXAMPLE Three Key Features
 ## 2 | Add CRS to a Shapefile
 - so you can layer point data onto geometry and create complex maps
 
 ---
 
-# Three Key Features
+# EXAMPLE Three Key Features
 ## 3 | Transform or convert coordinates of simple feature
 
 
@@ -268,7 +293,7 @@ R&gt; sf_proj_info("datum")
 ```
 
 ```
-## data frame with 0 columns and 0 rows
+## Dataframe mit 0 Spalten und 0 Zeilen
 ```
 
 ```r
@@ -375,7 +400,6 @@ R&gt; plot(us_income["median_income_15"],
 ```
 
 &lt;img src="sf_presentation_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
-
 
 ---
 ## Slide with R Output
