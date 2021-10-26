@@ -215,14 +215,42 @@ st_crs(new_vector)$srid #extracts its SRID (when available)
 st_crs(new_vector)$proj4string #extracts the proj4string representation
 ```
 ---
-
 # EXAMPLE Two Key Features
 ## 2 | Add CRS when it is Missing
 When the CRS is missing or the wrong CRS is set, the st_set_crs() function can be used. An important note is that replacing CRS does not re-project data and maintains data integrity.
 
 ```{r, eval = TRUE}
 new_vector = st_set_crs(new_vector, "EPSG:4326") # set CRS
+proj_vector = st_set_crs(new_vector, "EPSG:2163") # set CRS
 ```
+```{r, include=FALSE}
+
+ggplot() +
+geom_sf(data = new_vector) + #For simple plots, you will only need geom_sf() 
+coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
+ggsave("../thisplot.jpg", width = 6, height = 4)
+
+
+ggplot() +
+geom_sf(data = proj_vector) + #For simple plots, you will only need geom_sf() 
+coord_sf(crs = st_crs(2163)) #ensures that all layers use a common CRS (would not be needed in this case)
+ggsave("../thisplot2.jpg", width = 6, height = 4)
+
+```
+
+.pull-left[
+<div align="left">
+<img src="~/thisplot.jpg" width=400>
+</div>]
+
+.pull-right[
+<div align="center">
+<br><br>
+<img src="~/thisplot2.jpg" width=400>
+</div>]
+
+
+
 ---
 # How to work with Spatial Data (1)
 ##Some simple spatial data operations
