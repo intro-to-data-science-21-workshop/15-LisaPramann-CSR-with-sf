@@ -15,8 +15,6 @@ output:
       ratio: '16:9'
       hash: true
 ---
-class: inverse, center, middle
-name: welcome
 
 ```{css, echo=FALSE} 
 @media print { # print out incremental slides; see https://stackoverflow.com/questions/56373198/get-xaringan-incremental-animations-to-print-to-pdf/56374619#56374619
@@ -49,8 +47,7 @@ knit_hooks$set(
 ```
 
  
-```{r }
-# {r setup, include=FALSE} <- cannot be added cause it won't knit
+```{r, include=FALSE}
 
 # Importing the relevant libraries
 #install.packages("hrbrthemes")
@@ -69,8 +66,6 @@ library(spData)        # load geographic data
 library(spDataLarge)   # load larger geographic data
 library(tidyverse)
 ```
-
----
 
 #Agenda 
 
@@ -156,11 +151,8 @@ Datums can usually be converted to one another.
 
 # CRS in R
 ##Introduction to sf package
-<<<<<<< HEAD
 <b> Simple Features for R </b> 
 <b> Simple features </b> refers to a formal standard (ISO 19125-1:2004) that describes how objects in the real world (such as a building or a tree) can be represented in computers, with emphasis on the spatial geometry of these objects.
-=======
->>>>>>> 7fbe5ec87ae5d055d267c72a11c7a3a7baab9892
 
 ## Example
 Let’s look at how CRSs are stored in R spatial objects and how they can be set. For this, we need to read-in a vector dataset:
