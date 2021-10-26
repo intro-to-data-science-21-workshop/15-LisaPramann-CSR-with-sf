@@ -262,7 +262,6 @@ R&gt; st_crs(new_vector)$proj4string #extracts the proj4string representation
 ## [1] "+proj=longlat +datum=WGS84 +no_defs"
 ```
 ---
-
 # EXAMPLE Two Key Features
 ## 2 | Add CRS when it is Missing
 When the CRS is missing or the wrong CRS is set, the st_set_crs() function can be used. An important note is that replacing CRS does not re-project data and maintains data integrity.
@@ -271,6 +270,32 @@ When the CRS is missing or the wrong CRS is set, the st_set_crs() function can b
 ```r
 R&gt; new_vector = st_set_crs(new_vector, "EPSG:4326") # set CRS
 ```
+
+
+```r
+R&gt; new_vector = st_set_crs(new_vector, "EPSG:2163") # set CRS
+```
+
+```
+## Warning: st_crs&lt;- : replacing crs does not reproject data; use st_transform for
+## that
+```
+
+
+.pull-left[
+&lt;div align="left"&gt;
+&lt;img src="sf_presentation_files/figure-html/plot.jpg" width=400&gt;
+&lt;/div&gt;]
+
+
+.pull-right[
+&lt;div align="center"&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;img src="sf_presentation_files/figure-html/plot2.jpg" width=400&gt;
+&lt;/div&gt;]
+
+
+
 ---
 # How to work with Spatial Data (1)
 ##Some simple spatial data operations
@@ -348,7 +373,7 @@ R&gt; ggplot() +
 + coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
 ```
 
-&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # How to work with Spatial Data (4)
@@ -368,7 +393,7 @@ R&gt; plot(us_income["median_income_15"],
 +      main = "Median income per State in 2015") #using the plot function 
 ```
 
-&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="sf_presentation_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Slide with R Output
