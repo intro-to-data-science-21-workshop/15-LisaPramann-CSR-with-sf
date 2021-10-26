@@ -1,6 +1,6 @@
 ---
-title: "CRS with sf"
-subtitle: ""
+title: "Coordinate Reference Systems with sf"
+subtitle: "Workshop: I2DS Tools for Data Science "
 author: "Lisa Pramann & Caitlin Sarro"
 institute: "Hertie School"
 date: "`r Sys.Date()`"
@@ -15,7 +15,8 @@ output:
       ratio: '16:9'
       hash: true
 ---
-
+class: inverse, center, middle
+name: welcome
 
 ```{css, echo=FALSE} 
 @media print { # print out incremental slides; see https://stackoverflow.com/questions/56373198/get-xaringan-incremental-animations-to-print-to-pdf/56374619#56374619
@@ -48,7 +49,9 @@ knit_hooks$set(
 ```
 
  
-```{r, include=FALSE }
+```{r }
+# {r setup, include=FALSE} <- cannot be added cause it won't knit
+
 # Importing the relevant libraries
 #install.packages("hrbrthemes")
 #install.packages("fontawesome")
@@ -67,6 +70,7 @@ library(spDataLarge)   # load larger geographic data
 library(tidyverse)
 ```
 
+---
 
 #Agenda 
 
@@ -92,28 +96,28 @@ Refreshing you knowledge from your Geo-course during high school/undergrad-studi
 
 ---
 #What is a “Coordinate Reference System” (CRS) ?
-##(Geographic Coordination System or Spatial Reference System) 
+##(= Geographic Coordination System or Spatial Reference System) 
 
+.pull-left[
 - Used to model the World 
 - Set locations 
 - Utilize 
   - latitude (horizontal) 
   - longitude (vertical)
 - basis for planar coordinates and GIS (Geoinformation Systems)
-  
-.pull-left-center[
+
 <div align="center">
-<img src="sf_presentation_files/figure-html/planar_corrdinates.jpg" width=300>
+<img src="sf_presentation_files/figure-html/planar_coordinates.jpg" width=400>
 </div>
-`Credit`[Sreedevi, 2021 ](https://www.analyticsvidhya.com/blog/2021/09/how-to-visualise-data-in-maps-using-geopandas/)
+[Sreedevi, 2021 ](https://www.analyticsvidhya.com/blog/2021/09/how-to-visualise-data-in-maps-using-geopandas/)
 ]
 
-.pull-right-center[
+.pull-right[
 <div align="center">
 <br><br>
-<img src="sf_presentation_files/figure-html/long_lat.jpg" width=300>
+<img src="sf_presentation_files/figure-html/long_lat.jpg" width=400>
 </div>
-`Credit`[Mike Mitter, 2019](https://www.mikemitterer.at/2019/07/11/latitude-longitude-module-ist-auf-npmjs/
+[Mike Mitter, 2019](https://www.mikemitterer.at/2019/07/11/latitude-longitude-module-ist-auf-npmjs/
 )
 ]
 
@@ -123,7 +127,7 @@ Refreshing you knowledge from your Geo-course during high school/undergrad-studi
 ###As you have seen the Ellipsoid cannot model the earth (not even the Geoid) completely 
 
 
-.pull-left-center[
+.pull-left[
 Therefore, different Coordinate Reference Systems exist:
 
 - **World Geodetic System** 
@@ -152,8 +156,11 @@ Datums can usually be converted to one another.
 
 # CRS in R
 ##Introduction to sf package
+<<<<<<< HEAD
 <b> Simple Features for R </b> 
 <b> Simple features </b> refers to a formal standard (ISO 19125-1:2004) that describes how objects in the real world (such as a building or a tree) can be represented in computers, with emphasis on the spatial geometry of these objects.
+=======
+>>>>>>> 7fbe5ec87ae5d055d267c72a11c7a3a7baab9892
 
 ## Example
 Let’s look at how CRSs are stored in R spatial objects and how they can be set. For this, we need to read-in a vector dataset:
@@ -172,18 +179,18 @@ vignette("sf1")          # an introduction to the package
 
 ---
 
-# Retrieve coordinate reference system from object
+# EXAMPLE Retrieve coordinate reference system from object
 ##
 
 ---
 
-# Three Key Features
+# EXAMPLE Three Key Features
 ## 2 | Add CRS to a Shapefile
 - so you can layer point data onto geometry and create complex maps
 
 ---
 
-# Three Key Features
+# EXAMPLE Three Key Features
 ## 3 | Transform or convert coordinates of simple feature
 
 ```{r}
@@ -314,7 +321,7 @@ There a different ways to create maps based on geometric data.
 1. One simple way is by using `ggplot()` in combination with `geom_sf()` from the sf package 
 2. sf also comes with a `plot()` function which creates a map of a sf object with  one or more attributes.
 
-```{r}
+```{r echo = TRUE}
 us_income = left_join( 
   #joining two data frames from spData to attribute Median Income in 2015 to us_states
   us_states, us_states_df, 
@@ -323,7 +330,6 @@ plot(us_income["median_income_15"],
      main = "Median income per State in 2015") #using the plot function 
 
 ```
-
 
 ---
 ## Slide with R Output
