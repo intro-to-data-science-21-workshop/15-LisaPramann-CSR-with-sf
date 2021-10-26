@@ -263,7 +263,7 @@ R&gt; st_crs(new_vector)$proj4string #extracts the proj4string representation
 ```
 ---
 # EXAMPLE Two Key Features
-## 2 | Add CRS when it is Missing
+## 2 | Add or Change CRS
 When the CRS is missing or the wrong CRS is set, the st_set_crs() function can be used. An important note is that replacing CRS does not re-project data and maintains data integrity.
 
 
@@ -286,11 +286,8 @@ R&gt; new_vector = st_set_crs(new_vector, "EPSG:2163") # set CRS
 &lt;div align="left"&gt;
 &lt;img src="sf_presentation_files/figure-html/plot.jpg" width=400&gt;
 &lt;/div&gt;]
-
-
 .pull-right[
 &lt;div align="center"&gt;
-&lt;br&gt;&lt;br&gt;
 &lt;img src="sf_presentation_files/figure-html/plot2.jpg" width=400&gt;
 &lt;/div&gt;]
 
