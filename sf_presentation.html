@@ -98,10 +98,13 @@ Therefore, different Coordinate Reference Systems exist:
   - (WGS84, EPSG:4326)
   - approximates the whole earth
   - standard model
+  
 - **North American Datum** 
   - (NAD83, EPSG:6269)
+  
 - **Australian Geodetic Datum** 
-- (AGD84, EPSG:420)
+  - (AGD84, EPSG:420)
+
 
 - Datums can usually be converted to one another.
 ]
@@ -271,12 +274,12 @@ When the CRS is missing or the wrong CRS is set, the st_set_crs() function can b
 
 
 ```r
-R&gt; new_vector = st_set_crs(new_vector, "EPSG:4326") # set CRS
+R&gt; new_vector &lt;- st_set_crs(new_vector, "EPSG:4326") # set CRS
 ```
 
 
 ```r
-R&gt; new_vector = st_set_crs(new_vector, "EPSG:2163") # set CRS
+R&gt; new_vector &lt;- st_set_crs(new_vector, "EPSG:2163") # set CRS
 ```
 
 
@@ -301,7 +304,8 @@ Lets see how that looks like for Belgium. We use the world data from the `spData
 
 
 ```r
-R&gt; Belgium = world[world$name_long == "Belgium", ]
+R&gt; Belgium &lt;- world %&gt;% 
++   filter(name_long == "Belgium")
 R&gt; st_area(Belgium) 
 ```
 
@@ -334,9 +338,11 @@ R&gt; units::set_units(st_area(Belgium), km^2)
 
 
 ```r
-R&gt; cycle_station_palace = cycle_hire %&gt;% filter(name == "Palace Gate")
-R&gt; redbridge = lnd %&gt;% filter(NAME == "Redbridge")
-R&gt; redbridge_centroid = st_centroid(redbridge) #gives central point in selected district
+R&gt; cycle_station_palace &lt;- cycle_hire %&gt;% 
++   filter(name == "Palace Gate")
+R&gt; redbridge &lt;- lnd %&gt;% 
++   filter(NAME == "Redbridge")
+R&gt; redbridge_centroid &lt;- st_centroid(redbridge) #gives central point in selected district
 R&gt; st_distance(cycle_station_palace, redbridge_centroid)
 ```
 
@@ -383,7 +389,7 @@ There a different ways to create maps based on geometric data.
 2) `sf` also comes with a `plot()` function which creates a map of a sf object with  one or more attributes.
 
 ```r
-R&gt; us_income = left_join( 
+R&gt; us_income &lt;- left_join( 
 +   #joining two data frames from spData to 
 +   #attribute Median Income in 2015 to us_states
 +   us_states, us_states_df, 
@@ -392,7 +398,7 @@ R&gt; us_income = left_join(
 
 
 ```r
-R&gt; us_income_plot = plot(us_income["median_income_15"], 
+R&gt; us_income_plot &lt;- plot(us_income["median_income_15"], 
 +      main = "Median income per State in 2015") 
 ```
 ]

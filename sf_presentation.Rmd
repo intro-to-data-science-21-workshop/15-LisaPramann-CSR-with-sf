@@ -129,10 +129,13 @@ Therefore, different Coordinate Reference Systems exist:
   - (WGS84, EPSG:4326)
   - approximates the whole earth
   - standard model
+  
 - **North American Datum** 
   - (NAD83, EPSG:6269)
+  
 - **Australian Geodetic Datum** 
-- (AGD84, EPSG:420)
+  - (AGD84, EPSG:420)
+
 
 - Datums can usually be converted to one another.
 ]
@@ -245,7 +248,7 @@ st_crs(new_vector)$proj4string #extracts the proj4string representation
 When the CRS is missing or the wrong CRS is set, the st_set_crs() function can be used. An important note is that replacing CRS does not re-project data and maintains data integrity.
 
 ```{r, eval = TRUE, warning = FALSE}
-new_vector = st_set_crs(new_vector, "EPSG:4326") # set CRS
+new_vector <- st_set_crs(new_vector, "EPSG:4326") # set CRS
 ```
 ```{r, include=FALSE}
 ggplot() +
@@ -254,7 +257,7 @@ coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would no
 ggsave(path = "sf_presentation_files/figure-html", filename = "plot.jpg", width = 6, height = 4)
 ```
 ```{r, eval = TRUE, warning = FALSE}
-new_vector = st_set_crs(new_vector, "EPSG:2163") # set CRS
+new_vector <- st_set_crs(new_vector, "EPSG:2163") # set CRS
 ```
 ```{r, include=FALSE}
 ggplot() +
@@ -284,7 +287,8 @@ ggsave(path = "sf_presentation_files/figure-html", filename = "plot2.jpg", width
 Lets see how that looks like for Belgium. We use the world data from the `spData` package:
 
 ```{r}
-Belgium = world[world$name_long == "Belgium", ]
+Belgium <- world %>% 
+  filter(name_long == "Belgium")
 st_area(Belgium) 
 ```
 
@@ -307,9 +311,11 @@ units::set_units(st_area(Belgium), km^2)
   - The default of `st_distance()` is in m. We could use /1000 to get km. 
 
 ```{r, warning = FALSE}
-cycle_station_palace = cycle_hire %>% filter(name == "Palace Gate")
-redbridge = lnd %>% filter(NAME == "Redbridge")
-redbridge_centroid = st_centroid(redbridge) #gives central point in selected district
+cycle_station_palace <- cycle_hire %>% 
+  filter(name == "Palace Gate")
+redbridge <- lnd %>% 
+  filter(NAME == "Redbridge")
+redbridge_centroid <- st_centroid(redbridge) #gives central point in selected district
 st_distance(cycle_station_palace, redbridge_centroid)
 ```
 
@@ -353,7 +359,7 @@ There a different ways to create maps based on geometric data.
 .pull-left[
 2) `sf` also comes with a `plot()` function which creates a map of a sf object with  one or more attributes.
 ```{r, echo = TRUE}
-us_income = left_join( 
+us_income <- left_join( 
   #joining two data frames from spData to 
   #attribute Median Income in 2015 to us_states
   us_states, us_states_df, 
@@ -361,13 +367,13 @@ us_income = left_join(
 ```
 
 ```{r eval=FALSE}
-us_income_plot = plot(us_income["median_income_15"], 
+us_income_plot <- plot(us_income["median_income_15"], 
      main = "Median income per State in 2015") 
 ```
 ]
 
 ```{r, include=FALSE}
-us_income_plot = plot(us_income["median_income_15"], 
+us_income_plot <- plot(us_income["median_income_15"], 
      main = "Median income per State in 2015") #using the plot function
 
 jpeg("sf_presentation_files/figure-html/us_2015.jpg", quality = 100) #jpeg device
