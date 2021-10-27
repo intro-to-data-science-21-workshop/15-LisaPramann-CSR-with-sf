@@ -51,14 +51,13 @@ knit_hooks$set(
 
 # Importing the relevant libraries
 #install.packages("")
-
 library(hrbrthemes)
 library(fontawesome)
-
 
 library(pagedown)
 library(xaringan)
 library(sf)          # classes and functions for vector data
+library(tmap) # mapping 
 library(terra)      # classes and functions for raster data
 library(spData)        # load geographic data
 library(spDataLarge)   # load larger geographic data
@@ -102,18 +101,19 @@ Refreshing you knowledge from your Geo-course during high school/undergrad-studi
 
 <div align="center">
 <img src="sf_presentation_files/figure-html/planar_coordinates.jpg" width=400>
-</div>
+</div> <div align="center">
 [Sreedevi, 2021 ](https://www.analyticsvidhya.com/blog/2021/09/how-to-visualise-data-in-maps-using-geopandas/)
-]
+]</div>
 
 .pull-right[
 <div align="center">
 <br><br>
 <img src="sf_presentation_files/figure-html/long_lat.jpg" width=400>
-</div>
+</div> <div align="center">
 [Mike Mitter, 2019](https://www.mikemitterer.at/2019/07/11/latitude-longitude-module-ist-auf-npmjs/
-)
-]
+) 
+] </div>
+
 
 ---
 #CRS and Datums
@@ -142,19 +142,19 @@ Therefore, different Coordinate Reference Systems exist:
 <div align="center">
 <br>
 <img src="https://www.icsm.gov.au/sites/default/files/inline-images/regional_0.jpg" width=450>
-</div>
+</div> <div align="center">
 [IOSM Austrailia, 2021 ](https://www.icsm.gov.au/sites/default/files/inline-images/regional_0.jpg)
-]
+]</div>
 
 ---
 
 # Introduction to sf package
 .pull-right[
-<div align="center">
+<div align="right">
 <br>
 <img src="sf_presentation_files/figure-html/geomet.jpg" width=400>
-</div>
-[Geocomputation with R, 2021 ](https://edzer.github.io/rstudio_conf/#13)]
+</div> <div align="right">
+[Geocomputation with R, 2021 ](https://edzer.github.io/rstudio_conf/#13)]</div>
 <b> Simple Features (sf) </b> describe how objects in the real world (such as a building or a tree) can be represented in computers.
 
 Features have a <i>geometry </i> describing <i>where </i> on Earth the feature is located, and they have attributes, which describe other properties. 
@@ -165,10 +165,12 @@ These geometries are represented by points, lines or polygons, or collections th
 Let’s look at how data is stored in a simple feature:
 ```{r, include=FALSE}
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
+
+
 ```
 
 ```{r, eval = TRUE}
-class(nc) #nc is a shapefile within the package sf
+class(nc) #nc is a shapefile for North Carolina
 
 attr(nc, "sf_column")
 
@@ -246,21 +248,30 @@ st_crs(vector)$proj4string #extracts the proj4string representation
 When the CRS is missing or the wrong CRS is set, the st_set_crs() function can be used. An important note is that replacing CRS does not re-project data and maintains data integrity.
 
 ```{r, eval = TRUE, warning = FALSE}
-CRS_vector <- st_set_crs(vector, "EPSG:4326") # set CRS
+# For transformations use 'st_set_crs'
+CRS_vector <- sf::st_set_crs(world, "EPSG:4326") # set CRS
 ```
+
+
 ```{r, include=FALSE}
 ggplot() +
 geom_sf(data = CRS_vector) + #For simple plots, you will only need geom_sf() 
 coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
 ggsave(path = "sf_presentation_files/figure-html", filename = "plot.jpg", width = 6, height = 4)
 ```
+
+
 ```{r, eval = TRUE, warning = FALSE}
-Globe_vector <- st_set_crs(CRS_vector, "EPSG:2163") # set CRS
+# Shifting the projection to center on Brussels using the CRS
+world_view_brussels <- st_transform(world, crs = "+proj=laea +x_0=0 +y_0=0 +lon_0=50.8503396 +lat_0=4.3517103")
+
 ```
+
 ```{r, include=FALSE}
-ggplot() +
-geom_sf(data = Globe_vector) + #For simple plots, you will only need geom_sf() 
-coord_sf(crs = st_crs(2163)) #ensures that all layers use a common CRS (would not be needed in this case)
+# Shifting the projection to center on Brussels using the CRS
+world_view_brussels <- st_transform(world, crs = "+proj=laea +x_0=0 +y_0=0 +lon_0=50.8503396 +lat_0=4.3517103")
+#Plot
+ggplot(world_view_brussels) + geom_sf()
 ggsave(path = "sf_presentation_files/figure-html", filename = "plot2.jpg", width = 6, height = 4)
 
 ```
@@ -344,7 +355,7 @@ ggsave(path = "sf_presentation_files/figure-html", filename = "usstates.jpg", wi
 ```
 
 .pull-right[
-<div align="centre">
+<div align="center">
 <img src="sf_presentation_files/figure-html/usstates.jpg" width=600>
 </div>]
 ]
@@ -382,7 +393,7 @@ dev.off()
 ```
 
 .pull-right[
-<div align="centre">
+<div align="center">
 <img src="sf_presentation_files/figure-html/us_2015.jpg" width=450>
 </div>]
 ]
@@ -391,11 +402,11 @@ dev.off()
 
 - `sf` offers a comprehensive way to access and model with CRS data 
 
-- XXX
+- Remember the most common CRS in the world (WGS84/ EPSG code: 4326) and experiment with different codes.
 
-- using CRS for public policy it could be interesting to map certain data e.g. median income, voting behavior, covid-vaccionation rates, etc. 
+- CRS is used in combination with other tools to visualize public policy by mapping certain data e.g. median income, voting behavior, COVID-vaccination rates, etc. 
 
-- have a look at how to use this for data visualisatin purposes 
+- Continue to build on the skills in this session and have a look at how to use this for data visualization purposes 
 
 
 ---

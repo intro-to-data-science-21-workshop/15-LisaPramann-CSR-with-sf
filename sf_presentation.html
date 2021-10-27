@@ -73,18 +73,19 @@ Refreshing you knowledge from your Geo-course during high school/undergrad-studi
 
 &lt;div align="center"&gt;
 &lt;img src="sf_presentation_files/figure-html/planar_coordinates.jpg" width=400&gt;
-&lt;/div&gt;
+&lt;/div&gt; &lt;div align="center"&gt;
 [Sreedevi, 2021 ](https://www.analyticsvidhya.com/blog/2021/09/how-to-visualise-data-in-maps-using-geopandas/)
-]
+]&lt;/div&gt;
 
 .pull-right[
 &lt;div align="center"&gt;
 &lt;br&gt;&lt;br&gt;
 &lt;img src="sf_presentation_files/figure-html/long_lat.jpg" width=400&gt;
-&lt;/div&gt;
+&lt;/div&gt; &lt;div align="center"&gt;
 [Mike Mitter, 2019](https://www.mikemitterer.at/2019/07/11/latitude-longitude-module-ist-auf-npmjs/
-)
-]
+) 
+] &lt;/div&gt;
+
 
 ---
 #CRS and Datums
@@ -113,19 +114,19 @@ Therefore, different Coordinate Reference Systems exist:
 &lt;div align="center"&gt;
 &lt;br&gt;
 &lt;img src="https://www.icsm.gov.au/sites/default/files/inline-images/regional_0.jpg" width=450&gt;
-&lt;/div&gt;
+&lt;/div&gt; &lt;div align="center"&gt;
 [IOSM Austrailia, 2021 ](https://www.icsm.gov.au/sites/default/files/inline-images/regional_0.jpg)
-]
+]&lt;/div&gt;
 
 ---
 
 # Introduction to sf package
 .pull-right[
-&lt;div align="center"&gt;
+&lt;div align="right"&gt;
 &lt;br&gt;
 &lt;img src="sf_presentation_files/figure-html/geomet.jpg" width=400&gt;
-&lt;/div&gt;
-[Geocomputation with R, 2021 ](https://edzer.github.io/rstudio_conf/#13)]
+&lt;/div&gt; &lt;div align="right"&gt;
+[Geocomputation with R, 2021 ](https://edzer.github.io/rstudio_conf/#13)]&lt;/div&gt;
 &lt;b&gt; Simple Features (sf) &lt;/b&gt; describe how objects in the real world (such as a building or a tree) can be represented in computers.
 
 Features have a &lt;i&gt;geometry &lt;/i&gt; describing &lt;i&gt;where &lt;/i&gt; on Earth the feature is located, and they have attributes, which describe other properties. 
@@ -138,7 +139,7 @@ Let’s look at how data is stored in a simple feature:
 
 
 ```r
-R&gt; class(nc) #nc is a shapefile within the package sf
+R&gt; class(nc) #nc is a shapefile for North Carolina
 ```
 
 ```
@@ -271,13 +272,20 @@ When the CRS is missing or the wrong CRS is set, the st_set_crs() function can b
 
 
 ```r
-R&gt; CRS_vector &lt;- st_set_crs(vector, "EPSG:4326") # set CRS
+R&gt; # For transformations use 'st_set_crs'
+R&gt; CRS_vector &lt;- sf::st_set_crs(world, "EPSG:4326") # set CRS
 ```
+
+
+
+
 
 
 ```r
-R&gt; Globe_vector &lt;- st_set_crs(CRS_vector, "EPSG:2163") # set CRS
+R&gt; # Shifting the projection to center on Brussels using the CRS
+R&gt; world_view_brussels &lt;- st_transform(world, crs = "+proj=laea +x_0=0 +y_0=0 +lon_0=50.8503396 +lat_0=4.3517103")
 ```
+
 
 
 .pull-left[
@@ -372,7 +380,7 @@ R&gt; #(would not be needed in this case)
 
 
 .pull-right[
-&lt;div align="centre"&gt;
+&lt;div align="center"&gt;
 &lt;img src="sf_presentation_files/figure-html/usstates.jpg" width=600&gt;
 &lt;/div&gt;]
 ]
@@ -403,7 +411,7 @@ R&gt; us_income_plot &lt;- plot(us_income["median_income_15"],
 
 
 .pull-right[
-&lt;div align="centre"&gt;
+&lt;div align="center"&gt;
 &lt;img src="sf_presentation_files/figure-html/us_2015.jpg" width=450&gt;
 &lt;/div&gt;]
 ]
@@ -412,11 +420,11 @@ R&gt; us_income_plot &lt;- plot(us_income["median_income_15"],
 
 - `sf` offers a comprehensive way to access and model with CRS data 
 
-- XXX
+- Remember the most common CRS in the world (WGS84/ EPSG code: 4326) and experiment with different codes.
 
-- using CRS for public policy it could be interesting to map certain data e.g. median income, voting behavior, covid-vaccionation rates, etc. 
+- CRS is used in combination with other tools to visualize public policy by mapping certain data e.g. median income, voting behavior, COVID-vaccination rates, etc. 
 
-- have a look at how to use this for data visualisatin purposes 
+- Continue to build on the skills in this session and have a look at how to use this for data visualization purposes 
 
 
 ---
