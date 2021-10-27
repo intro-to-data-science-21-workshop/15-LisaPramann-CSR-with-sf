@@ -417,7 +417,7 @@ Not yet enough of CRS and `sf`? Check out our resources and additional reference
 Thank you!
 
 ```{r include=FALSE}
-#text has to go back
+#pagedown::chrome_print("~/GitHub/15-LisaPramann-CSR-with-sf/sf_presentation.html")
 ```
 
 
