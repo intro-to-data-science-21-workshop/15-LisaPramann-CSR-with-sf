@@ -50,16 +50,14 @@ knit_hooks$set(
 ```{r, include=FALSE}
 
 # Importing the relevant libraries
-#install.packages("hrbrthemes")
-#install.packages("fontawesome")
+#install.packages("")
+
 library(hrbrthemes)
 library(fontawesome)
 
-# install.packages("pagedown")
-# install.packages("xaringan")
+
 library(pagedown)
 library(xaringan)
-
 library(sf)          # classes and functions for vector data
 library(terra)      # classes and functions for raster data
 library(spData)        # load geographic data
@@ -184,13 +182,13 @@ Let’s look at how CRSs are stored in R spatial objects and how they can be set
 
 ```{r}
 vector_filepath <- system.file("shapes/world.gpkg", package = "spData")
-new_vector <- read_sf(vector_filepath)
+vector <- read_sf(vector_filepath)
 ```
 
 Our new object, new_vector, is a polygon representing a world map data from Natural Earth with a few variables from World Bank (?spData::world).
 
 ```{r, eval = TRUE}
-head(new_vector)
+head(vector, 3)
 ```
 ---
 
@@ -200,7 +198,7 @@ head(new_vector)
 .pull-left[
 In sf the CRS of an object can be retrieved using st_crs().
 ```{r, eval = FALSE, prompt = FALSE}
-R> st_crs(new_vector) # get CRS
+R> st_crs(vector) # get CRS
 ```
 ]
 
@@ -237,10 +235,10 @@ The st_crs function also has one helpful feature – we can retrieve some additi
 
 For example, try to run:
 ```{r, eval = TRUE}
-st_crs(new_vector)$IsGeographic #to check if the CRS is geographic or not
-st_crs(new_vector)$units_gdal #to find out the CRS units
-st_crs(new_vector)$srid #extracts its SRID (when available)
-st_crs(new_vector)$proj4string #extracts the proj4string representation
+st_crs(vector)$IsGeographic #to check if the CRS is geographic or not
+st_crs(vector)$units_gdal #to find out the CRS units
+st_crs(vector)$srid #extracts its SRID (projection code common with GIS)
+st_crs(vector)$proj4string #extracts the proj4string representation
 ```
 ---
 #Key Features (3)
@@ -248,20 +246,20 @@ st_crs(new_vector)$proj4string #extracts the proj4string representation
 When the CRS is missing or the wrong CRS is set, the st_set_crs() function can be used. An important note is that replacing CRS does not re-project data and maintains data integrity.
 
 ```{r, eval = TRUE, warning = FALSE}
-new_vector <- st_set_crs(new_vector, "EPSG:4326") # set CRS
+CRS_vector <- st_set_crs(vector, "EPSG:4326") # set CRS
 ```
 ```{r, include=FALSE}
 ggplot() +
-geom_sf(data = new_vector) + #For simple plots, you will only need geom_sf() 
+geom_sf(data = CRS_vector) + #For simple plots, you will only need geom_sf() 
 coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
 ggsave(path = "sf_presentation_files/figure-html", filename = "plot.jpg", width = 6, height = 4)
 ```
 ```{r, eval = TRUE, warning = FALSE}
-new_vector <- st_set_crs(new_vector, "EPSG:2163") # set CRS
+Globe_vector <- st_set_crs(CRS_vector, "EPSG:2163") # set CRS
 ```
 ```{r, include=FALSE}
 ggplot() +
-geom_sf(data = new_vector) + #For simple plots, you will only need geom_sf() 
+geom_sf(data = Globe_vector) + #For simple plots, you will only need geom_sf() 
 coord_sf(crs = st_crs(2163)) #ensures that all layers use a common CRS (would not be needed in this case)
 ggsave(path = "sf_presentation_files/figure-html", filename = "plot2.jpg", width = 6, height = 4)
 

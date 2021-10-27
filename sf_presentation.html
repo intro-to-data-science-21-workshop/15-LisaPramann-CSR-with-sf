@@ -162,32 +162,29 @@ Let’s look at how CRSs are stored in R spatial objects and how they can be set
 
 ```r
 R&gt; vector_filepath &lt;- system.file("shapes/world.gpkg", package = "spData")
-R&gt; new_vector &lt;- read_sf(vector_filepath)
+R&gt; vector &lt;- read_sf(vector_filepath)
 ```
 
 Our new object, new_vector, is a polygon representing a world map data from Natural Earth with a few variables from World Bank (?spData::world).
 
 
 ```r
-R&gt; head(new_vector)
+R&gt; head(vector, 3)
 ```
 
 ```
-## Simple feature collection with 6 features and 10 fields
+## Simple feature collection with 3 features and 10 fields
 ## Geometry type: MULTIPOLYGON
 ## Dimension:     XY
-## Bounding box:  xmin: -180 ymin: -18.28799 xmax: 180 ymax: 83.23324
+## Bounding box:  xmin: -180 ymin: -18.28799 xmax: 180 ymax: 27.65643
 ## Geodetic CRS:  WGS 84
-## # A tibble: 6 × 11
+## # A tibble: 3 x 11
 ##   iso_a2 name_long  continent region_un subregion type  area_km2     pop lifeExp
 ##   &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-## 1 FJ     Fiji       Oceania   Oceania   Melanesia Sove…   1.93e4  8.86e5    70.0
-## 2 TZ     Tanzania   Africa    Africa    Eastern … Sove…   9.33e5  5.22e7    64.2
-## 3 EH     Western S… Africa    Africa    Northern… Inde…   9.63e4 NA         NA  
-## 4 CA     Canada     North Am… Americas  Northern… Sove…   1.00e7  3.55e7    82.0
-## 5 US     United St… North Am… Americas  Northern… Coun…   9.51e6  3.19e8    78.8
-## 6 KZ     Kazakhstan Asia      Asia      Central … Sove…   2.73e6  1.73e7    71.6
-## # … with 2 more variables: gdpPercap &lt;dbl&gt;, geom &lt;MULTIPOLYGON [°]&gt;
+## 1 FJ     Fiji       Oceania   Oceania   Melanesia Sove~   19290.  8.86e5    70.0
+## 2 TZ     Tanzania   Africa    Africa    Eastern ~ Sove~  932746.  5.22e7    64.2
+## 3 EH     Western S~ Africa    Africa    Northern~ Inde~   96271. NA         NA  
+## # ... with 2 more variables: gdpPercap &lt;dbl&gt;, geom &lt;MULTIPOLYGON [°]&gt;
 ```
 ---
 
@@ -198,7 +195,7 @@ R&gt; head(new_vector)
 In sf the CRS of an object can be retrieved using st_crs().
 
 ```r
-R&gt; st_crs(new_vector) # get CRS
+R&gt; st_crs(vector) # get CRS
 ```
 ]
 
@@ -237,7 +234,7 @@ The st_crs function also has one helpful feature – we can retrieve some additi
 For example, try to run:
 
 ```r
-R&gt; st_crs(new_vector)$IsGeographic #to check if the CRS is geographic or not
+R&gt; st_crs(vector)$IsGeographic #to check if the CRS is geographic or not
 ```
 
 ```
@@ -245,7 +242,7 @@ R&gt; st_crs(new_vector)$IsGeographic #to check if the CRS is geographic or not
 ```
 
 ```r
-R&gt; st_crs(new_vector)$units_gdal #to find out the CRS units
+R&gt; st_crs(vector)$units_gdal #to find out the CRS units
 ```
 
 ```
@@ -253,7 +250,7 @@ R&gt; st_crs(new_vector)$units_gdal #to find out the CRS units
 ```
 
 ```r
-R&gt; st_crs(new_vector)$srid #extracts its SRID (when available)
+R&gt; st_crs(vector)$srid #extracts its SRID (projection code common with GIS)
 ```
 
 ```
@@ -261,7 +258,7 @@ R&gt; st_crs(new_vector)$srid #extracts its SRID (when available)
 ```
 
 ```r
-R&gt; st_crs(new_vector)$proj4string #extracts the proj4string representation
+R&gt; st_crs(vector)$proj4string #extracts the proj4string representation
 ```
 
 ```
@@ -274,12 +271,12 @@ When the CRS is missing or the wrong CRS is set, the st_set_crs() function can b
 
 
 ```r
-R&gt; new_vector &lt;- st_set_crs(new_vector, "EPSG:4326") # set CRS
+R&gt; CRS_vector &lt;- st_set_crs(vector, "EPSG:4326") # set CRS
 ```
 
 
 ```r
-R&gt; new_vector &lt;- st_set_crs(new_vector, "EPSG:2163") # set CRS
+R&gt; Globe_vector &lt;- st_set_crs(CRS_vector, "EPSG:2163") # set CRS
 ```
 
 
