@@ -1,5 +1,6 @@
 # Coordinate Reference Systems with sf 
 
+(Note: The title of the repo contains a typo - sorry for that)
 
 ## Summary
 
