@@ -257,7 +257,7 @@ CRS_vector <- sf::st_set_crs(world, "EPSG:4326") # set CRS
 ggplot() +
 geom_sf(data = CRS_vector) + #For simple plots, you will only need geom_sf() 
 coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
-ggsave(path = "sf_presentation_files/figure-html", filename = "plot.jpg", width = 6, height = 4)
+ggsave(path = "sf_presentation_files/figure-html", filename = "plot.png", width = 6, height = 4)
 ```
 
 
@@ -272,17 +272,17 @@ world_view_brussels <- st_transform(world, crs = "+proj=laea +x_0=0 +y_0=0 +lon_
 world_view_brussels <- st_transform(world, crs = "+proj=laea +x_0=0 +y_0=0 +lon_0=50.8503396 +lat_0=4.3517103")
 #Plot
 ggplot(world_view_brussels) + geom_sf()
-ggsave(path = "sf_presentation_files/figure-html", filename = "plot2.jpg", width = 6, height = 4)
+ggsave(path = "sf_presentation_files/figure-html", filename = "plot2.png", width = 6, height = 4)
 
 ```
 
 .pull-left[
 <div align="left">
-<img src="sf_presentation_files/figure-html/plot.jpg" width=400>
+<img src="sf_presentation_files/figure-html/plot.png" width=400>
 </div>]
 .pull-right[
 <div align="center">
-<img src="sf_presentation_files/figure-html/plot2.jpg" width=400>
+<img src="sf_presentation_files/figure-html/plot2.png" width=400>
 </div>]
 
 ---
