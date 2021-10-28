@@ -3,7 +3,7 @@ title: "Coordinate Reference Systems with sf"
 subtitle: "Workshop: I2DS Tools for Data Science "
 author: "Lisa Pramann & Caitlin Sarro"
 institute: "Hertie School"
-date: "`r Sys.Date()`"
+date: "November 4th 2021"
 output:
   xaringan::moon_reader:
     css: [default, metropolis, metropolis-fonts] 
@@ -62,6 +62,7 @@ library(terra)      # classes and functions for raster data
 library(spData)        # load geographic data
 library(spDataLarge)   # load larger geographic data
 library(tidyverse)
+
 ```
 
 #Agenda 
@@ -160,12 +161,7 @@ Therefore, different Coordinate Reference Systems exist:
 Features have a <i>geometry </i> describing <i>where </i> on Earth the feature is located, and they have attributes, which describe other properties. 
 
 These geometries are represented by points, lines or polygons, or collections thereof (no curves).
-.pull-right[
-<div align="right">
-<br>
-<img src="sf_presentation_files/figure-html/simplefeature.png" width=400>
-</div> <div align="right">
-[sf Vingettes, 2021 ](https://cran.r-project.org/web/packages/sf/vignettes/sf1.html)]</div>
+
 ## Example
 Let’s look at how data is catagorized in a simple feature:
 ```{r, include=FALSE}
@@ -433,10 +429,11 @@ Not yet enough of CRS and `sf`? Check out our resources and additional reference
 ### [Mapping in R with Emiliy Burchfield](https://www.emilyburchfield.org/courses/eds/making_maps_in_r)
 
 ---
-Thank you!
 
+# <center>Thank you!
+## Now onto the in-class session... 
 ```{r include=FALSE}
-#pagedown::chrome_print("~/GitHub/15-LisaPramann-CSR-with-sf/sf_presentation.html")
+pagedown::chrome_print("~/GitHub/15-LisaPramann-CSR-with-sf/sf_presentation.html")
 ```
 
 
