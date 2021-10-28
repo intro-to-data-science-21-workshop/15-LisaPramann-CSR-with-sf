@@ -253,7 +253,6 @@ When the CRS is missing or the wrong CRS is set, the st_set_crs() function can b
 CRS_vector <- sf::st_set_crs(world, "EPSG:4326") # set CRS
 ```
 
-
 ```{r, include=FALSE}
 ggplot() +
 geom_sf(data = CRS_vector) + #For simple plots, you will only need geom_sf() 
@@ -410,7 +409,7 @@ Things to take-away or have a closer look at
 
 ###- Remember the most common CRS in the world (WGS84/ EPSG code: 4326) and experiment with different codes.
 
-###- *Public Polciy* application: CRS is used in combination with other tools for visualization purposes by mapping certain data e.g. median income, voting behavior, COVID-vaccination rates, etc. 
+###- *Public Policy* application: CRS is used in combination with other tools for visualization purposes by mapping certain data e.g. median income, voting behavior, COVID-vaccination rates, etc. 
 
 ###- Feel free to build on the skills in this session and have a look at how to use this for data visualization purposes 
 
@@ -433,7 +432,7 @@ Not yet enough of CRS and `sf`? Check out our resources and additional reference
 # <center>Thank you!
 ## Now onto the in-class session... 
 ```{r include=FALSE}
-pagedown::chrome_print("~/GitHub/15-LisaPramann-CSR-with-sf/sf_presentation.html")
+#pagedown::chrome_print("~/GitHub/15-LisaPramann-CSR-with-sf/sf_presentation.html")
 ```
 
 
