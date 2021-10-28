@@ -150,7 +150,7 @@ Therefore, different Coordinate Reference Systems exist:
 
 # Introduction to sf package
 .pull-right[
-<div align="right">
+<div align="center">
 <br>
 <img src="sf_presentation_files/figure-html/geomet.jpg" width=400>
 </div> <div align="right">
@@ -340,7 +340,9 @@ st_distance(cycle_station_palace, redbridge_centroid)
 There a different ways to create maps based on geometric data. 
 
 .pull-left[
-1) One simple way is by using `ggplot()` in combination with `geom_sf()` from the sf package
+1) One simple way is by using `ggplot()` in combination with `geom_sf()` from the `sf` package
+
+Lets have a look at data from the US retrieved from the `spData` package:
 
 ```{r eval=FALSE}
 ggplot() +
@@ -350,7 +352,6 @@ coord_sf(crs = st_crs(4326))
 #ensures that all layers use a common CRS 
 #(would not be needed in this case)
 ```
-]
 
 ```{r, include=FALSE}
 ggplot() +
@@ -358,6 +359,7 @@ geom_sf(data = us_states) + #For simple plots, you will only need geom_sf()
 coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
 ggsave(path = "sf_presentation_files/figure-html", filename = "usstates.jpg", width = 6, height = 4)
 ```
+]
 
 .pull-right[
 <div align="center">
@@ -372,6 +374,8 @@ There a different ways to create maps based on geometric data.
 
 .pull-left[
 2) `sf` also comes with a `plot()` function which creates a map of a sf object with  one or more attributes.
+Lets have a look at data from the US retrieved from the `spData` package:
+
 ```{r, echo = TRUE}
 us_income <- left_join( 
   #joining two data frames from spData to 
@@ -384,7 +388,6 @@ us_income <- left_join(
 us_income_plot <- plot(us_income["median_income_15"], 
      main = "Median income per State in 2015") 
 ```
-]
 
 ```{r, include=FALSE}
 us_income_plot <- plot(us_income["median_income_15"], 
@@ -396,6 +399,7 @@ plot(us_income["median_income_15"],
 dev.off()
 
 ```
+]
 
 .pull-right[
 <div align="center">
@@ -404,14 +408,15 @@ dev.off()
 ]
 ---
 #Conclusion
+Things to take-away or have a closer look at
 
-- `sf` offers a comprehensive way to access and model with CRS data 
+###- `sf` offers a comprehensive way to access and model with CRS data 
 
-- Remember the most common CRS in the world (WGS84/ EPSG code: 4326) and experiment with different codes.
+###- Remember the most common CRS in the world (WGS84/ EPSG code: 4326) and experiment with different codes.
 
-- CRS is used in combination with other tools to visualize public policy by mapping certain data e.g. median income, voting behavior, COVID-vaccination rates, etc. 
+###- *Public Polciy* application: CRS is used in combination with other tools for visualization purposes by mapping certain data e.g. median income, voting behavior, COVID-vaccination rates, etc. 
 
-- Continue to build on the skills in this session and have a look at how to use this for data visualization purposes 
+###- Feel free to build on the skills in this session and have a look at how to use this for data visualization purposes 
 
 
 ---
@@ -419,13 +424,13 @@ dev.off()
 
 Not yet enough of CRS and `sf`? Check out our resources and additional references:
 
-- Most `Credit` to Robin Lovelance [Geocomputation with R, 2021](https://edzer.github.io/rstudio_conf/#13)]
+### Most `Credit` to Robin Lovelance [Geocomputation with R, 2021](https://edzer.github.io/rstudio_conf/#13)
 
-- [Presentation Tidy Spatial Data Analysis 2018](https://edzer.github.io/rstudio_conf/#1)
+### [Presentation Tidy Spatial Data Analysis 2018](https://edzer.github.io/rstudio_conf/#1)
 
-- [Blog WZB 2019 - Zooming in on maps with sf and ggplot2](https://datascience.blog.wzb.eu/2019/04/30/zooming-in-on-maps-with-sf-and-ggplot2/)
+###[Blog WZB 2019 - Zooming in on maps with sf and ggplot2](https://datascience.blog.wzb.eu/2019/04/30/zooming-in-on-maps-with-sf-and-ggplot2/)
 
-- [Mapping in R with Emiliy Burchfield](https://www.emilyburchfield.org/courses/eds/making_maps_in_r)
+### [Mapping in R with Emiliy Burchfield](https://www.emilyburchfield.org/courses/eds/making_maps_in_r)
 
 ---
 Thank you!
