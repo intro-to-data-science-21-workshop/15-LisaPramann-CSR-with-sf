@@ -57,7 +57,6 @@ library(fontawesome)
 library(pagedown)
 library(xaringan)
 library(sf)          # classes and functions for vector data
-library(tmap) # mapping 
 library(terra)      # classes and functions for raster data
 library(spData)        # load geographic data
 library(spDataLarge)   # load larger geographic data
