@@ -160,9 +160,14 @@ Therefore, different Coordinate Reference Systems exist:
 Features have a <i>geometry </i> describing <i>where </i> on Earth the feature is located, and they have attributes, which describe other properties. 
 
 These geometries are represented by points, lines or polygons, or collections thereof (no curves).
-
+.pull-right[
+<div align="right">
+<br>
+<img src="sf_presentation_files/figure-html/simplefeature.png" width=400>
+</div> <div align="right">
+[sf Vingettes, 2021 ](https://cran.r-project.org/web/packages/sf/vignettes/sf1.html)]</div>
 ## Example
-Let’s look at how data is stored in a simple feature:
+Let’s look at how data is catagorized in a simple feature:
 ```{r, include=FALSE}
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 
@@ -184,13 +189,13 @@ Let’s look at how CRSs are stored in R spatial objects and how they can be set
 
 ```{r}
 vector_filepath <- system.file("shapes/world.gpkg", package = "spData")
-vector <- read_sf(vector_filepath)
+new_vector <- read_sf(vector_filepath)
 ```
 
 Our new object, new_vector, is a polygon representing a world map data from Natural Earth with a few variables from World Bank (?spData::world).
 
 ```{r, eval = TRUE}
-head(vector, 3)
+head(new_vector, 3)
 ```
 ---
 
@@ -200,7 +205,7 @@ head(vector, 3)
 .pull-left[
 In sf the CRS of an object can be retrieved using st_crs().
 ```{r, eval = FALSE, prompt = FALSE}
-R> st_crs(vector) # get CRS
+R> st_crs(new_vector) # get CRS
 ```
 ]
 
@@ -237,10 +242,10 @@ The st_crs function also has one helpful feature – we can retrieve some additi
 
 For example, try to run:
 ```{r, eval = TRUE}
-st_crs(vector)$IsGeographic #to check if the CRS is geographic or not
-st_crs(vector)$units_gdal #to find out the CRS units
-st_crs(vector)$srid #extracts its SRID (projection code common with GIS)
-st_crs(vector)$proj4string #extracts the proj4string representation
+st_crs(new_vector)$IsGeographic #to check if the CRS is geographic or not
+st_crs(new_vector)$units_gdal #to find out the CRS units
+st_crs(new_vector)$srid #extracts its SRID (projection code common with GIS)
+st_crs(new_vector)$proj4string #extracts the proj4string representation
 ```
 ---
 #Key Features (3)

@@ -4,7 +4,7 @@
     <title>Coordinate Reference Systems with sf</title>
     <meta charset="utf-8" />
     <meta name="author" content="Lisa Pramann &amp; Caitlin Sarro" />
-    <meta name="date" content="2021-10-27" />
+    <meta name="date" content="2021-10-28" />
     <script src="sf_presentation_files/header-attrs/header-attrs.js"></script>
     <link href="sf_presentation_files/remark-css/default.css" rel="stylesheet" />
     <link href="sf_presentation_files/remark-css/metropolis.css" rel="stylesheet" />
@@ -18,7 +18,7 @@ class: center, middle, inverse, title-slide
 ## Workshop: I2DS Tools for Data Science
 ### Lisa Pramann &amp; Caitlin Sarro
 ### Hertie School
-### 2021-10-27
+### 2021-10-28
 
 ---
 
@@ -132,9 +132,14 @@ Therefore, different Coordinate Reference Systems exist:
 Features have a &lt;i&gt;geometry &lt;/i&gt; describing &lt;i&gt;where &lt;/i&gt; on Earth the feature is located, and they have attributes, which describe other properties. 
 
 These geometries are represented by points, lines or polygons, or collections thereof (no curves).
-
+.pull-right[
+&lt;div align="right"&gt;
+&lt;br&gt;
+&lt;img src="sf_presentation_files/figure-html/simplefeature.png" width=400&gt;
+&lt;/div&gt; &lt;div align="right"&gt;
+[sf Vingettes, 2021 ](https://cran.r-project.org/web/packages/sf/vignettes/sf1.html)]&lt;/div&gt;
 ## Example
-Let’s look at how data is stored in a simple feature:
+Let’s look at how data is catagorized in a simple feature:
 
 
 
@@ -163,14 +168,14 @@ Let’s look at how CRSs are stored in R spatial objects and how they can be set
 
 ```r
 R&gt; vector_filepath &lt;- system.file("shapes/world.gpkg", package = "spData")
-R&gt; vector &lt;- read_sf(vector_filepath)
+R&gt; new_vector &lt;- read_sf(vector_filepath)
 ```
 
 Our new object, new_vector, is a polygon representing a world map data from Natural Earth with a few variables from World Bank (?spData::world).
 
 
 ```r
-R&gt; head(vector, 3)
+R&gt; head(new_vector, 3)
 ```
 
 ```
@@ -196,7 +201,7 @@ R&gt; head(vector, 3)
 In sf the CRS of an object can be retrieved using st_crs().
 
 ```r
-R&gt; st_crs(vector) # get CRS
+R&gt; st_crs(new_vector) # get CRS
 ```
 ]
 
@@ -235,7 +240,7 @@ The st_crs function also has one helpful feature – we can retrieve some additi
 For example, try to run:
 
 ```r
-R&gt; st_crs(vector)$IsGeographic #to check if the CRS is geographic or not
+R&gt; st_crs(new_vector)$IsGeographic #to check if the CRS is geographic or not
 ```
 
 ```
@@ -243,7 +248,7 @@ R&gt; st_crs(vector)$IsGeographic #to check if the CRS is geographic or not
 ```
 
 ```r
-R&gt; st_crs(vector)$units_gdal #to find out the CRS units
+R&gt; st_crs(new_vector)$units_gdal #to find out the CRS units
 ```
 
 ```
@@ -251,7 +256,7 @@ R&gt; st_crs(vector)$units_gdal #to find out the CRS units
 ```
 
 ```r
-R&gt; st_crs(vector)$srid #extracts its SRID (projection code common with GIS)
+R&gt; st_crs(new_vector)$srid #extracts its SRID (projection code common with GIS)
 ```
 
 ```
@@ -259,7 +264,7 @@ R&gt; st_crs(vector)$srid #extracts its SRID (projection code common with GIS)
 ```
 
 ```r
-R&gt; st_crs(vector)$proj4string #extracts the proj4string representation
+R&gt; st_crs(new_vector)$proj4string #extracts the proj4string representation
 ```
 
 ```
