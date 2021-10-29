@@ -54,7 +54,7 @@ plot(st_geometry(wrld_moll), col = "transparent")
 elev = rast(system.file("raster/elev.tif", package = "spData"))
 grain = rast(system.file("raster/grain.tif", package = "spData"))
 
-The new zealand Example 
+#New Zealand Example 
 canterbury = nz %>% filter(Name == "Canterbury")
 canterbury_height = nz_height[canterbury, ]
 nz_height[canterbury, , op = st_disjoint]
@@ -142,28 +142,28 @@ st_distance(cycle_station_palace, redbridge_centroid)
 
 Mapping with sf - plot()
 ```{r}
-plot(world["continent"], reset = FALSE)
+plot_sf(world["continent"], reset = FALSE)
 cex = sqrt(world$pop) / 10000
 world_cents = st_centroid(world, of_largest = TRUE)
-plot(st_geometry(world_cents), add = TRUE, cex = cex)
+plot_sf(st_geometry(world_cents), add = TRUE, cex = cex)
 
 
 Germany = world[world$name_long == "Germany", ]
-plot(st_geometry(Germany), expandBB = c(0, 0.2, 0.1, 1), col = "orange", lwd = 3)
-plot(Europe[0], add = TRUE)
+plot_sf(st_geometry(Germany), expandBB = c(0, 0.2, 0.1, 1), col = "orange", lwd = 3)
+plot_sf(Europe[0], add = TRUE)
 
 
 #Example 2
 us_income = left_join(us_states, us_states_df,
                       by = c("NAME" = "state"))
 class(us_income)
-plot(us_income["median_income_15"])
+plot_sf(us_income["median_income_15"])
 
 # Use Joins
 #Example 1
 Population = left_join(world, worldbank_df)
 class(Population)
-plot(Population["pop_growth"])
+plot_sf(Population["pop_growth"])
 
 ```
 

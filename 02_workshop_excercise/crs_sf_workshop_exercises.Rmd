@@ -51,6 +51,7 @@ The first step is to download the concerning packages and import the libraries f
 # install.packages("sf", "spData", "spDataLarge")
 
 library(sf)   # classes and functions for vector data
+library(rgdal) # dataset of city centers (points)
 library(tmap) # to create nice and interactive maps
 library(spData) # load explanatory geographic data
 library(spDataLarge) # load larger geographic data 
@@ -62,35 +63,57 @@ Be careful: There might be a little bug in installing `sf` and `spData`. If youâ
 *** 
 # Exploring CRS in R
 
-ADD GENERAL REMARCS HERE
-IMPORT DATA 
+For these exercises we will work with the same dataset from the video. Our new object, `new_vector`, will be a polygon representing a world map. (For more info: ?spData::world).
 
-## Retrieve CRS from object
-
-
+First import the data and make it a readable to `sf`:
 ```{r}
-#ADD CODE FROM LECTURE HERE
+vector_filepath <- system.file("shapes/world.gpkg", package = "spData")
+new_vector <- read_sf(vector_filepath)
 ```
+We've also loaded in a dataset of city centers from the `rgdal` package as the object `cities`.
+```{r, include=FALSE}
+cities_world <- system.file("vectors/cities.shp", package = "rgdal")
+cities <- st_crs(3138)
+```
+## Retrieve the CRS from objects `new_vector` and `cities`{.tabset} 
+###
+```{r}
+st_crs(new_vector)
+```
+###
+```{r}
+st_crs(cities)
+```
+## {-}
 
 ### Exercise (1)
-**Can you tell the Datum of the retrieved Coordinate Reference System?**
-@Caitlin or something similar....
+**What can you tell about the data? Ex. the Datums and the retrieved Coordinate Reference System**
+
 ```{r, include=FALSE}
-#Add Answer here
+#They are different! new_vector is from WGS 84 and cities is from EPSG:3138. wGS 84 is the most common to use and stands for World Geodetic System 1984. 
 ```
 
 ***
-## Add or Change CRS
+## Use `st_set_crs` to Add or Change CRS
 
 ```{r}
-#ADD CODE FROM LECTURE HERE
+CRS_vector <- st_set_crs(world, "EPSG:4326")
+
 ```
 
+To look up different Datums you can use a website for Coordinate Systems Worldwide: https://epsg.io/ 
+
 ### Exercise (2)
-**How can we change the Datum?** 
-@Caitlin or something similar....
+**How can we change the Datum for `cities`?** 
+
 ```{r, include=FALSE}
-#Add Answer here
+#Check if your object already has a Datum. 
+#Decide on the up the Datum code (use epsg.io to look up options)
+#Use st_set_crs()
+
+
+
+
 ```
 
 
@@ -157,7 +180,7 @@ st_distance(cycle_station_palace, redbridge_centroid)
 *** 
 ## Creating maps wit CRS data `r emo::ji("world_map")` {.tabset .tabset-fade .tabset-pills} 
 
-In the presentation we have shown how to use `sf` in combination with `ggplot` or the `sf` `plot()` function to create simple maps. 
+In the presentation we have shown how to use `sf` in combination with `ggplot` or the `sf` `sf_plot()` function to create simple maps. 
 
 ### Example with ggplot()
 
@@ -174,17 +197,25 @@ Example from the presentation using `ggplot()` in combination with `geom_sf()` f
 us_income <- left_join( 
   us_states, us_states_df, 
   by = c("NAME" = "state"))
-us_income_plot <- plot(us_income["median_income_15"], 
+us_income_plot <- sf::plot_sf(us_income["median_income_15"], 
      main = "Median income per State in 2015") 
+
+us_income_plot
 ```
 
 Example from the presentation using `plot()` on data CRS data from the US and attributed data on the median income per state, both retrieved from the `spData` package. 
 
 $~$
+***
+### Exercise (5) Public Policy implications 
+
+**Now that we have got a glimpse about what CRS data is, what it does and how it can be used, how and when do you think it would make sense using these applications?** 
+
+
 
 ***
 
-## Introducing tmap()
+## Take-home exercise: Introducing tmap()
 ### Exercise (6)
 **In the presentation we mentioned the `tmap` package which offers a bit more comprehensive tools, for example interactive mapping. Please do a quick research. Which function from the `tmap`-package can we use to set an interactive view of a map?**
 
@@ -199,12 +230,7 @@ tm_shape(World) +
 
 ```
 ***
-### Exercise (6) Public Policy implications 
 
-**Now that we have got a glimpse about what CRS data is, what it does and how it can be used, how and when do you think it would make sense using these applications?** 
-
-
-***
 
 $~$
 
