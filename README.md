@@ -10,7 +10,7 @@ This repository provides materials for a session that is part of the [I2DS Tools
 
 This workshop-session you new insights into working with Coordinate Reference Systems (CRS) in R. These systems are central when working with data related to the surface of the earth and other geographic elements. Besides this, sf builds also the foundations of creating nice maps based on geographic data points.
 
-You can access our Exercise file [here](https://rawcdn.githack.com/intro-to-data-science-21-workshop/15-LisaPramann-CSR-with-sf/f277165037d6bee11d830a39ad3315db648b1a44/02_workshop_excercise/crs_sf_workshop_exercises.html). 
+You can access our exercise file [here](https://rawcdn.githack.com/intro-to-data-science-21-workshop/15-LisaPramann-CSR-with-sf/f277165037d6bee11d830a39ad3315db648b1a44/02_workshop_excercise/crs_sf_workshop_exercises.html). 
 
 ### Main learning objectives
 
@@ -25,7 +25,7 @@ The goals of this workshop are to 1) introduce you to CRS foundations and its ap
 
 ## Further resources
 
-- [CRS Chapter in the Geocomputation with R - book](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro)
+- [CRS Bookchapter in the Geocomputation with R](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro)
 - [Presentation Tidy Spatial Data Analysis 2018](https://edzer.github.io/rstudio_conf/#1)
 - [Blog WZB 2019 - Zooming in on maps with sf and ggplot2](https://datascience.blog.wzb.eu/2019/04/30/zooming-in-on-maps-with-sf-and-ggplot2/)
 - [sf Cheat Sheet](https://github.com/rstudio/cheatsheets/blob/master/sf.pdf)
