@@ -270,7 +270,7 @@ world_view_brussels <- st_transform(world, crs = "+proj=laea +x_0=0 +y_0=0 +lon_
 
 ```{r, include=FALSE}
 # Shifting the projection to center on Brussels using the CRS
-world_view_brussels <- st_transform(world, crs = "+proj=laea +x_0=0 +y_0=0 +lon_0=50.8503396 +lat_0=4.3517103")
+world_view_brussels <- sf::st_transform(world, crs = "+proj=laea +x_0=0 +y_0=0 +lon_0=50.8503396 +lat_0=4.3517103")
 #Plot
 ggplot(world_view_brussels) + geom_sf()
 ggsave(path = "sf_presentation_files/figure-html", filename = "plot2.png", width = 6, height = 4)
