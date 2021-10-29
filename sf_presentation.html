@@ -178,13 +178,13 @@ R&gt; head(new_vector, 3)
 ## Dimension:     XY
 ## Bounding box:  xmin: -180 ymin: -18.28799 xmax: 180 ymax: 27.65643
 ## Geodetic CRS:  WGS 84
-## # A tibble: 3 x 11
+## # A tibble: 3 × 11
 ##   iso_a2 name_long  continent region_un subregion type  area_km2     pop lifeExp
 ##   &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-## 1 FJ     Fiji       Oceania   Oceania   Melanesia Sove~   19290.  8.86e5    70.0
-## 2 TZ     Tanzania   Africa    Africa    Eastern ~ Sove~  932746.  5.22e7    64.2
-## 3 EH     Western S~ Africa    Africa    Northern~ Inde~   96271. NA         NA  
-## # ... with 2 more variables: gdpPercap &lt;dbl&gt;, geom &lt;MULTIPOLYGON [°]&gt;
+## 1 FJ     Fiji       Oceania   Oceania   Melanesia Sove…   19290.  8.86e5    70.0
+## 2 TZ     Tanzania   Africa    Africa    Eastern … Sove…  932746.  5.22e7    64.2
+## 3 EH     Western S… Africa    Africa    Northern… Inde…   96271. NA         NA  
+## # … with 2 more variables: gdpPercap &lt;dbl&gt;, geom &lt;MULTIPOLYGON [°]&gt;
 ```
 ---
 
@@ -274,7 +274,6 @@ When the CRS is missing or the wrong CRS is set, the st_set_crs() function can b
 R&gt; # For transformations use 'st_set_crs'
 R&gt; CRS_vector &lt;- sf::st_set_crs(world, "EPSG:4326") # set CRS
 ```
-
 
 
 
@@ -426,7 +425,7 @@ Things to take-away or have a closer look at
 
 ###- Remember the most common CRS in the world (WGS84/ EPSG code: 4326) and experiment with different codes.
 
-###- *Public Polciy* application: CRS is used in combination with other tools for visualization purposes by mapping certain data e.g. median income, voting behavior, COVID-vaccination rates, etc. 
+###- *Public Policy* application: CRS is used in combination with other tools for visualization purposes by mapping certain data e.g. median income, voting behavior, COVID-vaccination rates, etc. 
 
 ###- Feel free to build on the skills in this session and have a look at how to use this for data visualization purposes 
 

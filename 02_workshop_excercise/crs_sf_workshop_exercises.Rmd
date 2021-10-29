@@ -1,83 +1,214 @@
 ---
-title: "Coordinated Reference Systems with sf"
-subtitle: "Workshop Excercises"
+title: "Coordinated Reference Systems with sf  🌎"
+subtitle: "Workshop: I2DS Tools for Data Science - Exercises"
 author: "Lisa Pramann & Caitlin Sarro"
-date: "04th November 2021"
+date: " November 4th 2021"
 output: 
   html_document:
     toc: TRUE
+    theme: lumen
+    df_print: paged
     number_sections: FALSE
     highlight: tango
-    theme: lumen
     toc_depth: 2
-    toc_float:
-      collapsed: false 
-  
+    toc_float: True
+
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(usethis)
+library(devtools)
+#devtools::install_github("hadley/emo")
+library(emo)
 ```
 
-Test Code here Test 
+$~$
 
-Hello everybody, we hope you have enjoyed our small presentation, refreshed your knowledge about Coordinate Reference Systems and got some insights on how they work in R.
+Hello everyone `r emo::ji("wave")`, 
 
-Ready to play around with sf and do some simple operations and create a nice map in the end (hopefully) emo::ji("exited")?  
+we hope you have enjoyed our small presentation, refreshed your knowledge about Coordinate Reference Systems and got some insights on how geographic data they works in R and what potential data operations can be done with it.
+
+Ready to play around with sf and do some simple operations and create a nice map in the end (hopefully) `r emo::ji("heart_eyes")`?  
+
+
+*** 
 
 In this little exercise we would like you to 
 
 
-* get a better feeling for CRS and the 'sf'-package  
-* do a simple data operation 
-* create cool map
+* **get a better feeling for CRS and the `sf`- package**  
+* **understand how to access and read CRS data in R**
+* **do simple data operations** 
+* **learn how to create cool and interactive maps based on geographic data**
 
+---
 # Setup
 
-The first step is to download the concerning packages and imort the libraries for using 'sf' and the 'spatial data'.
- 
+The first step is to download the concerning packages and import the libraries for using `sf` and the *spatial data*.
 
 ```{r}
-# install.packages("sf", "terra", "spData", "spDataLarge")
+# install.packages("sf", "spData", "spDataLarge")
 
-library(sf)            # classes and functions for vector data
-library(terra)         # classes and functions for raster data
-library(spData)        # load geographic data
-library(spDataLarge)   # load larger geographic data
+library(sf)   # classes and functions for vector data
+library(tmap) # to create nice and interactive maps
+library(spData) # load explanatory geographic data
+library(spDataLarge) # load larger geographic data 
+#(not necessary for this script but please have a look at it)
 library(tidyverse)     # for tidy data and ggplot2
 ```
-Be careful: There might be a little bug in installing sf and spData. If you’re running Mac or Linux,  installing sf may not work directly. Please use (ADD SOURCE HERE) to download the relevant packages. Then use the library() command to load them
+Be careful: There might be a little bug in installing `sf` and `spData`. If you’re running Mac or Linux, installing `sf` may not work directly. Please have a look [here](https://r-spatial.github.io/sf/) to download the relevant packages. Then use the `library()` command to load them. 
 
-# Exploring Coordinate Reference Systems in R
+*** 
+# Exploring CRS in R
 
-```{r}
+ADD GENERAL REMARCS HERE
+IMPORT DATA 
 
-```
-
-# Simple Data Operation 
-
-Here is an example for a simple data operation with sf
-Filter Germany and Berlin 
-
-(IDEA: Best, filtering come country, and mark city)
-
-```{r}
-
-```
-
-# Create a nice map of your country 
-
-Here is an example for using sf and ggplot to create a map
+## Retrieve CRS from object
 
 
 ```{r}
-
+#ADD CODE FROM LECTURE HERE
 ```
 
-# Additional Information 
+### Exercise (1)
+**Can you tell the Datum of the retrieved Coordinate Reference System?**
+@Caitlin or something similar....
+```{r, include=FALSE}
+#Add Answer here
+```
 
-Here you ca find additional information and exercises....
+***
+## Add or Change CRS
+
+```{r}
+#ADD CODE FROM LECTURE HERE
+```
+
+### Exercise (2)
+**How can we change the Datum?** 
+@Caitlin or something similar....
+```{r, include=FALSE}
+#Add Answer here
+```
+
+
+***
+
+$~$
+
+# Geographic Data Operations
+
+## Geometric measurements
+
+In the short presentation we have shown you the following examples of how to conduct two types of geometric measurements with the `sf`-package 
+
+*Example 1 from presentation:*
+```{r}
+Belgium <- world %>% 
+  filter(name_long == "Belgium")
+st_area(Belgium) 
+
+units::set_units(st_area(Belgium), km^2)
+```
+
+We can also do this calculation for a US-state:
+```{r}
+Florida <- us_states %>% 
+  filter(NAME == "Florida")
+st_area(Florida) 
+```
+
+### Exercise (3)
+**`st_area()` is giving us the output in m^2. The output is however really difficult to read, and the US does operate with *miles*. How can we get an output in squared miles?** 
+
+```{r, include=FALSE}
+units::set_units(st_area(Florida), mi^2)
+```
+
+***
+*Example 2 from presentation:*
+
+Measuring the distance from a cycle hire point at the *Palace Gate* in London to the center of *Redbridge*.
+```{r, warning = FALSE}
+cycle_station_palace <- cycle_hire %>% 
+  filter(name == "Palace Gate")
+redbridge <- lnd %>% 
+  filter(NAME == "Redbridge")
+redbridge_centroid <- st_centroid(redbridge)
+st_distance(cycle_station_palace, redbridge_centroid)
+```
+
+### Exercise (4)
+**Have a look at the Code. What are the three steps one has to make, to measure distance between two geometric data points? Can we change the units of the output here, too? How?**
+
+
+```{r, include=FALSE}
+#1.Filter the Data Points from their data set
+#2.Define the the center, concrete geometric data point if one should 
+#  be an area (by using st_centroid() for example )
+#3.Use st_distance() to measure the distance, default output is in meters.
+#Unfortunately we cannot use the units package to set the units here, but we can do it manually /1000 for example to get km 
+```
+
+* Tip: other interesting functions to explore geometric relations and distances with are `st_within()`,`st_is_within_distance()` or `st_touches()`. If you would like to find out what they do have a look [here](https://r-spatial.github.io/sf/reference/geos_binary_pred.html).
+
+*** 
+## Creating maps wit CRS data `r emo::ji("world_map")` {.tabset .tabset-fade .tabset-pills} 
+
+In the presentation we have shown how to use `sf` in combination with `ggplot` or the `sf` `plot()` function to create simple maps. 
+
+### Example with ggplot()
+
+```{r, echo=FALSE, fig.align='center'}
+ggplot() +
+geom_sf(data = us_states) + 
+coord_sf(crs = st_crs(4326)) 
+```
+Example from the presentation using `ggplot()` in combination with `geom_sf()` from the `sf` package on data CRS data from the US retrieved from the `spData` package.
+
+### Example with sf::plot()
+
+```{r, echo=FALSE, fig.align='center'}
+us_income <- left_join( 
+  us_states, us_states_df, 
+  by = c("NAME" = "state"))
+us_income_plot <- plot(us_income["median_income_15"], 
+     main = "Median income per State in 2015") 
+```
+
+Example from the presentation using `plot()` on data CRS data from the US and attributed data on the median income per state, both retrieved from the `spData` package. 
+
+$~$
+
+***
+
+## Introducing tmap()
+### Exercise (6)
+**In the presentation we mentioned the `tmap` package which offers a bit more comprehensive tools, for example interactive mapping. Please do a quick research. Which function from the `tmap`-package can we use to set an interactive view of a map?**
+
+
+```{r, echo=FALSE, fig.align='center'}
+#Answer: Each map can be plotted as a static image or viewed interactively using "plot" and #"view" modes, respectively. The mode can be set with the function tmap_mode
+
+data("World") #The object World is a spatial object of class sf from sf 
+tmap_mode("view") # this is the important function to build interactive maps
+tm_shape(World) +
+    tm_polygons("well_being")
+
+```
+***
+### Exercise (6) Public Policy implications 
+
+**Now that we have got a glimpse about what CRS data is, what it does and how it can be used, how and when do you think it would make sense using these applications?** 
+
+
+***
+
+$~$
 
 # Sources {-}
 
-The workshop and this exercises are partly based on [_Geocompuataion with R Science_](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro), section 2.4, AND ADDITIONAL SOURCES
+The workshop and these exercises are based on [_Geocompuataion with R Science_](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro), section 2.4, 
+[tmap: get  started!](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html#interactive-maps), and ADD ADDITIONAL RESOURCES HERE
