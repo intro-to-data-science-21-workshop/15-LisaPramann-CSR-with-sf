@@ -101,7 +101,7 @@ CRS_vector <- st_set_crs(world, "EPSG:4326")
 
 ```
 
-To look up different Datums you can use a website for Coordinate Systems Worldwide: https://epsg.io/ 
+To look up different Datums you can use a website for [Coordinate Systems Worldwide](https://epsg.io/)
 
 ### Exercise (2)
 **How can we change the Datum for `cities`?** 
@@ -180,7 +180,7 @@ st_distance(cycle_station_palace, redbridge_centroid)
 *** 
 ## Creating maps wit CRS data `r emo::ji("world_map")` {.tabset .tabset-fade .tabset-pills} 
 
-In the presentation we have shown how to use `sf` in combination with `ggplot` or the `sf` `sf_plot()` function to create simple maps. 
+In the presentation we have shown how to use `sf` in combination with `ggplot` or the `sf` and  `plot()` function to create simple maps. 
 
 ### Example with ggplot()
 
@@ -191,24 +191,25 @@ coord_sf(crs = st_crs(4326))
 ```
 Example from the presentation using `ggplot()` in combination with `geom_sf()` from the `sf` package on data CRS data from the US retrieved from the `spData` package.
 
-### Example with sf::plot()
+### Example with plot()
 
 ```{r, echo=FALSE, fig.align='center'}
 us_income <- left_join( 
   us_states, us_states_df, 
   by = c("NAME" = "state"))
-us_income_plot <- sf::plot_sf(us_income["median_income_15"], 
-     main = "Median income per State in 2015") 
 
-us_income_plot
+plot(us_income["median_income_15"], 
+     main = "Median income per State in 2015")
 ```
 
 Example from the presentation using `plot()` on data CRS data from the US and attributed data on the median income per state, both retrieved from the `spData` package. 
 
 $~$
-***
-### Exercise (5) Public Policy implications 
 
+***
+
+## Public Policy implications 
+### Exercise (5)
 **Now that we have got a glimpse about what CRS data is, what it does and how it can be used, how and when do you think it would make sense using these applications?** 
 
 
@@ -237,4 +238,4 @@ $~$
 # Sources {-}
 
 The workshop and these exercises are based on [_Geocompuataion with R Science_](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro), section 2.4, 
-[tmap: get  started!](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html#interactive-maps), and ADD ADDITIONAL RESOURCES HERE
+[tmap: get  started!](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html#interactive-maps)
