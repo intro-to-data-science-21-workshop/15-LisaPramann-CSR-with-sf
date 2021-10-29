@@ -39,8 +39,8 @@ In this little exercise we would like you to
 
 * **get a better feeling for CRS and the `sf`- package**  
 * **understand how to access and read CRS data in R**
-* **do a simple data operation** 
-* **learn cool and interactive plot based on geographic data**
+* **do simple data operations** 
+* **learn how to create cool and interactive maps based on geographic data**
 
 ---
 # Setup
@@ -98,7 +98,7 @@ IMPORT DATA
 
 $~$
 
-# Simple Geographic Data Operation 
+# Geographic Data Operations
 
 ## Geometric measurements
 
