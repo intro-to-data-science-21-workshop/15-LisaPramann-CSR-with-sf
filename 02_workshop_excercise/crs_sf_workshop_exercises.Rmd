@@ -43,6 +43,20 @@ In this little exercise we would like you to
 * **learn how to create cool and interactive maps based on geographic data**
 
 ---
+# Theory
+
+Refreshing you memory from the presentation...
+
+<div>
+<img src="http://www.geo.hunter.cuny.edu/~jochen/gtech201/lectures/lec6concepts/Datums/Basics%20of%20datums_files/image001.gif" width=700>
+</div>
+
+### Exercise (1) 
+**In your own words, why do we need a “Coordinate Reference System” (CRS)?** 
+```{r}
+#
+#
+```
 # Setup
 
 The first step is to download the concerning packages and import the libraries for using `sf` and the *spatial data*.
@@ -50,13 +64,18 @@ The first step is to download the concerning packages and import the libraries f
 ```{r}
 # install.packages("sf", "spData", "spDataLarge")
 
+# The Essentials
 library(sf)   # classes and functions for vector data
+library(tidyverse)     # for tidy data and ggplot2
+
+# Datasets
 library(rgdal) # dataset of city centers (points)
-library(tmap) # to create nice and interactive maps
 library(spData) # load explanatory geographic data
 library(spDataLarge) # load larger geographic data 
-#(not necessary for this script but please have a look at it)
-library(tidyverse)     # for tidy data and ggplot2
+
+#(Intermediary Mapping)
+library(tmap) # to create nice and interactive maps
+library(jsonlite) # Convert R objects to/from JSON
 ```
 Be careful: There might be a little bug in installing `sf` and `spData`. If you’re running Mac or Linux, installing `sf` may not work directly. Please have a look [here](https://r-spatial.github.io/sf/) to download the relevant packages. Then use the `library()` command to load them. 
 
@@ -75,23 +94,32 @@ We've also loaded in a dataset of city centers from the `rgdal` package as the o
 cities_world <- system.file("vectors/cities.shp", package = "rgdal")
 cities <- st_crs(3138)
 ```
-## Retrieve the CRS from objects `new_vector` and `cities`{.tabset} 
-###
-```{r}
-st_crs(new_vector)
-```
-###
-```{r}
-st_crs(cities)
-```
-## {-}
 
-### Exercise (1)
-**What can you tell about the data? Ex. the Datums and the retrieved Coordinate Reference System**
+*** 
+## Retrieve the CRS from objects `new_vector` and `cities`{.tabset} 
+
+### Exercise (2)
+** Using `st_crs` what can you tell about the data? Ex. the Datums and the retrieved Coordinate Reference System**
+```{r}
+#
+#
+```
 
 ```{r, include=FALSE}
 #They are different! new_vector is from WGS 84 and cities is from EPSG:3138. wGS 84 is the most common to use and stands for World Geodetic System 1984. 
 ```
+
+### new_vector
+```{r}
+st_crs(new_vector)
+```
+### cities
+```{r}
+st_crs(cities)
+
+```
+
+$~$
 
 ***
 ## Use `st_set_crs` to Add or Change CRS
@@ -103,16 +131,17 @@ CRS_vector <- st_set_crs(world, "EPSG:4326")
 
 To look up different Datums you can use a website for [Coordinate Systems Worldwide](https://epsg.io/)
 
-### Exercise (2)
+### Exercise (3)
 **How can we change the Datum for `cities`?** 
+```{r}
+#
+#
+```
 
 ```{r, include=FALSE}
 #Check if your object already has a Datum. 
 #Decide on the up the Datum code (use epsg.io to look up options)
 #Use st_set_crs()
-
-
-
 
 ```
 
@@ -143,8 +172,12 @@ Florida <- us_states %>%
 st_area(Florida) 
 ```
 
-### Exercise (3)
+### Exercise (4)
 **`st_area()` is giving us the output in m^2. The output is however really difficult to read, and the US does operate with *miles*. How can we get an output in squared miles?** 
+```{r}
+#
+#
+```
 
 ```{r, include=FALSE}
 units::set_units(st_area(Florida), mi^2)
@@ -163,9 +196,12 @@ redbridge_centroid <- st_centroid(redbridge)
 st_distance(cycle_station_palace, redbridge_centroid)
 ```
 
-### Exercise (4)
+### Exercise (5)
 **Have a look at the Code. What are the three steps one has to make, to measure distance between two geometric data points? Can we change the units of the output here, too? How?**
-
+```{r}
+#
+#
+```
 
 ```{r, include=FALSE}
 #1.Filter the Data Points from their data set
@@ -185,9 +221,29 @@ In the presentation we have shown how to use `sf` in combination with `ggplot` o
 ### Example with ggplot()
 
 ```{r, echo=FALSE, fig.align='center'}
+# load state capitals of the US
+state_capitals <- fromJSON(
+  "https://raw.githubusercontent.com/vega/vega/master/docs/data/us-state-capitals.json"
+  )
+# turn it into an sf object
+state_capitals_sf <- st_as_sf(state_capitals, coords = c("lon", "lat"), crs = 4326)
+# remove alaska and hawaii
+state_capitals_sf <- state_capitals_sf[
+  !state_capitals_sf$state %in% c("Alaska", "Hawaii"),
+  ]
+
+
 ggplot() +
 geom_sf(data = us_states) + 
-coord_sf(crs = st_crs(4326)) 
+coord_sf(crs = st_crs(4326)) +
+  geom_sf(color = "#AD33FF", alpha = 0.1, size = 6, data = state_capitals_sf) +
+  geom_sf(color = "#AD33FF", alpha = 0.1, size = 5, data = state_capitals_sf) +
+  geom_sf(color = "#AD33FF", alpha = 0.2, size = 4, data = state_capitals_sf) +
+  geom_sf(color = "#AD33FF", alpha = 0.2, size = 3, data = state_capitals_sf) +
+  geom_sf(color = "#AD33FF", alpha = 0.4, size = 2, data = state_capitals_sf) +
+  geom_sf(color = "#AD33FF", alpha = 1, size = 1, data = state_capitals_sf) +
+  labs(title="US States and their Captials", 
+       caption = "Excluding Alaska and Hawaii")
 ```
 Example from the presentation using `ggplot()` in combination with `geom_sf()` from the `sf` package on data CRS data from the US retrieved from the `spData` package.
 
@@ -209,17 +265,23 @@ $~$
 ***
 
 ## Public Policy implications 
-### Exercise (5)
-**Now that we have got a glimpse about what CRS data is, what it does and how it can be used, how and when do you think it would make sense using these applications?** 
-
+### Exercise (6)
+**During this workshop we've covered what CRS data is, the functions of the sf package, and how it can be used. Now brainstorm some applications; What are scenarios (how or when) where you can apply these tools in the future?** 
+```{r}
+#
+#
+```
 
 
 ***
 
 ## Take-home exercise: Introducing tmap()
-### Exercise (6)
+### Exercise (7)
 **In the presentation we mentioned the `tmap` package which offers a bit more comprehensive tools, for example interactive mapping. Please do a quick research. Which function from the `tmap`-package can we use to set an interactive view of a map?**
-
+```{r}
+#
+#
+```
 
 ```{r, echo=FALSE, fig.align='center'}
 #Answer: Each map can be plotted as a static image or viewed interactively using "plot" and #"view" modes, respectively. The mode can be set with the function tmap_mode
