@@ -277,13 +277,12 @@ ggsave(path = "sf_presentation_files/figure-html", filename = "plot2.png", width
 
 .pull-left[
 <div align="left">
-<img src="sf_presentation_files/figure-html/plot.png" width=400>
-</div>]
+<img src="sf_presentation_files/figure-html/plot.png" width=350>
+]</div>
 .pull-right[
 <div align="center">
-<img src="sf_presentation_files/figure-html/plot2.png" width=400>
-</div>]
-
+<img src="sf_presentation_files/figure-html/plot2.png" width=350>
+]</div>
 ---
 # How to work with Spatial Data (1)
 ##Some simple spatial data operations
@@ -359,7 +358,7 @@ ggsave(path = "sf_presentation_files/figure-html", filename = "usstates.jpg", wi
 <div align="center">
 <img src="sf_presentation_files/figure-html/usstates.jpg" width=600>
 </div>]
-]
+
 ---
 # How to work with Spatial Data (4)
 ##Creating maps with geometric data and sf
@@ -431,7 +430,7 @@ Not yet enough of CRS and `sf`? Check out our resources and additional reference
 # <center>Thank you!
 ## Now onto the in-class session... 
 ```{r include=FALSE}
-#pagedown::chrome_print("~/GitHub/15-LisaPramann-CSR-with-sf/sf_presentation.html")
+pagedown::chrome_print("~/GitHub/15-LisaPramann-CSR-with-sf/sf_presentation.html")
 ```
 
 

@@ -178,13 +178,13 @@ R&gt; head(new_vector, 3)
 ## Dimension:     XY
 ## Bounding box:  xmin: -180 ymin: -18.28799 xmax: 180 ymax: 27.65643
 ## Geodetic CRS:  WGS 84
-## # A tibble: 3 × 11
+## # A tibble: 3 x 11
 ##   iso_a2 name_long  continent region_un subregion type  area_km2     pop lifeExp
 ##   &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-## 1 FJ     Fiji       Oceania   Oceania   Melanesia Sove…   19290.  8.86e5    70.0
-## 2 TZ     Tanzania   Africa    Africa    Eastern … Sove…  932746.  5.22e7    64.2
-## 3 EH     Western S… Africa    Africa    Northern… Inde…   96271. NA         NA  
-## # … with 2 more variables: gdpPercap &lt;dbl&gt;, geom &lt;MULTIPOLYGON [°]&gt;
+## 1 FJ     Fiji       Oceania   Oceania   Melanesia Sove~   19290.  8.86e5    70.0
+## 2 TZ     Tanzania   Africa    Africa    Eastern ~ Sove~  932746.  5.22e7    64.2
+## 3 EH     Western S~ Africa    Africa    Northern~ Inde~   96271. NA         NA  
+## # ... with 2 more variables: gdpPercap &lt;dbl&gt;, geom &lt;MULTIPOLYGON [°]&gt;
 ```
 ---
 
@@ -288,13 +288,12 @@ R&gt; world_view_brussels &lt;- st_transform(world, crs = "+proj=laea +x_0=0 +y_
 
 .pull-left[
 &lt;div align="left"&gt;
-&lt;img src="sf_presentation_files/figure-html/plot.png" width=400&gt;
-&lt;/div&gt;]
+&lt;img src="sf_presentation_files/figure-html/plot.png" width=350&gt;
+]&lt;/div&gt;
 .pull-right[
 &lt;div align="center"&gt;
-&lt;img src="sf_presentation_files/figure-html/plot2.png" width=400&gt;
-&lt;/div&gt;]
-
+&lt;img src="sf_presentation_files/figure-html/plot2.png" width=350&gt;
+]&lt;/div&gt;
 ---
 # How to work with Spatial Data (1)
 ##Some simple spatial data operations
@@ -383,7 +382,7 @@ R&gt; #(would not be needed in this case)
 &lt;div align="center"&gt;
 &lt;img src="sf_presentation_files/figure-html/usstates.jpg" width=600&gt;
 &lt;/div&gt;]
-]
+
 ---
 # How to work with Spatial Data (4)
 ##Creating maps with geometric data and sf
