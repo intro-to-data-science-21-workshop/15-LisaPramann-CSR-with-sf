@@ -54,14 +54,16 @@ knit_hooks$set(
 library(hrbrthemes)
 library(fontawesome)
 
-library(pagedown)
-library(xaringan)
+
 library(sf)          # classes and functions for vector data
 library(terra)      # classes and functions for raster data
 library(spData)        # load geographic data
 library(spDataLarge)   # load larger geographic data
 library(tidyverse)
 
+# to print to pdf
+library(pagedown)
+library(xaringan)
 ```
 
 #Agenda 
@@ -187,7 +189,7 @@ vector_filepath <- system.file("shapes/world.gpkg", package = "spData")
 new_vector <- read_sf(vector_filepath)
 ```
 
-Our new object, new_vector, is a polygon representing a world map data from Natural Earth with a few variables from World Bank (?spData::world).
+Our new object, `new_vector`, is a polygon representing a world map data from Natural Earth with a few variables from World Bank (?spData::world).
 
 ```{r, eval = TRUE}
 head(new_vector, 3)
@@ -198,7 +200,7 @@ head(new_vector, 3)
 ## 1 | Retrieve coordinate reference system from object
 
 .pull-left[
-In sf the CRS of an object can be retrieved using st_crs().
+In sf the CRS of an object can be retrieved using `st_crs()`.
 ```{r, eval = FALSE, prompt = FALSE}
 R> st_crs(new_vector) # get CRS
 ```
@@ -233,7 +235,7 @@ GEOGCRS["WGS 84",
 ---
 #Key Features (2)
 ## 1 | Retrieve coordinate reference system from object
-The st_crs function also has one helpful feature – we can retrieve some additional information about the used CRS. 
+The `st_crs` function also has one helpful feature – we can retrieve some additional information about the used CRS. 
 
 For example, try to run:
 ```{r, eval = TRUE}
@@ -245,7 +247,7 @@ st_crs(new_vector)$proj4string #extracts the proj4string representation
 ---
 #Key Features (3)
 ## 2 | Add or Change CRS
-When the CRS is missing or the wrong CRS is set, the st_set_crs() function can be used. An important note is that replacing CRS does not re-project data and maintains data integrity.
+When the CRS is missing or the wrong CRS is set, the `st_set_crs()` function can be used. An important note is that replacing CRS does not re-project data and maintains data integrity.
 
 ```{r, eval = TRUE, warning = FALSE}
 # For transformations use 'st_set_crs'
@@ -256,7 +258,7 @@ CRS_vector <- sf::st_set_crs(world, "EPSG:4326") # set CRS
 ggplot() +
 geom_sf(data = CRS_vector) + #For simple plots, you will only need geom_sf() 
 coord_sf(crs = st_crs(4326)) #ensures that all layers use a common CRS (would not be needed in this case)
-ggsave(path = "sf_presentation_files/figure-html", filename = "plot.png", width = 6, height = 4)
+ggsave(path = "sf_presentation_files/figure-html", filename = "world_plot.png", width = 6, height = 4)
 ```
 
 
@@ -271,17 +273,17 @@ world_view_brussels <- st_transform(world, crs = "+proj=laea +x_0=0 +y_0=0 +lon_
 world_view_brussels <- sf::st_transform(world, crs = "+proj=laea +x_0=0 +y_0=0 +lon_0=50.8503396 +lat_0=4.3517103")
 #Plot
 ggplot(world_view_brussels) + geom_sf()
-ggsave(path = "sf_presentation_files/figure-html", filename = "plot2.png", width = 6, height = 4)
+ggsave(path = "sf_presentation_files/figure-html", filename = "brussels_plot.png", width = 6, height = 4)
 
 ```
 
 .pull-left[
 <div align="left">
-<img src="sf_presentation_files/figure-html/plot.png" width=350>
-]</div>
+<img src="sf_presentation_files/figure-html/world_plot.png" width=350>
+]</div> 
 .pull-right[
 <div align="center">
-<img src="sf_presentation_files/figure-html/plot2.png" width=350>
+<img src="sf_presentation_files/figure-html/brussels_plot.png" width=350>
 ]</div>
 ---
 # How to work with Spatial Data (1)

@@ -165,7 +165,7 @@ R&gt; vector_filepath &lt;- system.file("shapes/world.gpkg", package = "spData")
 R&gt; new_vector &lt;- read_sf(vector_filepath)
 ```
 
-Our new object, new_vector, is a polygon representing a world map data from Natural Earth with a few variables from World Bank (?spData::world).
+Our new object, `new_vector`, is a polygon representing a world map data from Natural Earth with a few variables from World Bank (?spData::world).
 
 
 ```r
@@ -192,7 +192,7 @@ R&gt; head(new_vector, 3)
 ## 1 | Retrieve coordinate reference system from object
 
 .pull-left[
-In sf the CRS of an object can be retrieved using st_crs().
+In sf the CRS of an object can be retrieved using `st_crs()`.
 
 ```r
 R&gt; st_crs(new_vector) # get CRS
@@ -229,7 +229,7 @@ GEOGCRS["WGS 84",
 ---
 #Key Features (2)
 ## 1 | Retrieve coordinate reference system from object
-The st_crs function also has one helpful feature – we can retrieve some additional information about the used CRS. 
+The `st_crs` function also has one helpful feature – we can retrieve some additional information about the used CRS. 
 
 For example, try to run:
 
@@ -267,7 +267,7 @@ R&gt; st_crs(new_vector)$proj4string #extracts the proj4string representation
 ---
 #Key Features (3)
 ## 2 | Add or Change CRS
-When the CRS is missing or the wrong CRS is set, the st_set_crs() function can be used. An important note is that replacing CRS does not re-project data and maintains data integrity.
+When the CRS is missing or the wrong CRS is set, the `st_set_crs()` function can be used. An important note is that replacing CRS does not re-project data and maintains data integrity.
 
 
 ```r
@@ -288,11 +288,11 @@ R&gt; world_view_brussels &lt;- st_transform(world, crs = "+proj=laea +x_0=0 +y_
 
 .pull-left[
 &lt;div align="left"&gt;
-&lt;img src="sf_presentation_files/figure-html/plot.png" width=350&gt;
-]&lt;/div&gt;
+&lt;img src="sf_presentation_files/figure-html/world_plot.png" width=350&gt;
+]&lt;/div&gt; 
 .pull-right[
 &lt;div align="center"&gt;
-&lt;img src="sf_presentation_files/figure-html/plot2.png" width=350&gt;
+&lt;img src="sf_presentation_files/figure-html/brussels_plot.png" width=350&gt;
 ]&lt;/div&gt;
 ---
 # How to work with Spatial Data (1)
