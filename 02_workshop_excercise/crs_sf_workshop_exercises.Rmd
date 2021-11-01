@@ -52,7 +52,7 @@ Refreshing you memory from the presentation...
 </div>
 
 ### Exercise (1) 
-**In your own words, why do we need a “Coordinate Reference System” (CRS)?** 
+**In your own words, why do we need a “Coordinate Reference System” (CRS)? ** 
 ```{r}
 #
 #
