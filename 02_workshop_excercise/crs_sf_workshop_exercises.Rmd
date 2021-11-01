@@ -47,7 +47,7 @@ In this little exercise we would like you to
 
 Refreshing you memory from the presentation...
 
-<div>
+<div align="center">
 <img src="http://www.geo.hunter.cuny.edu/~jochen/gtech201/lectures/lec6concepts/Datums/Basics%20of%20datums_files/image001.gif" width=700>
 </div>
 
