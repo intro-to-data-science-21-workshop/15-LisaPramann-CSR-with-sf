@@ -20,7 +20,7 @@ The goals of this workshop are to 1) introduce you to CRS foundations and its ap
 ## Instructors
 
 - Lisa Pramann ([twitter](https://twitter.com/pramannlisa))
-- Caitlin Sarro 
+- Caitlin Sarro ([linkedin](https://www.linkedin.com/in/caitlinsarro/))
 
 
 ## Further resources
@@ -40,6 +40,6 @@ The material in this repository is made available under the [MIT license](http:/
 
 **Caitlin Sarro** prepared and formatted the presentation slides and concentrated on the key features of sf. 
 
-**Lisa Pramann** prepared and formatted the .readme and the  exercises in the .rmd-file and focused on the spatial data operations. 
+**Lisa Pramann** prepared and formatted the .readme and the exercises in the .rmd-file and focused on the spatial data operations. 
 
 The video was recorded jointly. 
