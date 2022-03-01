@@ -13,7 +13,10 @@ You can access our exercise file [here](https://rawcdn.githack.com/intro-to-data
 
 ### Main learning objectives
 
-The goals of this workshop are to 1) introduce you to CRS foundations and its application in R, 2) try out simple data operations and visualizations with sf, and 3) provide you with some practice material as well as some further resources.
+The goals of this workshop are to 
+1) introduce you to CRS foundations and its application in R, 
+2) 2) try out simple data operations and visualizations with sf, and 
+3) 3) provide you with some practice material as well as some further resources.
 
 
 ## Instructors
