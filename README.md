@@ -19,7 +19,7 @@ The goals of this workshop are to 1) introduce you to CRS foundations and its ap
 
 ## Instructors
 
-- Lisa Pramann ([twitter](https://twitter.com/pramannlisa), [linkedin](www.linkedin.com/in/lisa-pramann))
+- Lisa Pramann ([twitter](https://twitter.com/pramannlisa), [linkedin](https://www.linkedin.com/in/lisa-pramann))
 - Caitlin Sarro ([linkedin](https://www.linkedin.com/in/caitlinsarro/))
 
 
