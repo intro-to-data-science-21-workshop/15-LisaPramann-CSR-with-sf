@@ -1,6 +1,5 @@
 # Coordinate Reference Systems with sf 
 
-*(Note: The name of the repo contains a typo - sorry for that)*
 
 ## Summary
 
@@ -39,7 +38,5 @@ The material in this repository is made available under the [MIT license](http:/
 ## Statement of contributions
 
 **Caitlin Sarro** prepared and formatted the presentation slides and concentrated on the key features of sf. 
-
 **Lisa Pramann** prepared and formatted the .readme and the exercises in the .rmd-file and focused on the spatial data operations. 
-
 The video was recorded jointly. 
